@@ -1,0 +1,345 @@
+
+
+body {
+    font-family: Roboto, Arial;
+    margin: 0;
+    padding: 0;
+    padding-top: 55px;
+    overflow-x: hidden; 
+  }
+.mynavbar {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.navbar_logo_section {
+    flex-grow: 2;
+    display: flex;
+    /* background-color: red; */
+}
+
+.nav_items {
+    display: flex;
+    gap: 2rem; 
+    align-items: center;
+    /* background-color: blue; */
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 15px;
+    color: #023116; 
+    transition: 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #0a5f43; 
+}
+
+@media (max-width: 768px) {
+    .mynavbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav_items {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+/* header */
+
+.myheader{
+    min-height: 150;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    gap: 1rem;
+}
+.hearder_first_section{
+    display: flex;
+    flex: 1;
+    /* background-color: purple; */
+    flex-shrink: 1;
+    align-items: center;
+}
+.hearder_second_section{
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+    justify-content: center;
+    /* background-color: #0a5f43; */
+    flex-shrink: 1;
+}
+
+.hearder_third_section{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    flex-shrink: 1;
+    /* background-color: red; */
+}
+.home_icon{
+    padding-right: 10px;
+    font-size: 25px;
+}
+
+.login_icon,.cart_icon{
+    color: black;
+    font-size: 20px;
+    padding-right: 10px;
+   
+}
+
+.search_bar{
+    flex: 1;
+    height: 36px;
+    font-size: 16px;
+    border: 1px solid rgb(192,192,192);
+    border-radius: 2px;
+    box-shadow: inset 1px 2px 3px rgba(0,0,0,0.05);
+
+}
+.btn_search{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 66px;
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgb(192,192,192);
+    margin-left: -1px;
+}
+
+@media (max-width: 768px) {
+    .myheader {
+        flex-direction: column; 
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .hearder_first_section, .hearder_second_section, .hearder_third_section {
+        flex-grow: unset; 
+        width: 100%;
+        justify-content: center;
+    }
+
+    .searchbar {
+        width: 90%; 
+    }
+} 
+
+
+/* slidehosw  */
+
+.cutstom_slideshow{
+    height: 500px;
+    background-color: cyan;
+}
+.myslideshow{
+    height: 500px;
+}
+.slideshow_image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+/* neuf_section */
+.neuf_section{
+    
+}
+
+
+
+
+/* section categorie cards */
+
+@media (max-width: 576px) {
+    .card {
+        width: 100%; 
+    }
+}
+
+
+/* produit section */
+
+
+
+/* section neuf */
+.neuf_section{
+    height: 300px;
+    background-color: pink;
+}
+
+
+
+/* sectio marque vedette  */
+.marque_vedettes_card{
+    border: 1px solid black;
+    background-color: white;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 5px;
+    justify-content: space-around;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.brand-image {
+    display: flex;
+    flex: 2;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 2;
+    flex-direction: row;
+}
+
+.brand-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.brand_desc{
+   
+    padding: 10px;
+    display: flex;
+    flex: 2;
+    justify-content: center;
+    flex-shrink: 1;
+}
+.brand_desc, p {
+    font-size: 16px; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    display: flex;
+    padding-top: 20px;
+}
+
+.brand_btn{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 1;
+
+    
+}
+.btn_voir_plus {
+    padding: 15px 35px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: white;
+    color: green;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn_voir_plus:hover {
+    background-color: #0a5f43;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .marque_vedettes_card {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .brand-image, .brand_desc, .brand_btn {
+        flex: none; 
+        width: 100%;
+        text-align: center;
+    }
+
+    .brand-image img {
+        width: 100%; 
+        height: auto; /* this one is to keep th aspect ratio*/
+    }
+
+    .brand_desc {
+        padding-top: 15px; 
+    }
+}
+
+
+
+/* footer */
+
+.footer_links {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+.footer_navigate_links {
+    flex: 1;
+    margin: auto;
+    color:black;
+}
+
+.footer_social_links {
+    align-items: center;
+    flex: 1;
+    color: black;
+}
+
+.social_media{
+    width: 100%;
+    text-align: right;
+    padding-right: 20px;
+    color: #023116;
+    font-size: 40px;
+    margin: 0;
+}
+.navigate_links{
+    color: #023116;
+}
+.navigate_links:hover, .social_media:hover{
+    color: #0a5f43; 
+    text-decoration: none;
+}
+@media (max-width: 768px) {
+    .myfooter {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer_links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+.copyright {
+    text-align: center;
+    display: block; 
+    width: 100%; 
+    padding: 10px;
+    color: #023116;
+    font-weight: 500;
+    
+}
+.copyright:hover{
+    color: #0a5f43; 
+}
+
