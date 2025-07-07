@@ -25,4 +25,16 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'react' => [
+        'version' => '19.1.0',
+    ],
+    'react-dom' => [
+        'version' => '19.1.0',
+    ],
+    'scheduler' => [
+        'version' => '0.23.2',
+    ],
+    '@symfony/ux-react' => [
+        'version' => '2.27.0',
+    ],
 ];
