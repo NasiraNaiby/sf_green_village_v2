@@ -1,6 +1,6 @@
 function Footer(){
     return(
-        <footer classNameName="myfooter bg-light mt-3">
+        <footer className="myfooter bg-light mt-3">
         <div className="container">  
             <div className="footer_links">
                 <div className="footer_navigate_links" >

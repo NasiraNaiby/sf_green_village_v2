@@ -1,7 +1,6 @@
-
+import { Link } from "react-router-dom";
 function MyNav() {
 
-    console.log("test")
     return (
       <nav className="navbar navbar-expand-lg mynavbar bg-light">
           <div className="container-fluid">  
@@ -11,15 +10,18 @@ function MyNav() {
               </button>
               <div className="collapse navbar-collapse" id="navbarNav">
                   <ul className="navbar-nav nav_items">
-                      <li className="nav-item"><a className="nav-link active" href="#">Accueil</a></li>
-                      <li className="nav-item"><a className="nav-link" href="#">Categories</a></li>
-                      <li className="nav-item"><a className="nav-link" href="#">Produit</a></li>
-                      <li className="nav-item"><a className="nav-link" href="#">Catalog</a></li>
-                      <li className="nav-item"><a className="nav-link" href="#">Fournisseurs</a></li>
+                    {/* the links i have use here instead of the acnhor tags <a href=""></a> has the same functionality like 
+                    a tag but it prevents sending the request any time we clikc on the link because it matched the likn in the 
+                    routes we have defined in the main.jsx file and much queicker becuqse we only expect the html data*/}
+                      <li className="nav-item"><Link className="nav-link active" to="/react">Accueil</Link></li>
+                      <li className="nav-item"><Link className="nav-link" to="/catgories">Catégories</Link></li>
+                      <li className="nav-item"><Link className="nav-link" to="/produit">Produit</Link></li>
+                      <li className="nav-item"><Link className="nav-link" to="#">Catalog</Link></li>
+                      <li className="nav-item"><Link className="nav-link" to="/marque">Fournisseurs</Link></li>
                   </ul>
               </div>
               <div className="navbar_logo_section">
-                  <a href="#" className="navbar-brand">Site Title</a>
+                  <Link to="#" className="navbar-brand">Village Green</Link>
               </div>
           </div>
       </nav>
