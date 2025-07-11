@@ -19,8 +19,9 @@ function MyNav() {
                   </ul>
               </div>
               <div className="navbar_logo_section">
-                  <a href="#" className="navbar-brand">Site Title</a>
+                  <a href="#" className="navbar-brand">{/* <img src="/images/logo.png" className="logo" alt="" /> */}</a>
               </div>
+              
           </div>
       </nav>
     )

@@ -6,6 +6,7 @@ function Header(){
                 
             </div>
             <div className="hearder_second_section ">
+                {/* <img src="/images/logo.png" className="logo" alt="" /> */}
                 <input type="test" placeholder="search" className="search_bar"/>
                 <button className="btn_search"><i className="fa-solid fa-magnifying-glass"></i></button>
             </div>
