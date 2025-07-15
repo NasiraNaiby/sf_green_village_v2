@@ -12,7 +12,7 @@ function Header(){
             </div>
             <div className="hearder_third_section ">
                 <Link to="/login" className="login_icon"><i className="fas fa-user"></i></Link>
-                <a href="" className="cart_icon"><i className="fa-solid fa-cart-shopping"></i></a>
+                <Link to="/panier" className="cart_icon"><i className="fa-solid fa-cart-shopping"></i></Link>
             </div>
     </header>
     )

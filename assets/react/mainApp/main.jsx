@@ -9,6 +9,7 @@ import Header from './components/Header.jsx';
 import HeaderSlideShow from './components/HeaderSlideShow.jsx';
 import { ProduitNeuf, CategoireSection, ProduitVedettes, MarquesVedettes } from './components/Sections.jsx';
 import Footer from './components/Footer.jsx';
+import Panier from './components/Panier.jsx';
 import Login from './components/Login.jsx';
 
 createRoot(document.getElementById('root')).render(
@@ -18,7 +19,6 @@ createRoot(document.getElementById('root')).render(
       <MyNav />
       <Header />
       <HeaderSlideShow />
-
       <Routes>
         <Route
           path="/react"
@@ -36,6 +36,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/produit" element={<ProduitVedettes />} />
         <Route path="/marque" element={<MarquesVedettes />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/panier" element={<Panier />} />
       </Routes>
 
       {/* Footer also appears on every page */}

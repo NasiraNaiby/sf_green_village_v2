@@ -16,7 +16,7 @@ function Footer(){
                     <p><a href="#" className="social_media" ><i className="fa-solid fa-envelope"></i></a></p>
                 </div>
             </div>             
-            <p className="copyright">	&#169; 2025 VotreSite. Tous droits réservés. </p>
+            <p className="copyright">	&#169; 2025 Village Green. Tous droits réservés. </p>
         </div>
     </footer> 
     )
