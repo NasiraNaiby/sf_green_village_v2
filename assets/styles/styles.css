@@ -163,20 +163,56 @@ body {
     filter: brightness(1.3) contrast(1.2) saturate(1.5);
 }
 
-/* slidehosw  */
+/* Section hero  */
 
-.cutstom_slideshow{
-    height: 500px;
-    background-color: cyan;
+.btn_hero{
+    padding: 15px 35px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: white;
+    color: green;
+    transition: background-color 0.3s ease-in-out;
 }
-.myslideshow{
-    height: 500px;
+    
+.btn_hero:hover {
+    background-color: #0a5f43;
+    color: white;
 }
-.slideshow_image {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-}
+
+@keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+
+.shadow-float {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  /* @keyframes scaleUpDown {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+  }
+  
+  .animate-scale {
+    animation: scaleUpDown 4s ease-in-out infinite;
+  }
+   */
+
 
 /* neuf_section */
 

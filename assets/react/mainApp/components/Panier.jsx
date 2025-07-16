@@ -27,29 +27,18 @@ function Panier() {
                 <img src="/images/ins.jpg" alt="Guitar" height="50px"width="50px" />
                 <div className="ms-3">
                     <p className="mb-1">Nom de la produit</p>
-                    <input
-                    type="number"
-                    min="1"
-                    defaultValue="1"
-                    className="form-control quantity-input mb-1 w-auto"
-                    style={{ width: "80px" }}
-                    />
+                    <input type="number"  min="1"
+                    defaultValue="1" className="form-control quantity-input mb-1 w-auto" style={{ width: "80px" }}/>
                     <p className="mb-0">$458.99</p>
                 </div>
                 </div>
 
                 {/* produit 2 */}
                 <div className="cart-item d-flex align-items-center mb-4">
-                <img src="/images/ins.jpg" alt="Guitar" height="50px"width="50px" />
+                <img src="/images/ins.png" alt="Guitar" height="50px" width="50px" />
                 <div className="ms-3">
                     <p className="mb-1">Nom de la produit</p>
-                    <input
-                    type="number"
-                    min="1"
-                    defaultValue="1"
-                    className="form-control quantity-input mb-1 w-auto"
-                    style={{ width: "80px" }}
-                    />
+                    <input type="number" min="1" defaultValue="1" className="form-control quantity-input mb-1 w-auto" style={{ width: "80px" }} />
                     <p className="mb-0">$458.99</p>
                 </div>
                 </div>

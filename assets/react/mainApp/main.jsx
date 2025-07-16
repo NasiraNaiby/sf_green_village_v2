@@ -6,11 +6,13 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import { link } from 'react-router-dom';
 import MyNav from './components/MyNav.jsx';
 import Header from './components/Header.jsx';
-import HeaderSlideShow from './components/HeaderSlideShow.jsx';
 import { ProduitNeuf, CategoireSection, ProduitVedettes, MarquesVedettes } from './components/Sections.jsx';
 import Footer from './components/Footer.jsx';
 import Panier from './components/Panier.jsx';
 import Login from './components/Login.jsx';
+import Presentation from './components/Presentation.jsx';
+import NotreMagasin from './components/NotreMagasin.jsx';
+import Hero from './components/Hero.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Router>
@@ -18,7 +20,7 @@ createRoot(document.getElementById('root')).render(
       {/* These appear on every page */}
       <MyNav />
       <Header />
-      <HeaderSlideShow />
+      <Hero />
       <Routes>
         <Route
           path="/react"
@@ -37,9 +39,11 @@ createRoot(document.getElementById('root')).render(
         <Route path="/marque" element={<MarquesVedettes />} />
         <Route path="/login" element={<Login />} />
         <Route path="/panier" element={<Panier />} />
+        <Route path="/presentation" element={<Presentation />} />
+        <Route path="/magasin" element={<NotreMagasin />} />
       </Routes>
 
-      {/* Footer also appears on every page */}
+      {/* Footer  appears on every page */}
       <Footer />
     </div>
   </Router>

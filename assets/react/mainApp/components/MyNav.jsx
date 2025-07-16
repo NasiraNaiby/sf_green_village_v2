@@ -16,12 +16,11 @@ function MyNav() {
                       <li className="nav-item"><Link className="nav-link active" to="/react">Accueil</Link></li>
                       <li className="nav-item"><Link className="nav-link" to="/catgories">Catégories</Link></li>
                       <li className="nav-item"><Link className="nav-link" to="/produit">Produit</Link></li>
-                      <li className="nav-item"><Link className="nav-link" to="#">Catalog</Link></li>
                       <li className="nav-item"><Link className="nav-link" to="/marque">Fournisseurs</Link></li>
                   </ul>
               </div>
               <div className="navbar_logo_section">
-                  <a href="#" className="navbar-brand">Site Title</a>
+                  <a href="#" className="navbar-brand">Village Green </a>
               </div>
               
           </div>
