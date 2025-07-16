@@ -17,15 +17,15 @@ import Hero from './components/Hero.jsx';
 createRoot(document.getElementById('root')).render(
   <Router>
     <div className="App">
-      {/* These appear on every page */}
       <MyNav />
       <Header />
-      <Hero />
+      
       <Routes>
         <Route
           path="/react"
           element={
             <>
+              <Hero />  
               <ProduitNeuf />
               <CategoireSection />
               <ProduitVedettes />
@@ -33,8 +33,7 @@ createRoot(document.getElementById('root')).render(
             </>
           }
         />
-
-        <Route path="/catgories" element={<CategoireSection />}/>
+        <Route path="/catgories" element={<CategoireSection />} />
         <Route path="/produit" element={<ProduitVedettes />} />
         <Route path="/marque" element={<MarquesVedettes />} />
         <Route path="/login" element={<Login />} />
@@ -48,3 +47,4 @@ createRoot(document.getElementById('root')).render(
     </div>
   </Router>
 );
+

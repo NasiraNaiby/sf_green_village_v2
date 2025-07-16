@@ -1,12 +1,12 @@
 function Hero() {
   return (
     <section className="py-lg-16 py-6 bg-light">
-      <div className="container py-6">
+      <div className="container py-lg-16">
         <div className="row d-flex align-items-center">
           {/* Section texte */}
           <div className="col-xxl-5 col-xl-6 col-lg-6 col-12">
-            <div className="fist">
-              <h1 className=" fw-bold mb-3 mt-3">
+            <div className="fist ">
+              <h1 className=" fw-bold mb-3 mt-3 ">
                 Trouvez votre <u className="text-dark"><span className="text-success">son parfait</span></u>
               </h1>
               <p className="lead mb-4">

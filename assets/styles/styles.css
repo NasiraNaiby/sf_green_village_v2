@@ -214,6 +214,9 @@ body {
    */
 
 
+
+
+
 /* neuf_section */
 
 
@@ -400,7 +403,7 @@ body {
 .user_login{
     margin: 100px 20px;
     padding: 20px;
-    border: 2px solid black;
+    /* border: 2px solid black; */
 }
 
 /* add to cart section */
@@ -440,3 +443,14 @@ body {
     text-align: center;
 }
 }
+
+
+
+/* notre magasin gallery */
+.thumb-img {
+    height: 200px;           
+    object-fit: cover;       
+    width: 100%;
+    border-radius: 8px;
+  }
+  

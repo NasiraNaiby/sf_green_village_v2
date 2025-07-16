@@ -1,45 +1,53 @@
-function NotreMagasin(){
-    return(
-        <>
-        <section className="hero-section">
-  <div className="container">
-    <h1>Notre Magazine</h1>
-    <div className="featured-article">
-      <img src="/images/featured-article.jpg" alt="Featured article" />
-      <div className="text-overlay">
-        <h2>Discover the Future of Music Production</h2>
-        <p>Explore the latest trends, gear reviews, and interviews with industry leaders.</p>
-        <a href="" className="btn-primary">Read More</a>
-      </div>
-    </div>
-  </div>
-</section>
+import React, { useState } from "react";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol
+} from "mdb-react-ui-kit";
 
-<section className="articles-section container">
-  <aside className="categories-sidebar">
-    <h3>Categories</h3>
-    <ul>
-      <li><a href="">Gear Reviews</a></li>
-      <li><a href="">Artist Interviews</a></li>
-      <li><a href="">Tutorials</a></li>
-      <li><a href="">Industry News</a></li>
-    </ul>
-  </aside>
+const images = [
+  "/images/guit.webp",
+  "/images/greenguit.jpg",
+  "/images/guitar2.jpg",
+  "/images/greenguit.jpg",
+  "/images/guit.webp"
+];
 
-  <main className="articles-grid">
-    {/* Map your articles here */}
-    <article className="article-card">
-      <img src="/images/article1.jpg" alt="Article 1" />
-      <h4>Top 10 Synthesizers of 2025</h4>
-      <p>A deep dive into the most powerful synths changing the music scene this year.</p>
-      <a href="" className="read-more">Read More</a>
-    </article>
-    {/* More articles */}
-  </main>
-</section>
+function NotreMagasin() {
+  const [mainImage, setMainImage] = useState(images[0]);
 
-        </>
-    )
+  return (
+    <MDBContainer className="py-4">
+      <MDBRow className="shadow-5">
+        <MDBCol size="12" className="mb-3">
+          <div
+            onClick={() => window.open(mainImage, "_blank")}
+            style={{ cursor: "zoom-in" }}
+          >
+            <img
+              src={mainImage}
+              alt="Main"
+              className="w-100 rounded"
+              style={{ transition: "0.3s" }}
+            />
+          </div>
+        </MDBCol>
+
+        {images.map((img, index) => (
+          <MDBCol size="3" key={index} className="mb-2">
+           <img
+            src={img}
+            alt={`Thumb ${index}`}
+            onClick={() => setMainImage(img)}
+            className={`thumb-img ${mainImage === img ? "border border-primary" : ""}`}
+            style={{ cursor: "pointer", transition: "0.3s" }}
+            />
+
+          </MDBCol>
+        ))}
+      </MDBRow>
+    </MDBContainer>
+  );
 }
 
-export default NotreMagasin
+export default NotreMagasin;
