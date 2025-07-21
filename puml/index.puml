@@ -1,0 +1,85 @@
+@startuml
+class Vendeurs {
+	**id : int**
+	id_vendeur : int
+	nom_vend : string
+	email_vend : string
+	phone_vend : int
+	id_client : int
+	<color:#0000dd>id_clients : Clients</color>
+}
+
+class Produits {
+	**id : int**
+	id_produit : int
+	nom_produit : string
+	desc_produit : string
+	achat_prix : string
+	vent_prix : string
+	categorie : string
+	photo : string
+}
+
+class LivraisonNote {
+	**id : int**
+	id_liv_note : int
+	<color:#0000dd>id_commande : Commandes</color>
+	statut_liv : string
+	date_liv : DateTime
+	note_liv : string
+}
+
+class Clients {
+	**id : int**
+	id_client : int
+	nom_client : string
+	type_client : string
+	password : string
+	email_client : string
+	condition_paiment : string
+	address_facturation : string
+	address_livrasion : string
+	<color:#0000dd>id_vend : Vendeurs[]</color>
+	<color:#0000dd>commandes : Commandes[]</color>
+}
+
+class Factures {
+	**id : int**
+	id_facture : int
+	<color:#0000dd>id_commande : Commandes</color>
+	date_facture : DateTime
+	montant_total : string
+	paiment_statut : string
+}
+
+class Fournisseurs {
+	**id : int**
+	id_fournisseur : int
+	nom_fournisseur : string
+	email_fou : string
+	phone_fou : int
+	produit_exclusif : string
+}
+
+class Commandes {
+	**id : int**
+	id_commande : int
+	<color:#0000dd>id_clients : Clients</color>
+	<color:#0000dd>id_produit : Produits[]</color>
+	quantité : int
+	unit_prix : string
+	total_prix : string
+}
+
+Vendeurs "*"--"1" Clients
+LivraisonNote "1"--"1" Commandes
+Clients "1"--"*" Commandes
+Factures "1"--"1" Commandes
+Commandes "*"--"*" Produits
+
+
+hide methods
+
+hide circle
+
+@enduml
