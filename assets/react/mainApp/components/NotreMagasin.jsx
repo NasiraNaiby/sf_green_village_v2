@@ -28,8 +28,11 @@ function NotreMagasin() {
               src={mainImage}
               alt="Main"
               className="w-100 rounded"
-              style={{ transition: "0.3s" }}
-            />
+              style={{
+                maxHeight: "500px",
+                objectFit: "contain",
+                transition: "0.3s",
+              }}/>
           </div>
         </MDBCol>
 
