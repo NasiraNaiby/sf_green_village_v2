@@ -16,8 +16,8 @@ class Produits {
 	desc_produit : string
 	achat_prix : string
 	vent_prix : string
-	categorie : string
 	photo : string
+	<color:#0000dd>categorie : Categories</color>
 }
 
 class LivraisonNote {
@@ -61,6 +61,14 @@ class Fournisseurs {
 	produit_exclusif : string
 }
 
+class Categories {
+	**id : int**
+	id_cat : int
+	nom_cat : string
+	desc_cat : string
+	<color:#0000dd>produits : Produits[]</color>
+}
+
 class Commandes {
 	**id : int**
 	id_commande : int
@@ -72,6 +80,7 @@ class Commandes {
 }
 
 Vendeurs "*"--"1" Clients
+Produits "*"--"1" Categories
 LivraisonNote "1"--"1" Commandes
 Clients "1"--"*" Commandes
 Factures "1"--"1" Commandes

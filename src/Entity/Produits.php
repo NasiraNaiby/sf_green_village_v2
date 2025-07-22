@@ -29,11 +29,13 @@ class Produits
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $vent_prix = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $categorie = null;
+   
 
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?Categories $categorie = null;
 
     public function getId(): ?int
     {
@@ -100,17 +102,6 @@ class Produits
         return $this;
     }
 
-    public function getCategorie(): ?string
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(string $categorie): static
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
 
     public function getPhoto(): ?string
     {
@@ -120,6 +111,18 @@ class Produits
     public function setPhoto(string $photo): static
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categories
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categories $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
