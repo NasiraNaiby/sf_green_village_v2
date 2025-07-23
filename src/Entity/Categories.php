@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Produits;
 
 #[ORM\Entity(repositoryClass: CategoriesRepository::class)]
 class Categories
@@ -16,19 +17,13 @@ class Categories
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_cat = null;
-
     #[ORM\Column(length: 255)]
     private ?string $nom_cat = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $desc_cat = null;
 
-    /**
-     * @var Collection<int, Produits>
-     */
-    #[ORM\OneToMany(targetEntity: Produits::class, mappedBy: 'categorie')]
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Produits::class)]
     private Collection $produits;
 
     public function __construct()
@@ -41,18 +36,6 @@ class Categories
         return $this->id;
     }
 
-    public function getIdCat(): ?int
-    {
-        return $this->id_cat;
-    }
-
-    public function setIdCat(int $id_cat): static
-    {
-        $this->id_cat = $id_cat;
-
-        return $this;
-    }
-
     public function getNomCat(): ?string
     {
         return $this->nom_cat;
@@ -61,7 +44,6 @@ class Categories
     public function setNomCat(string $nom_cat): static
     {
         $this->nom_cat = $nom_cat;
-
         return $this;
     }
 
@@ -73,13 +55,9 @@ class Categories
     public function setDescCat(?string $desc_cat): static
     {
         $this->desc_cat = $desc_cat;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Produits>
-     */
     public function getProduits(): Collection
     {
         return $this->produits;
@@ -88,22 +66,19 @@ class Categories
     public function addProduit(Produits $produit): static
     {
         if (!$this->produits->contains($produit)) {
-            $this->produits->add($produit);
+            $this->produits[] = $produit;
             $produit->setCategorie($this);
         }
-
         return $this;
     }
 
     public function removeProduit(Produits $produit): static
     {
         if ($this->produits->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
             if ($produit->getCategorie() === $this) {
                 $produit->setCategorie(null);
             }
         }
-
         return $this;
     }
 }

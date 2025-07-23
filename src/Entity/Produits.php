@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProduitsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Categories;
 
 #[ORM\Entity(repositoryClass: ProduitsRepository::class)]
 class Produits
@@ -13,9 +14,6 @@ class Produits
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column]
-    private ?int $id_produit = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nom_produit = null;
@@ -29,29 +27,16 @@ class Produits
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $vent_prix = null;
 
-   
-
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
 
-    #[ORM\ManyToOne(inversedBy: 'produits')]
-    private ?Categories $categorie = null;
+    #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'produits')]
+#[ORM\JoinColumn(name: 'categorie_id', referencedColumnName: 'id', nullable: false)]
+private ?Categories $categorie = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdProduit(): ?int
-    {
-        return $this->id_produit;
-    }
-
-    public function setIdProduit(int $id_produit): static
-    {
-        $this->id_produit = $id_produit;
-
-        return $this;
     }
 
     public function getNomProduit(): ?string
@@ -101,7 +86,6 @@ class Produits
 
         return $this;
     }
-
 
     public function getPhoto(): ?string
     {
