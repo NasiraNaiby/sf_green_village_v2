@@ -1,4 +1,6 @@
 
+import { useEffect, useState } from "react";
+import axios from "axios";
 export function  ProduitNeuf(){
     return(
         <section className="neuf_section mt-5">
