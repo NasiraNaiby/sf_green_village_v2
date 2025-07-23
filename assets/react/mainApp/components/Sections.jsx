@@ -12,117 +12,88 @@ export function  ProduitNeuf(){
 
 
 export function  CategoireSection(){
-   return(
 
-        <section className="cat_section mt-5">
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+      axios.get("http://127.0.0.1:8000/api/categories")
+        .then(response => {
+          if (response.data && Array.isArray(response.data.member)) {
+            setCategories(response.data.member);
+          } else {
+            console.warn("Unexpected API response:", response.data);
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching categories:", error);
+        });
+    }, []);
+  
+    return (
+      <section className="cat_section mt-5">
         <div className="container">
-            <div className="row">
-                <div className="col-md-3 col-sm-6 mb-4">
-                    <div className="card">
-                        <img src="/images/ins.jpg" className="card-img-top" alt="#" />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text.</p>
-                            <a href="#" className="btn btn-primary">Click</a>
-                        </div> 
-                    </div>
+          <div className="row">
+            {Array.isArray(categories) && categories.map(cat => (
+              <div className="col-md-3 col-sm-6 mb-4" key={cat.id}>
+                <div className="card">
+                  <img src="/images/ins.jpg" className="card-img-top" alt={cat.nom_cat} />
+                  <div className="card-body">
+                    <h5 className="card-title">{cat.nom_cat}</h5>
+                    <p className="card-text">{cat.desc_cat}</p>
+                    <a href="#" className="btn btn-primary">Voir produits ({cat.produits.length})</a>
+                  </div>
                 </div>
-
-                <div className="col-md-3 col-sm-6 mb-4">
-                    <div className="card">
-                        <img src="/images/ins.jpg" className="card-img-top" alt="#" />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text.</p>
-                            <a href="#" className="btn btn-primary">Click</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-md-3 col-sm-6 mb-4">
-                    <div className="card">
-                        <img src="/images/ins.jpg" className="card-img-top" alt="#" />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text.</p>
-                            <a href="#" className="btn btn-primary">Click</a>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-4">
-                    <div className="card">
-                        <img src="/images/ins.jpg" className="card-img-top" alt="#" />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text.</p>
-                            <a href="#" className="btn btn-primary">Click</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-    </section>
-   )
+      </section>
+    );
 }
 
 
-export function  ProduitVedettes(){
-    return(
-        <section className="produit_section mt-5">
+export function ProduitVedettes() {
+    const [produits, setProduits] = useState([]);
+  
+    useEffect(() => {
+      axios.get("http://127.0.0.1:8000/api/produits")
+        .then(response => {
+          if (response.data && Array.isArray(response.data.member)) {
+            setProduits(response.data.member);
+          } else {
+            console.warn("Unexpected API response:", response.data);
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching produits:", error);
+        });
+    }, []);
+  
+    return (
+      <section className="produit_section mt-5">
         <div className="container">
-            <h2 className="text-center mb-4">Produit Vedettes</h2>
-            <div className="row">
-                <div className="col-md-3 col-sm-6 col-md-4 mb-3">
-                    <div className="card">
-                        <img src="/images/ins.jpg" alt="img" className="card-img-top" />
-                        <div className="card-body">
-                            <h5 className="card-title">produit</h5>
-                            <p className="card-text">the discripttion of the product</p>
-                            <p className="card-text">29.50</p>
-                            <a href="#" className="btn btn-primary">Acheter</a>
-                        </div>
-                    </div>
-                </div>
+          <h2 className="text-center mb-4">Produits Vedettes</h2>
+          <div className="row">
+            {produits.map(produit => (
+              <div className="col-md-3 col-sm-6 col-md-4 mb-3" key={produit.id}>
+                <div className="card">
+                <img src={produit.photo} alt={produit.nom_produit} />
 
-                <div className="col-md-3 col-sm-6 col-md-4 mb-3">
-                    <div className="card">
-                        <img src="/images/ins.jpg" alt="" className="card-img-top" />
-                        <div className="card-body">
-                            <h5 className="card-title">produit</h5>
-                            <p className="card-text">the discripttion of the product</p>
-                            <p className="card-text">29.50</p>
-                            <a href="#" className="btn btn-primary">Acheter</a>
-                        </div>
-                    </div>
+                  <div className="card-body">
+                    <h5 className="card-title">{produit.nom}</h5>
+                    <p className="card-text">{produit.description}</p>
+                    <p className="card-text">{produit.prix} €</p>
+                    <a href="#" className="btn btn-primary">Acheter</a>
+                  </div>
                 </div>
-
-                <div className="col-md-3 col-sm-6 col-md-4 mb-3">
-                    <div className="card">
-                        <img src="/images/ins.jpg" alt="" className="card-img-top" />
-                        <div className="card-body">
-                            <h5 className="card-title">produit</h5>
-                            <p className="card-text">the discripttion of the product</p>
-                            <p className="card-text">29.50</p>
-                            <a href="#" className="btn btn-primary">Acheter</a>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-3 col-sm-6 col-md-4 mb-3">
-                    <div className="card">
-                        <img src="/images/ins.jpg" alt="" className="card-img-top" />
-                        <div className="card-body">
-                            <h5 className="card-title">produit</h5>
-                            <p className="card-text">the discripttion of the product</p>
-                            <p className="card-text">29.50</p>
-                            <a href="#" className="btn btn-primary">Acheter</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-    </section> 
-    )
-}
+      </section>
+    );
+  }
+  
 
 
 export function  MarquesVedettes(){

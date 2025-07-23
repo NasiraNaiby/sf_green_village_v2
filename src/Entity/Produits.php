@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProduitsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Categories;
-use ApiPlatform\Metadata\ApiResource;
 
 
 #[ORM\Entity(repositoryClass: ProduitsRepository::class)]
