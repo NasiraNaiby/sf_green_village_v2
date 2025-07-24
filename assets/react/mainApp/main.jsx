@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import { link } from 'react-router-dom';
 import MyNav from './components/MyNav.jsx';
 import Header from './components/Header.jsx';
-import { ProduitNeuf, CategoireSection, ProduitVedettes, MarquesVedettes } from './components/Sections.jsx';
+import { ProduitNeuf, CategoireSection, ProduitVedettes, MarquesVedettes , ProduitsParCategorie} from './components/Sections.jsx';
 import Footer from './components/Footer.jsx';
 import Panier from './components/Panier.jsx';
 import Login from './components/Login.jsx';
@@ -35,6 +35,7 @@ createRoot(document.getElementById('root')).render(
         />
         <Route path="/catgories" element={<CategoireSection />} />
         <Route path="/produit" element={<ProduitVedettes />} />
+        <Route path="/categorie/:id" element={<ProduitsParCategorie />} />
         <Route path="/marque" element={<MarquesVedettes />} />
         <Route path="/login" element={<Login />} />
         <Route path="/panier" element={<Panier />} />

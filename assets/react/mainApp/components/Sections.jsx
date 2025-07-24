@@ -1,6 +1,8 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+
 export function  ProduitNeuf(){
     return(
         <section className="neuf_section mt-5">
@@ -40,7 +42,7 @@ export function  CategoireSection(){
                   <div className="card-body">
                     <h5 className="card-title">{cat.nom_cat}</h5>
                     <p className="card-text">{cat.desc_cat}</p>
-                    <a href="#" className="btn btn-primary">Voir produits</a>
+                    <a href={`/categorie/${cat.id}`} className="btn btn-primary">Voir produits</a>
                   </div>
                 </div>
               </div>
@@ -51,6 +53,59 @@ export function  CategoireSection(){
     );
 }
 
+export function ProduitsParCategorie(){
+  const { id } = useParams();
+  const [produits, setProduits] = useState([]);
+  const [loading, setLoading ] = useState(true);
+
+  useEffect( () =>{
+    axios.get("http://127.0.0.1:8000/api/produits")
+    .then((response)=>{
+      if(response.data && Array.isArray(response.data.member)){
+        const filtered = response.data.member.filter(
+         (p) => p.categorie?.includes(`/categories/${id}`)
+        );
+        setProduits(filtered);
+      }else{
+        console.warn("un expected fetching produit: ", response.data);
+      }
+    })
+    .catch((error) =>{
+      console.error("error fetching data :", error);
+    }).finally(()=>{
+      setLoading(false);
+    })
+  }, [id]);
+  if(loading) return <p>Chargement des produits...</p>;
+
+  return (
+    <section className="produit_section mt-5">
+      <div className="container">
+        <h2 className="text-center mb-4">Produits de la catégorie {id}</h2>
+        <div className="row">
+          {produits.length > 0 ? (
+            produits.map((produit) => (
+              <div className="col-md-3 col-sm-6 mb-4" key={produit.id}>
+                <div className="card">
+                  <img src={produit.photo} className="card-img-top" alt={produit.nom_produit} />
+                  <div className="card-body">
+                    <h5 className="card-title">{produit.nom_produit}</h5>
+                    <p className="card-text">{produit.desc_produit}</p>
+                    <p className="card-text">{produit.vent_prix} €</p>
+                    <a href="" className="btn btn-primary">Ajouter au panier</a>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>Aucun produit trouvé pour cette catégorie.</p>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+
+}
 
 export function ProduitVedettes() {
     const [produits, setProduits] = useState([]);
@@ -82,7 +137,7 @@ export function ProduitVedettes() {
                     <h5 className="card-title">{produit.nom_produit}</h5>
                     <p className="card-text">{produit.desc_produit}</p>
                     <p className="card-text">{produit.vent_prix} €</p>
-                    <a href="#" className="btn btn-primary">Acheter</a>
+                    <a href="#" className="btn btn-primary">Ajouter au panier</a>
                   </div>
                 </div>
               </div>
