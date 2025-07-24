@@ -3,6 +3,28 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+// utils/cart.js
+export function getCart() {
+  const cart = localStorage.getItem("cart");
+  return cart ? JSON.parse(cart) : [];
+}
+
+export function saveCart(cart) {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+export function addToCart(product) {
+  const cart = getCart();
+  const existingIndex = cart.findIndex(item => item.id === product.id);
+  if (existingIndex !== -1) {
+    cart[existingIndex].quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+  saveCart(cart);
+}
+
+
 export function  ProduitNeuf(){
     return(
         <section className="neuf_section mt-5">
@@ -92,7 +114,7 @@ export function ProduitsParCategorie(){
                     <h5 className="card-title">{produit.nom_produit}</h5>
                     <p className="card-text">{produit.desc_produit}</p>
                     <p className="card-text">{produit.vent_prix} €</p>
-                    <a href="" className="btn btn-primary">Ajouter au panier</a>
+                    <a href={`/panier/${produit.id}`} className="btn btn-primary">Ajouter au panier</a>
                   </div>
                 </div>
               </div>
@@ -137,7 +159,8 @@ export function ProduitVedettes() {
                     <h5 className="card-title">{produit.nom_produit}</h5>
                     <p className="card-text">{produit.desc_produit}</p>
                     <p className="card-text">{produit.vent_prix} €</p>
-                    <a href="#" className="btn btn-primary">Ajouter au panier</a>
+                    <a href={`/panier/${produit.id}`} className="btn btn-primary">Ajouter au panier</a>
+
                   </div>
                 </div>
               </div>
