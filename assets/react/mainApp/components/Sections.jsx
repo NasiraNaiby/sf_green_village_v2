@@ -40,7 +40,7 @@ export function  CategoireSection(){
                   <div className="card-body">
                     <h5 className="card-title">{cat.nom_cat}</h5>
                     <p className="card-text">{cat.desc_cat}</p>
-                    <a href="#" className="btn btn-primary">Voir produits ({cat.produits.length})</a>
+                    <a href="#" className="btn btn-primary">Voir produits</a>
                   </div>
                 </div>
               </div>
@@ -78,11 +78,10 @@ export function ProduitVedettes() {
               <div className="col-md-3 col-sm-6 col-md-4 mb-3" key={produit.id}>
                 <div className="card">
                 <img src={produit.photo} alt={produit.nom_produit} />
-
                   <div className="card-body">
-                    <h5 className="card-title">{produit.nom}</h5>
-                    <p className="card-text">{produit.description}</p>
-                    <p className="card-text">{produit.prix} €</p>
+                    <h5 className="card-title">{produit.nom_produit}</h5>
+                    <p className="card-text">{produit.desc_produit}</p>
+                    <p className="card-text">{produit.vent_prix} €</p>
                     <a href="#" className="btn btn-primary">Acheter</a>
                   </div>
                 </div>
