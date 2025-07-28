@@ -83,7 +83,7 @@ function Panier() {
       <h2 className="text-center mb-4">Votre Panier</h2>
 
       <div className="row marque_vedettes_card">
-        {/* Form always in left column */}
+        {/* Form always be in left column */}
         <div className={cart.length > 4 ? "col-md-12" : "col-md-6"} checkout_section>
           <form>
             <input type="text" className="form-control form-section mb-2" placeholder="Nom et prénom" />
@@ -119,7 +119,7 @@ function Panier() {
                 </div>
               </div>
 
-              {/* 🗑️ Remove Button */}
+              {/*  Remove Button */}
               <button className="btn btn-sm btn-danger ms-3" onClick={() => removeFromCart(item.id)}>
                 Supprimer
               </button>

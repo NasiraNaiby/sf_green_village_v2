@@ -20,14 +20,12 @@ body {
 .navbar_logo_section {
     flex-grow: 2;
     display: flex;
-    /* background-color: red; */
 }
 
 .nav_items {
     display: flex;
     gap: 2rem; 
     align-items: center;
-    /* background-color: blue; */
 }
 
 .nav-link {
@@ -87,7 +85,6 @@ body {
 .hearder_first_section{
     display: flex;
     flex: 1;
-    /* background-color: purple; */
     flex-shrink: 1;
     align-items: center;
 }
@@ -96,7 +93,6 @@ body {
     flex: 1;
     align-items: flex-start;
     justify-content: center;
-    /* background-color: #0a5f43; */
     flex-shrink: 1;
 }
 
@@ -105,7 +101,6 @@ body {
     flex: 1;
     justify-content: flex-end;
     flex-shrink: 1;
-    /* background-color: red; */
 }
 
 .login_icon,.cart_icon{
@@ -114,7 +109,6 @@ body {
     padding-right: 10px;
    
 }
-
 .search_bar{
     flex: 1;
     height: 36px;
@@ -122,7 +116,6 @@ body {
     border: 1px solid rgb(192,192,192);
     border-radius: 2px;
     box-shadow: inset 1px 2px 3px rgba(0,0,0,0.05);
-
 }
 .btn_search{
     position: relative;
@@ -215,12 +208,17 @@ body {
 
 
 
-
+/*  endof Section hero */
 
 /* neuf_section */
 
+.neuf_section{
+    height: 300px;
+    background-color: pink;
+}
 
 
+/* endof neuf_section */
 
 
 /* section categorie cards */
@@ -232,19 +230,13 @@ body {
 }
 
 
-/* produit section */
+/* card  */
 
 
-
-/* section neuf */
-.neuf_section{
-    height: 300px;
-    background-color: pink;
-}
+/* endof card  */
 
 
-
-/* sectio marque vedette  */
+/* section marque vedette  */
 .marque_vedettes_card{
     border: 1px solid black;
     background-color: white;
