@@ -21,10 +21,12 @@ import Login from './components/Login.jsx';
 import Presentation from './components/Presentation.jsx';
 import NotreMagasin from './components/NotreMagasin.jsx';
 import Hero from './components/Hero.jsx';
+import { CartProvider } from './components/CartContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Router>
-    <div className="App">
+    <CartProvider>
+      <div className="App">
       <MyNav />
       <Header />
       
@@ -55,6 +57,7 @@ createRoot(document.getElementById('root')).render(
       {/* Footer  appears on every page */}
       <Footer />
     </div>
+    </CartProvider>
   </Router>
 );
 
