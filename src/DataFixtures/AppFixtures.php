@@ -6,14 +6,28 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Produits;
 use App\Entity\Categories;
+use App\Entity\User;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $hasher;
+
+   public function __construct(UserPasswordHasherInterface $hasher) {
+    $this->hasher = $hasher;
+   }
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
         $categories = [];
+
+        $user = new User();
+        $user->setEmail('nasira@gmail.com');
+        $password =  $this->hasher->hashPassword($user,"1234");
+        $user->setPassword($password);
+        
+        $manager->persist($user);
 
         // Create and persist categories
         for ($i = 0; $i < 8; $i++) {

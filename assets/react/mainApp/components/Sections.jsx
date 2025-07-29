@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useCart } from "./CartContext"; 
+
 
 
 
@@ -43,6 +44,7 @@ const [categories, setCategories] = useState([]);
 useEffect(() => {
   axios.get("http://127.0.0.1:8000/api/categories")
     .then(response => {
+    //  console.log("Produits API:", response.data.member);
       if (response.data && Array.isArray(response.data.member)) {
         setCategories(response.data.member);
       } else {
@@ -65,7 +67,8 @@ return (
               <div className="card-body">
                 <h5 className="card-title">{cat.nom_cat}</h5>
                 <p className="card-text">{cat.desc_cat}</p>
-                <a href={`/categorie/${cat.id}`} className="btn btn-primary">Voir produits</a>
+                {/* <a href={`/categorie/${cat.id}`} className="btn btn-primary">Voir produits</a> */}
+                <Link to={`/app/categorie/${cat.id}`} className="btn btn-primary">Voir produits</Link>
               </div>
             </div>
           </div>
@@ -117,7 +120,8 @@ return (
                   <h5 className="card-title">{produit.nom_produit}</h5>
                   <p className="card-text">{produit.desc_produit}</p>
                   <p className="card-text">{produit.vent_prix} €</p>
-                  <a href={`/panier/${produit.id}`} className="btn btn-primary">Ajouter au panier</a>
+                  {/* <a href={`/panier/${produit.id}`} className="btn btn-primary">Ajouter au panier</a> */}
+                  <Link to={`/app/panier/${produit.id}`} className="btn btn-primary">Ajouter au panier</Link>
                 </div>
               </div>
             </div>

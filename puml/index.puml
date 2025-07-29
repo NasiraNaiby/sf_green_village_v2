@@ -1,4 +1,11 @@
 @startuml
+class User {
+	**id : int**
+	email : string
+	roles : array
+	password : string
+}
+
 class Vendeurs {
 	**id : int**
 	id_vendeur : int
@@ -11,7 +18,6 @@ class Vendeurs {
 
 class Produits {
 	**id : int**
-	id_produit : int
 	nom_produit : string
 	desc_produit : string
 	achat_prix : string
@@ -63,7 +69,6 @@ class Fournisseurs {
 
 class Categories {
 	**id : int**
-	id_cat : int
 	nom_cat : string
 	desc_cat : string
 	<color:#0000dd>produits : Produits[]</color>

@@ -62,7 +62,7 @@ function Panier() {
                 <input type="text" className="form-control form-section w-50" placeholder="Code postal" />
                 <input type="tel" className="form-control form-section w-50" placeholder="Téléphone" />
               </div>
-              <button type="submit" className="btn confirm-btn w-100 mt-3 btn-primary">Confirmer</button>
+              <button type="submit" className="btn confirm-btn w-100 mt-3 btn-primary">Confirmer la commande</button>
             </form>
           </div>
 

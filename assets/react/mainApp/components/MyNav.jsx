@@ -13,10 +13,16 @@ function MyNav() {
                     {/* the links i have use here instead of the acnhor tags <a href=""></a> has the same functionality like 
                     a tag but it prevents sending the request any time we clikc on the link because it matched the likn in the 
                     routes we have defined in the main.jsx file and much queicker becuqse we only expect the html data*/}
-                      <li className="nav-item"><Link className="nav-link active" to="/react">Accueil</Link></li>
-                      <li className="nav-item"><Link className="nav-link" to="/catgories">Catégories</Link></li>
-                      <li className="nav-item"><Link className="nav-link" to="/produit">Produit</Link></li>
-                      <li className="nav-item"><Link className="nav-link" to="/marque">Fournisseurs</Link></li>
+                      {/* <li className="nav-item"><Link className="nav-link active" to="/app">Accueil</Link></li>
+                      <li className="nav-item"><Link className="nav-link" to="/app/catgories">Catégories</Link></li>
+                      <li className="nav-item"><Link className="nav-link" to="/app/produit">Produit</Link></li>
+                      <li className="nav-item"><Link className="nav-link" to="/app/marque">Fournisseurs</Link></li> */}
+
+                        <Link className="nav-link active" to="/">Accueil</Link>  
+                        <Link className="nav-link" to="/catgories">Catégories</Link>
+                        <Link className="nav-link" to="/produit">Produit</Link>
+                        <Link className="nav-link" to="/marque">Fournisseurs</Link>
+
                   </ul>
               </div>
               <div className="navbar_logo_section">
