@@ -4,7 +4,6 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState(() => {
-    // اگر داری از localStorage استفاده می‌کنی، اینجا می‌تونی مقدار اولیه را بخونی
     const saved = localStorage.getItem("cart");
     return saved ? JSON.parse(saved) : [];
   });
@@ -25,9 +24,7 @@ export function CartProvider({ children }) {
   };
 
   const removeFromCart = (productId) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => item.id !== productId)
-    );
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
   const updateQuantity = (productId, quantity) => {
@@ -38,8 +35,9 @@ export function CartProvider({ children }) {
     );
   };
 
-  // تعداد کل اقلام
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  // const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  const totalItems = cart.length;
+
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
