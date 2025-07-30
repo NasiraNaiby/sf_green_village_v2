@@ -42,15 +42,20 @@ class FormLoginAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    // public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    // {
+    //     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+    //         return new RedirectResponse($targetPath);
+    //     }
+
+    //     // For example:
+    //     return new RedirectResponse($this->urlGenerator->generate('app_main'));
+    //     //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+    // }
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
-
-        // For example:
-        return new RedirectResponse($this->urlGenerator->generate('app_main'));
-        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('spaceclient', ['reactRouting' => 'spaceclient']));
     }
 
     protected function getLoginUrl(Request $request): string

@@ -10,6 +10,12 @@ security:
                 class: App\Entity\User
                 property: email
     firewalls:
+        api:
+            pattern: ^/api
+            provider: app_user_provider
+            stateless: false  # allow session usage here
+            custom_authenticator: App\Security\FormLoginAuthenticator
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false

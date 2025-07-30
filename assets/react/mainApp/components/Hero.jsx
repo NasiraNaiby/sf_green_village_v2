@@ -1,3 +1,4 @@
+ import { Link } from 'react-router-dom';
 function Hero() {
   return (
     <section className="py-lg-16 py-6 bg-light">
@@ -35,9 +36,9 @@ function Hero() {
                   </li>
                 ))}
               </ul>
-              <a href="/produit" className="btn_hero btn btn-lg mb-5">
-                Découvrir la boutique
-              </a>
+                <Link to="/produit" className="btn_hero btn btn-lg mb-5">
+                  Découvrir la boutique
+                </Link>
             </div>
           </div>
 

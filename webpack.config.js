@@ -24,6 +24,9 @@ Encore
 
     .addEntry('mainApp', './assets/react/mainApp/main.jsx')
 
+    .addEntry('spaceClientMount', './assets/react/mainApp/spaceClientMount.jsx')
+
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

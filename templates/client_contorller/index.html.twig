@@ -1,12 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <title>Space Client</title>
-</head>
-<body>
-    <div id="root"></div>
-    {# Adjust the path below to match your Webpack Encore output #}
-    <script src="{{ asset('build/mainApp.js') }}"></script>
-</body>
-</html>
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Clients!{% endblock %}
+
+{% block stylesheets %}
+{{ encore_entry_link_tags('spaceClientMount') }}
+{% endblock %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('spaceClientMount') }}
+{% endblock %}
+
+
+{% block body %}
+
+
+<div id="client-root"></div>
+
+
+
+
+{% endblock %}

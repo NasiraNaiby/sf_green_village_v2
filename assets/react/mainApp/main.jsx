@@ -15,7 +15,6 @@ import Footer from './components/Footer.jsx';
 import Panier from './components/Panier.jsx';
 import Presentation from './components/Presentation.jsx';
 import NotreMagasin from './components/NotreMagasin.jsx';
-import Clients from './components/SpaceClient.jsx';
 import Hero from './components/Hero.jsx';
 import { CartProvider } from './components/CartContext.jsx';
 
@@ -47,7 +46,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/panier/:id" element={<Panier />} />
           <Route path="/presentation" element={<Presentation />} />
           <Route path="/magasin" element={<NotreMagasin />} />
-          <Route path="/spaceclient" element={<Clients />} />
+  
         </Routes>
 
         <Footer />
