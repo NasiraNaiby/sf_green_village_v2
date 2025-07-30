@@ -12,7 +12,12 @@ final class ClientContorller extends AbstractController
     #[Route('/app/spaceclient', name: 'spaceclient')]
     public function spaceClient(): Response
     {
+        if (!$this->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException();
+        }
+
         return $this->render('client_contorller/index.html.twig');
     }
+
 
 }
