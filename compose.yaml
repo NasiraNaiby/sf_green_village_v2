@@ -25,6 +25,7 @@ services:
     environment:
       MARIADB_USER: admin
       MARIADB_ROOT_PASSWORD: Afpa1234
+      MARIADB_PASSWORD: Afpa1234
       MARIADB_DATABASE: village_green
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'no'
     volumes:

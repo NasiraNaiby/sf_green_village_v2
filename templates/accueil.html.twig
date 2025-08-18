@@ -1,0 +1,29 @@
+{% extends 'main.html.twig' %}
+ {% block body  %}
+
+    <section className="neuf_section mt-5">
+     what is neww
+    </section>
+
+
+<section class="cat_section mt-5">
+  <div class="container">
+    <div class="row">
+      {% for cat in categories %}
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="card">
+            <img src="/images/ins.jpg" class="card-img-top" alt="{{ cat.nom_cat }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ cat.nom_cat }}</h5>
+              <p class="card-text">{{ cat.desc_cat }}</p>
+              <a href="{{ path('categorie_show', {'id': cat.id}) }}" class="btn btn-primary">Voir produits</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+  {% endblock  %}
