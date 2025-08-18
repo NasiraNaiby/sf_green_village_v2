@@ -5,7 +5,6 @@
      what is neww
     </section>
 
-
 <section class="cat_section mt-5">
   <div class="container">
     <div class="row">
@@ -16,14 +15,19 @@
             <div class="card-body">
               <h5 class="card-title">{{ cat.nomCat }}</h5>
               <p class="card-text">{{ cat.descCat }}</p>
-              <a href="{{ path('main_categories', {'id': cat.id}) }}" class="btn btn-primary">Voir produits</a>
+              <a href="{{ path('produit_par_categories', {'id': cat.id}) }}" class="btn btn-primary">Voir produits</a>
             </div>
           </div>
         </div>
       {% endfor %}
     </div>
+
+    <div class="text-center mt-3">
+      <a href="{{ path('main_categories') }}" class="btn btn-outline-secondary m-3">Voir toutes les catégories</a>
+    </div>
   </div>
 </section>
+
 
   <section class="produit_section">
       <div class="container">

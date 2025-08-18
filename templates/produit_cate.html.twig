@@ -1,0 +1,35 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+<section class="produit_section mt-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Produits de la catégorie {{ cat.nomCat }}</h2>
+
+    {% set produitsFiltres = produits|filter(p => p.categorie.id == cat.id) %}
+     <!-- {% set produitsFiltres = produits|filter(p => p.categorie is defined and p.categorie is not null and p.categorie.id == cat.id) %} -->
+
+
+    {% if produitsFiltres|length > 0 %}
+      <div class="row">
+        {% for produit in produitsFiltres %}
+          <div class="col-md-3 col-sm-6 mb-4 d-flex">
+            <div class="card w-100">
+              <img src="{{ produit.photo }}" class="card-img-top" alt="{{ produit.nomProduit }}" />
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ produit.nomProduit }}</h5>
+                <p class="card-text">{{ produit.descProduit }}</p>
+                <p class="card-text">{{ produit.ventPrix }} €</p>
+                <a href="/panier/add/{{ produit.id }}" class="btn btn-primary mt-auto">Ajouter au panier</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-center">Aucun produit trouvé pour cette catégorie.</p>
+    {% endif %}
+  </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+
+<section class="ajouter_au_panier mt-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Votre Panier</h2>
+
+    <div class="row marque_vedettes_card">
+      <div class="{% if panier |length > 4 %}col-md-12{% else %}col-md-6{% endif %}">
+        <form method="post" action="">
+          <input type="text" name="nom" class="form-control form-section mb-2" placeholder="Nom et prénom" />
+          <input type="email" name="email" class="form-control form-section mb-2" placeholder="Email" />
+          <label class="mb-1 mt-2">Adresse</label>
+          <textarea name="adresse" class="form-control mb-3" rows="2" placeholder="Adresse complète"></textarea>
+          <input type="text" name="ville" class="form-control form-section mb-2" placeholder="Ville" />
+          <div class="d-flex gap-2 mb-2">
+            <input type="text" name="code_postal" class="form-control form-section w-50" placeholder="Code postal" />
+            <input type="tel" name="telephone" class="form-control form-section w-50" placeholder="Téléphone" />
+          </div>
+          <button type="submit" class="btn confirm-btn w-100 mt-3 btn-primary">Confirmer la commande</button>
+        </form>
+      </div>
+
+      <div class="{% if panier |length > 4 %}col-md-12 mt-4{% else %}col-md-6{% endif %}">
+        {% if panier  is empty %}
+          <p>Votre panier est vide.</p>
+        {% else %}
+       {% for item in panier %}
+  <div class="panier-item d-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex align-items-center">
+      <img src="{{ item.produit.photo }}" alt="{{ item.produit.nomProduit }}" height="100px" width="100px" />
+      <div class="ms-3">
+        <p class="mb-1 fw-bold">{{ item.produit.nomProduit }}</p>
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <form method="post" action="">
+            <button type="submit" class="btn btn-sm btn-secondary fw-bold">-</button>
+          </form>
+          <span>{{ item.quantite }}</span>
+          <form method="post" action="">
+            <button type="submit" class="btn btn-sm btn-secondary fw-bold">+</button>
+          </form>
+        </div>
+        <p class="mb-0 fw-bold">{{ item.produit.ventPrix|number_format(2, '.', ',') }} €</p>
+      </div>
+    </div>
+    <form method="post" action="{{ path('main_del_panier', {'id': item.produit.id}) }}">
+      <button type="submit" class="btn btn-sm btn-danger ms-3">Supprimer</button>
+    </form>
+  </div>
+{% endfor %}
+
+        {% endif %}
+        <div class="total-section text-end mt-4">
+          <h5 class="fw-bold">Total: {{ totalPrice|number_format(2, '.', ',') }} €</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
