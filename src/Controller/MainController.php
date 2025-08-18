@@ -10,6 +10,7 @@ use App\Repository\ProduitsRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Produits;
+use App\Service\Panier;
 
 
 final class MainController extends AbstractController
@@ -65,17 +66,10 @@ final class MainController extends AbstractController
         ]);
     }
     #[Route('/panier/add/{id}', name: 'main_add_panier')]
-    public function add(Request $request, Produits $produit): Response
+    public function add( Produits $produit, Panier $panier ): Response
     {
-        $session = $request->getSession();
-        $panier = $session->get('panier', []);
-        if(isset($panier[$produit->getId()])){
-             $panier[$produit->getId()] ++;
-        }
-        else{
-            $panier[$produit->getId()] = 1;
-        }
-        $session->set('panier', $panier);
+
+        $panier->add($produit->getId());
         return $this->redirectToRoute('main_panier');
     }
 
