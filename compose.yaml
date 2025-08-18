@@ -29,7 +29,7 @@ services:
       MARIADB_DATABASE: village_green
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'no'
     volumes:
-      - database_data:/var/lib/mysql:rw
+      - village_green_db_data:/var/lib/mysql:rw
       - ./var/mysql:/var/www/var
     networks:
       - app_network                
@@ -48,7 +48,7 @@ services:
       - app_network               
 
 volumes:
-  database_data:
+  village_green_db_data:
 
 networks:
   app_network:
