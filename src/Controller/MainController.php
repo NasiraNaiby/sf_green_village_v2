@@ -85,8 +85,9 @@ final class MainController extends AbstractController
     }
 
     #[Route('/produit', name: 'main_produit')]
-    public function produit(): Response
+    public function produit(ProduitsRepository $produit): Response
     {
-        return $this->render('produit.html.twig');
+        $produits = $produit->findAll();  
+        return $this->render('produit.html.twig',['produits' => $produits]);
     }
 }
