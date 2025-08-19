@@ -45,13 +45,11 @@ final class MainController extends AbstractController
     }
 
     #[Route('/panier', name: 'main_panier')]
-    public function panier(Request $request, ProduitsRepository $repo): Response
+    public function panier(Panier $panier, ProduitsRepository $repo): Response
     {
         $panier_complet = [];
         $total = 0;
-        $session = $request->getSession();
-        $panier = $session->get('panier', []);
-        foreach ($panier as $id => $quantite) {
+        foreach ($panier->liste() as $id => $quantite) {
             $produit = $repo->find($id);
             $panier_complet[] = [
                 'produit' => $produit,
@@ -74,18 +72,9 @@ final class MainController extends AbstractController
     }
 
     #[Route('/panier/del/{id}', name: 'main_del_panier')]
-    public function delete(Request $request, Produits $produit): Response
+    public function delete(Produits $produit, Panier $panier): Response
     {
-        $session = $request->getSession();
-        $panier = $session->get('panier', []);
-        if(isset($panier[$produit->getId()])){
-             $panier[$produit->getId()] --;
-
-             if($panier[$produit->getId()] == 0 ){
-                unset($panier[$produit->getId()]);
-             }
-        }
-        $session->set('panier', $panier);
+        $panier->delete($produit->getId());
         return $this->redirectToRoute('main_panier');
     }
 

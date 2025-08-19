@@ -33,13 +33,9 @@
       <div class="ms-3">
         <p class="mb-1 fw-bold">{{ item.produit.nomProduit }}</p>
         <div class="d-flex align-items-center gap-2 mb-1">
-          <form method="post" action="">
-            <button type="submit" class="btn btn-sm btn-secondary fw-bold">-</button>
-          </form>
+          <a href="/panier/del/{{ item.produit.id }}" class="btn btn-sm btn-secondary fw-bold">-</a>
           <span>{{ item.quantite }}</span>
-          <form method="post" action="">
-            <button type="submit" class="btn btn-sm btn-secondary fw-bold">+</button>
-          </form>
+          <a href="/panier/add/{{ item.produit.id }}" class="btn btn-sm btn-secondary fw-bold">+</a>
         </div>
         <p class="mb-0 fw-bold">{{ item.produit.ventPrix|number_format(2, '.', ',') }} €</p>
       </div>
