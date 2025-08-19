@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ClientContorller extends AbstractController
 {
   
-    #[Route('/app/spaceclient', name: 'spaceclient')]
+    #[Route('/spaceclient', name: 'spaceclient')]
     public function spaceClient(): Response
     {
         if (!$this->isGranted('ROLE_USER')) {

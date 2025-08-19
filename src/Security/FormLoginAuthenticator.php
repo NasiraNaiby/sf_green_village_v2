@@ -55,7 +55,9 @@ class FormLoginAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        return new RedirectResponse($this->urlGenerator->generate('spaceclient', ['reactRouting' => 'spaceclient']));
+        // return new RedirectResponse($this->urlGenerator->generate('spaceclient', ['reactRouting' => 'spaceclient'])); // for react
+        return new RedirectResponse($this->urlGenerator->generate('spaceclient'));
+
     }
 
     protected function getLoginUrl(Request $request): string
