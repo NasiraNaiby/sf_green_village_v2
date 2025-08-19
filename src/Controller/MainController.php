@@ -90,4 +90,15 @@ final class MainController extends AbstractController
         $produits = $produit->findAll();  
         return $this->render('produit.html.twig',['produits' => $produits]);
     }
+    #[Route('/about', name: 'main_about')]
+    public function about(): Response
+    { 
+        return $this->render('about.html.twig');
+    }
+
+    #[Route('/magasin', name: 'main_magasin')]
+    public function magasin(): Response
+    { 
+        return $this->render('magasin.html.twig');
+    }
 }
