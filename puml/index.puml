@@ -13,8 +13,7 @@ class Vendeurs {
 	nom_vend : string
 	email_vend : string
 	phone_vend : int
-	id_client : int
-	<color:#0000dd>id_clients : Clients</color>
+	<color:#0000dd>client : Clients</color>
 }
 
 class Produits {
@@ -38,7 +37,6 @@ class LivraisonNote {
 
 class Clients {
 	**id : int**
-	id_client : int
 	nom_client : string
 	type_client : string
 	condition_paiment : string
@@ -77,7 +75,7 @@ class Categories {
 class Commandes {
 	**id : int**
 	id_commande : int
-	<color:#0000dd>id_clients : Clients</color>
+	<color:#0000dd>client : Clients</color>
 	<color:#0000dd>id_produit : Produits[]</color>
 	quantité : int
 	unit_prix : string
@@ -88,9 +86,10 @@ User "1"--"1" Clients
 Vendeurs "*"--"1" Clients
 Produits "*"--"1" Categories
 LivraisonNote "1"--"1" Commandes
-Clients "1"--"1" User
+Clients "1"--"*" Vendeurs
 Clients "1"--"*" Commandes
 Factures "1"--"1" Commandes
+Commandes "*"--"1" Clients
 Commandes "*"--"*" Produits
 
 

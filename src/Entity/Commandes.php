@@ -19,8 +19,9 @@ class Commandes
     #[ORM\Column]
     private ?int $id_commande = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commandes')]
-    private ?Clients $id_clients = null;
+    #[ORM\ManyToOne(targetEntity: Clients::class, inversedBy: 'commandes')]
+    #[ORM\JoinColumn(name: 'client_id', referencedColumnName: 'id', nullable: false)]
+    private ?Clients $client = null;
 
     /**
      * @var Collection<int, Produits>
@@ -55,25 +56,20 @@ class Commandes
     public function setIdCommande(int $id_commande): static
     {
         $this->id_commande = $id_commande;
-
         return $this;
     }
 
-    public function getIdClients(): ?Clients
+    public function getClient(): ?Clients
     {
-        return $this->id_clients;
+        return $this->client;
     }
 
-    public function setIdClients(?Clients $id_clients): static
+    public function setClient(?Clients $client): static
     {
-        $this->id_clients = $id_clients;
-
+        $this->client = $client;
         return $this;
     }
 
-    /**
-     * @return Collection<int, Produits>
-     */
     public function getIdProduit(): Collection
     {
         return $this->id_produit;
@@ -91,7 +87,6 @@ class Commandes
     public function removeIdProduit(Produits $idProduit): static
     {
         $this->id_produit->removeElement($idProduit);
-
         return $this;
     }
 
@@ -103,7 +98,6 @@ class Commandes
     public function setQuantité(?int $quantité): static
     {
         $this->quantité = $quantité;
-
         return $this;
     }
 
@@ -115,7 +109,6 @@ class Commandes
     public function setUnitPrix(?string $unit_prix): static
     {
         $this->unit_prix = $unit_prix;
-
         return $this;
     }
 
@@ -127,7 +120,6 @@ class Commandes
     public function setTotalPrix(?string $total_prix): static
     {
         $this->total_prix = $total_prix;
-
         return $this;
     }
 }

@@ -8,47 +8,36 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientsRepository::class)]
+#[ORM\Table(name: 'clients')]
 class Clients
 {
- 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_client = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $nom_client = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $type_client = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $condition_paiment = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $address_facturation = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $address_livrasion = null;
 
-       #[ORM\OneToOne(targetEntity: User::class)]
+    #[ORM\OneToOne(inversedBy: 'client', targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-
-
-    /**
-     * @var Collection<int, Vendeurs>
-     */
     #[ORM\OneToMany(targetEntity: Vendeurs::class, mappedBy: 'id_clients')]
     private Collection $id_vend;
 
-    /**
-     * @var Collection<int, Commandes>
-     */
     #[ORM\OneToMany(targetEntity: Commandes::class, mappedBy: 'id_clients')]
     private Collection $commandes;
 
@@ -58,23 +47,9 @@ class Clients
         $this->commandes = new ArrayCollection();
     }
 
-
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdClient(): ?int
-    {
-        return $this->id_client;
-    }
-
-    public function setIdClient(int $id_client): static
-    {
-        $this->id_client = $id_client;
-
-        return $this;
     }
 
     public function getNomClient(): ?string
@@ -85,7 +60,6 @@ class Clients
     public function setNomClient(string $nom_client): static
     {
         $this->nom_client = $nom_client;
-
         return $this;
     }
 
@@ -97,7 +71,6 @@ class Clients
     public function setTypeClient(?string $type_client): static
     {
         $this->type_client = $type_client;
-
         return $this;
     }
 
@@ -109,7 +82,6 @@ class Clients
     public function setConditionPaiment(?string $condition_paiment): static
     {
         $this->condition_paiment = $condition_paiment;
-
         return $this;
     }
 
@@ -121,7 +93,6 @@ class Clients
     public function setAddressFacturation(?string $address_facturation): static
     {
         $this->address_facturation = $address_facturation;
-
         return $this;
     }
 
@@ -133,13 +104,20 @@ class Clients
     public function setAddressLivrasion(string $address_livrasion): static
     {
         $this->address_livrasion = $address_livrasion;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Vendeurs>
-     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): static
+    {
+        $this->user = $user;
+        return $this;
+    }
+
     public function getIdVend(): Collection
     {
         return $this->id_vend;
@@ -158,7 +136,6 @@ class Clients
     public function removeIdVend(Vendeurs $idVend): static
     {
         if ($this->id_vend->removeElement($idVend)) {
-            // set the owning side to null (unless already changed)
             if ($idVend->getIdClients() === $this) {
                 $idVend->setIdClients(null);
             }
@@ -167,9 +144,6 @@ class Clients
         return $this;
     }
 
-    /**
-     * @return Collection<int, Commandes>
-     */
     public function getCommandes(): Collection
     {
         return $this->commandes;
@@ -188,7 +162,6 @@ class Clients
     public function removeCommande(Commandes $commande): static
     {
         if ($this->commandes->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
             if ($commande->getIdClients() === $this) {
                 $commande->setIdClients(null);
             }
@@ -196,16 +169,4 @@ class Clients
 
         return $this;
     }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-        return $this;
-    }
-    
 }

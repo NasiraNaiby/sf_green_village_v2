@@ -25,11 +25,9 @@ class Vendeurs
     #[ORM\Column(nullable: true)]
     private ?int $phone_vend = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $id_client = null;
-
-    #[ORM\ManyToOne(inversedBy: 'id_vend')]
-    private ?Clients $id_clients = null;
+    #[ORM\ManyToOne(targetEntity: Clients::class, inversedBy: 'id_vend')]
+    #[ORM\JoinColumn(name: 'client_id', referencedColumnName: 'id', nullable: false)]
+    private ?Clients $client = null;
 
     public function getId(): ?int
     {
@@ -44,7 +42,6 @@ class Vendeurs
     public function setIdVendeur(int $id_vendeur): static
     {
         $this->id_vendeur = $id_vendeur;
-
         return $this;
     }
 
@@ -56,7 +53,6 @@ class Vendeurs
     public function setNomVend(string $nom_vend): static
     {
         $this->nom_vend = $nom_vend;
-
         return $this;
     }
 
@@ -68,7 +64,6 @@ class Vendeurs
     public function setEmailVend(?string $email_vend): static
     {
         $this->email_vend = $email_vend;
-
         return $this;
     }
 
@@ -80,31 +75,17 @@ class Vendeurs
     public function setPhoneVend(?int $phone_vend): static
     {
         $this->phone_vend = $phone_vend;
-
         return $this;
     }
 
-    public function getIdClient(): ?int
+    public function getClient(): ?Clients
     {
-        return $this->id_client;
+        return $this->client;
     }
 
-    public function setIdClient(?int $id_client): static
+    public function setClient(?Clients $client): static
     {
-        $this->id_client = $id_client;
-
-        return $this;
-    }
-
-    public function getIdClients(): ?Clients
-    {
-        return $this->id_clients;
-    }
-
-    public function setIdClients(?Clients $id_clients): static
-    {
-        $this->id_clients = $id_clients;
-
+        $this->client = $client;
         return $this;
     }
 }
