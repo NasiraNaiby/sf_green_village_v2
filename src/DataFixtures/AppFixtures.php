@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
             $produit->setDescProduit($faker->sentence());
             $produit->setAchatPrix($faker->randomFloat(2, 10, 100));
             $produit->setVentPrix($faker->randomFloat(2, 10, 100));
-            $produit->setPhoto('https://picsum.photos/id/1039/300/300.jpg');
+            $produit->setPhoto('https://picsum.photos/200/300');
 
             // Randomly assign category
             $randomCategory = $categories[array_rand($categories)];
