@@ -31,6 +31,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Clients::class)]
+    private ?Clients $client = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -100,4 +105,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // @deprecated, to be removed when upgrading to Symfony 8
     }
+    public function getClient(): ?Clients
+    {
+        return $this->client;
+    }
+
+    public function setClient(Clients $client): self
+    {
+        $this->client = $client;
+        return $this;
+    }
+
 }

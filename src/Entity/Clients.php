@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ClientsRepository::class)]
 class Clients
 {
+ 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -24,12 +25,6 @@ class Clients
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $type_client = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $email_client = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $condition_paiment = null;
 
@@ -38,6 +33,12 @@ class Clients
 
     #[ORM\Column(length: 255)]
     private ?string $address_livrasion = null;
+
+       #[ORM\OneToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+
 
     /**
      * @var Collection<int, Vendeurs>
@@ -96,30 +97,6 @@ class Clients
     public function setTypeClient(?string $type_client): static
     {
         $this->type_client = $type_client;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getEmailClient(): ?string
-    {
-        return $this->email_client;
-    }
-
-    public function setEmailClient(string $email_client): static
-    {
-        $this->email_client = $email_client;
 
         return $this;
     }
@@ -220,5 +197,15 @@ class Clients
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
     
 }

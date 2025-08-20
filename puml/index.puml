@@ -4,6 +4,7 @@ class User {
 	email : string
 	roles : array
 	password : string
+	<color:#0000dd>client : Clients</color>
 }
 
 class Vendeurs {
@@ -40,11 +41,10 @@ class Clients {
 	id_client : int
 	nom_client : string
 	type_client : string
-	password : string
-	email_client : string
 	condition_paiment : string
 	address_facturation : string
 	address_livrasion : string
+	<color:#0000dd>user : User</color>
 	<color:#0000dd>id_vend : Vendeurs[]</color>
 	<color:#0000dd>commandes : Commandes[]</color>
 }
@@ -84,9 +84,11 @@ class Commandes {
 	total_prix : string
 }
 
+User "1"--"1" Clients
 Vendeurs "*"--"1" Clients
 Produits "*"--"1" Categories
 LivraisonNote "1"--"1" Commandes
+Clients "1"--"1" User
 Clients "1"--"*" Commandes
 Factures "1"--"1" Commandes
 Commandes "*"--"*" Produits
