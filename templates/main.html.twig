@@ -63,34 +63,29 @@
         </div> -->
 <div class="hearder_third_section position-relative">
     <div class="dropdown mt-1">
-        <!-- Always visible user icon with your previous style -->
         <a class="login_icon d-flex align-items-center" href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-user"></i>
         </a>
 
         {% if app.user %}
-            <!-- Dropdown only if logged in -->
             <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown" style="min-width:200px;">
                 <li class="px-3 py-2 d-flex align-items-center">
-                    <!-- Small round avatar -->
                     <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:35px; height:35px;">
                         {{ app.user.email|first|upper }}
                     </div>
-                    <!-- Part of email -->
                     <span>{{ app.user.email|slice(0, 12) }}{% if app.user.email|length > 12 %}...{% endif %}</span>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se Déconnecter</a></li>
             </ul>
         {% else %}
-            <!-- Not logged in: dropdown can link to login page -->
             <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="">S'inscrire</a></li>
                 <li><a class="dropdown-item" href="{{ path('app_login') }}">Se Connecter</a></li>
             </ul>
         {% endif %}
     </div>
 
-    <!-- Cart icon -->
     <a href="/panier" class="cart_icon position-relative ms-3">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
