@@ -71,9 +71,9 @@
         <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown" style="min-width:200px;">
             <li class="px-3 py-2 d-flex align-items-center">
                 <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:35px; height:35px;">
-                    {{ client.nomClient|first|upper }}
+                    {{ app.user.userName|first|upper }}
                 </div>
-                <span>{{ client.nomClient|slice(0, 12) }}{% if client.nomClient|length > 12 %}...{% endif %}</span>
+                <span>{{ app.user.userName|slice(0, 12) }}{% if app.user.userName|length > 12 %}...{% endif %}</span>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se Déconnecter</a></li>
@@ -100,7 +100,7 @@
     </header>
 
     <!-- Main Content -->
-    {% block body %}{% endblock %}
+    <main>{% block body %}{% endblock %}</main>
 
     <!-- Footer -->
     <footer class="myfooter bg-light mt-3">

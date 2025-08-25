@@ -13,7 +13,7 @@ class ClientDataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom_client', TextType::class)
+            // ->add('nom_client', TextType::class)
             ->add('type_client', TextType::class)
             ->add('address_facturation', TextType::class)
             ->add('address_livrasion', TextType::class);

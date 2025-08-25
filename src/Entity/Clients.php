@@ -16,8 +16,8 @@ class Clients
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $nom_client = null;
+    // #[ORM\Column(type: 'string', length: 255)]
+    // private ?string $nom_client = null;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $type_client = null;
@@ -52,16 +52,16 @@ class Clients
         return $this->id;
     }
 
-    public function getNomClient(): ?string
-    {
-        return $this->nom_client;
-    }
+    // public function getNomClient(): ?string
+    // {
+    //     return $this->nom_client;
+    // }
 
-    public function setNomClient(string $nom_client): static
-    {
-        $this->nom_client = $nom_client;
-        return $this;
-    }
+    // public function setNomClient(string $nom_client): static
+    // {
+    //     $this->nom_client = $nom_client;
+    //     return $this;
+    // }
 
     public function getTypeClient(): ?string
     {

@@ -5,6 +5,7 @@ class User {
 	roles : array
 	password : string
 	<color:#0000dd>client : Clients</color>
+	user_name : string
 }
 
 class Vendeurs {
