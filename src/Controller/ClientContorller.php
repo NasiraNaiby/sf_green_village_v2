@@ -10,20 +10,26 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Form\InscriptionType;
+use App\Entity\Clients;
 
 
 
 final class ClientContorller extends AbstractController
 {
   
-    #[Route('/spaceclient', name: 'spaceclient')]
-    public function spaceClient(): Response
+   #[Route('/spaceclient', name: 'spaceclient')]
+    public function spaceClient(EntityManagerInterface $em): Response
     {
         if (!$this->isGranted('ROLE_USER')) {
             throw $this->createAccessDeniedException();
         }
 
-        return $this->render('client_contorller/index.html.twig');
+        $user = $this->getUser();
+        $client = $em->getRepository(Clients::class)->findOneBy(['user' => $user]);
+
+        return $this->render('client_contorller/index.html.twig', [
+            'client' => $client,
+        ]);
     }
 
 

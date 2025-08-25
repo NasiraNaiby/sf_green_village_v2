@@ -68,22 +68,23 @@
         </a>
 
         {% if app.user %}
-            <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown" style="min-width:200px;">
-                <li class="px-3 py-2 d-flex align-items-center">
-                    <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:35px; height:35px;">
-                        {{ app.user.email|first|upper }}
-                    </div>
-                    <span>{{ app.user.email|slice(0, 12) }}{% if app.user.email|length > 12 %}...{% endif %}</span>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se Déconnecter</a></li>
-            </ul>
-        {% else %}
-            <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="/register">S'inscrire</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_login') }}">Se Connecter</a></li>
-            </ul>
-        {% endif %}
+        <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown" style="min-width:200px;">
+            <li class="px-3 py-2 d-flex align-items-center">
+                <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:35px; height:35px;">
+                    {{ client.nomClient|first|upper }}
+                </div>
+                <span>{{ client.nomClient|slice(0, 12) }}{% if client.nomClient|length > 12 %}...{% endif %}</span>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se Déconnecter</a></li>
+        </ul>
+    {% else %}
+        <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="/register">S'inscrire</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_login') }}">Se Connecter</a></li>
+        </ul>
+    {% endif %}
+
     </div>
 
     <a href="/panier" class="cart_icon position-relative ms-3">
