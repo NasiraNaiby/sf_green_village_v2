@@ -29,6 +29,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', targetEntity: Clients::class, cascade: ['persist', 'remove'])]
     private ?Clients $client = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $user_name = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +91,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setClient(Clients $client): static
     {
         $this->client = $client;
+        return $this;
+    }
+
+    public function getUserName(): ?string
+    {
+        return $this->user_name;
+    }
+
+    public function setUserName(string $user_name): static
+    {
+        $this->user_name = $user_name;
+
         return $this;
     }
 }
