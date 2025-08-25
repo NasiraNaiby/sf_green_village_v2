@@ -19,15 +19,29 @@ class InscriptionType extends AbstractType
             ->add('user_name', TextType::class, [
                 'label' => 'votre Nom et Prénom: ',
                 'required' => true,
+                'attr' => [
+                'class' => 'form-control',
+                'placeholder' => 'Entrez votre nom complet'
+                ]
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Addresse mail: ',
-                'required' => true 
+                'required' => true ,
+                'attr' => [
+                'class' => 'form-control',
+                'placeholder' => 'john@gmail.com'
+                ]
             ])
             ->add('password', PasswordType::class,  [
                 'label' => 'Mot de passe : ',
-                'required' => true ] )
-            ->add('client', ClientDataType::class);
+                'required' => true,
+                'attr' => [
+                'class' => 'form-control',
+                ]
+                 ] )
+            ->add('client', ClientDataType::class,[
+                'label' => false , 
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
