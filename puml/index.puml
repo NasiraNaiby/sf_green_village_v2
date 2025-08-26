@@ -38,7 +38,6 @@ class LivraisonNote {
 
 class Clients {
 	**id : int**
-	nom_client : string
 	type_client : string
 	condition_paiment : string
 	address_facturation : string
@@ -46,6 +45,8 @@ class Clients {
 	<color:#0000dd>user : User</color>
 	<color:#0000dd>id_vend : Vendeurs[]</color>
 	<color:#0000dd>commandes : Commandes[]</color>
+	client_cp : string
+	livrasion_cp : string
 }
 
 class Factures {

@@ -14,83 +14,30 @@ class Factures
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_facture = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Commandes $id_commande = null;
+    #[ORM\OneToOne(inversedBy: 'facture', targetEntity: Commandes::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Commandes $commande = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $date_facture = null;
+    private ?\DateTime $dateFacture = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    private ?string $montant_total = null;
+    private ?string $montantTotal = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    private ?string $paiment_statut = null;
+    private ?string $statutPaiement = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    public function getId(): ?int { return $this->id; }
 
-    public function getIdFacture(): ?int
-    {
-        return $this->id_facture;
-    }
+    public function getCommande(): ?Commandes { return $this->commande; }
+    public function setCommande(?Commandes $commande): static { $this->commande = $commande; return $this; }
 
-    public function setIdFacture(int $id_facture): static
-    {
-        $this->id_facture = $id_facture;
+    public function getDateFacture(): ?\DateTime { return $this->dateFacture; }
+    public function setDateFacture(\DateTime $dateFacture): static { $this->dateFacture = $dateFacture; return $this; }
 
-        return $this;
-    }
+    public function getMontantTotal(): ?string { return $this->montantTotal; }
+    public function setMontantTotal(?string $montantTotal): static { $this->montantTotal = $montantTotal; return $this; }
 
-    public function getIdCommande(): ?Commandes
-    {
-        return $this->id_commande;
-    }
-
-    public function setIdCommande(?Commandes $id_commande): static
-    {
-        $this->id_commande = $id_commande;
-
-        return $this;
-    }
-
-    public function getDateFacture(): ?\DateTime
-    {
-        return $this->date_facture;
-    }
-
-    public function setDateFacture(\DateTime $date_facture): static
-    {
-        $this->date_facture = $date_facture;
-
-        return $this;
-    }
-
-    public function getMontantTotal(): ?string
-    {
-        return $this->montant_total;
-    }
-
-    public function setMontantTotal(?string $montant_total): static
-    {
-        $this->montant_total = $montant_total;
-
-        return $this;
-    }
-
-    public function getPaimentStatut(): ?string
-    {
-        return $this->paiment_statut;
-    }
-
-    public function setPaimentStatut(?string $paiment_statut): static
-    {
-        $this->paiment_statut = $paiment_statut;
-
-        return $this;
-    }
+    public function getStatutPaiement(): ?string { return $this->statutPaiement; }
+    public function setStatutPaiement(?string $statutPaiement): static { $this->statutPaiement = $statutPaiement; return $this; }
 }

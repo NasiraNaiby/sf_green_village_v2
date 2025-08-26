@@ -14,83 +14,30 @@ class LivraisonNote
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_liv_note = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Commandes $id_commande = null;
+    #[ORM\OneToOne(inversedBy: 'livraisonNote', targetEntity: Commandes::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Commandes $commande = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $statut_liv = null;
+    private ?string $statutLivraison = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTime $date_liv = null;
+    private ?\DateTime $dateLivraison = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $note_liv = null;
+    private ?string $noteLivraison = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    public function getId(): ?int { return $this->id; }
 
-    public function getIdLivNote(): ?int
-    {
-        return $this->id_liv_note;
-    }
+    public function getCommande(): ?Commandes { return $this->commande; }
+    public function setCommande(?Commandes $commande): static { $this->commande = $commande; return $this; }
 
-    public function setIdLivNote(int $id_liv_note): static
-    {
-        $this->id_liv_note = $id_liv_note;
+    public function getStatutLivraison(): ?string { return $this->statutLivraison; }
+    public function setStatutLivraison(?string $statutLivraison): static { $this->statutLivraison = $statutLivraison; return $this; }
 
-        return $this;
-    }
+    public function getDateLivraison(): ?\DateTime { return $this->dateLivraison; }
+    public function setDateLivraison(?\DateTime $dateLivraison): static { $this->dateLivraison = $dateLivraison; return $this; }
 
-    public function getIdCommande(): ?Commandes
-    {
-        return $this->id_commande;
-    }
-
-    public function setIdCommande(?Commandes $id_commande): static
-    {
-        $this->id_commande = $id_commande;
-
-        return $this;
-    }
-
-    public function getStatutLiv(): ?string
-    {
-        return $this->statut_liv;
-    }
-
-    public function setStatutLiv(?string $statut_liv): static
-    {
-        $this->statut_liv = $statut_liv;
-
-        return $this;
-    }
-
-    public function getDateLiv(): ?\DateTime
-    {
-        return $this->date_liv;
-    }
-
-    public function setDateLiv(?\DateTime $date_liv): static
-    {
-        $this->date_liv = $date_liv;
-
-        return $this;
-    }
-
-    public function getNoteLiv(): ?string
-    {
-        return $this->note_liv;
-    }
-
-    public function setNoteLiv(string $note_liv): static
-    {
-        $this->note_liv = $note_liv;
-
-        return $this;
-    }
+    public function getNoteLivraison(): ?string { return $this->noteLivraison; }
+    public function setNoteLivraison(string $noteLivraison): static { $this->noteLivraison = $noteLivraison; return $this; }
 }
