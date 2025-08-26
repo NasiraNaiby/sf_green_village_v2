@@ -41,6 +41,12 @@ class Clients
     #[ORM\OneToMany(targetEntity: Commandes::class, mappedBy: 'id_clients')]
     private Collection $commandes;
 
+    #[ORM\Column(length: 10)]
+    private ?string $client_cp = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $livrasion_cp = null;
+
     public function __construct()
     {
         $this->id_vend = new ArrayCollection();
@@ -166,6 +172,30 @@ class Clients
                 $commande->setIdClients(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClientCp(): ?string
+    {
+        return $this->client_cp;
+    }
+
+    public function setClientCp(string $client_cp): static
+    {
+        $this->client_cp = $client_cp;
+
+        return $this;
+    }
+
+    public function getLivrasionCp(): ?string
+    {
+        return $this->livrasion_cp;
+    }
+
+    public function setLivrasionCp(string $livrasion_cp): static
+    {
+        $this->livrasion_cp = $livrasion_cp;
 
         return $this;
     }

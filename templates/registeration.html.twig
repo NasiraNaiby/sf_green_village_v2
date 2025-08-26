@@ -1,15 +1,78 @@
 {% extends 'main.html.twig' %}
 
 {% block body %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h2 class="text-center mb-4">Créer votre compte</h2>
 
+          {{ form_start(form) }}
 
+          {# User Info Section #}
+          <div class="form-floating mb-3">
+            {{ form_widget(form.user_name,  {'attr': {'placeholder': ' ' , 'class': 'label_margin, form-control' }}) }}
+            {{ form_label(form.user_name , 'Nom complet')  }}
+            {{ form_errors(form.user_name) }}
+          </div>
 
-<h1>Register</h1>
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Register</button>
-{{ form_end(form) }}
+          <div class="form-floating mb-3">
+            {{ form_widget(form.email, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+            {{ form_label(form.email) }}
+            {{ form_errors(form.email) }}
+          </div>
 
+          <div class="form-floating mb-3">
+            {{ form_widget(form.password, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+            {{ form_label(form.password) }}
+            {{ form_errors(form.password) }}
+          </div>
 
+          <hr class="my-4">
+          <h5 class="mb-3">Adresse & Livraison</h5>
 
+          {# Client Type #}
+          <div class=" mb-3">
+            {{ form_label(form.client.type_client) }}
+            {{ form_widget(form.client.type_client) }}
+            {{ form_errors(form.client.type_client) }}
+          </div>
+
+          {# Facturation Address & Postal Code #}
+          <div class="row g-3 mb-3">
+            <div class="col-md-8 form-floating">
+              {{ form_widget(form.client.address_facturation, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_label(form.client.address_facturation , 'Votre adresse') }}
+              {{ form_errors(form.client.address_facturation) }}
+            </div>
+            <div class="col-md-4 form-floating">
+              {{ form_widget(form.client.client_cp, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_label(form.client.client_cp, 'Code postal') }}
+              {{ form_errors(form.client.client_cp) }}
+            </div>
+          </div>
+
+          {# Livraison Address & Postal Code #}
+          <div class="row g-3 mb-3">
+            <div class="col-md-8 form-floating">
+              {{ form_widget(form.client.address_livrasion, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_label(form.client.address_livrasion, 'Adresse de livraison') }}
+              {{ form_errors(form.client.address_livrasion) }}
+            </div>
+            <div class="col-md-4 form-floating">
+              {{ form_widget(form.client.livrasion_cp, { 'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_label(form.client.livrasion_cp , 'Code Postal') }}
+              {{ form_errors(form.client.livrasion_cp) }}
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 mt-4">Soumettre</button>
+
+          {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -27,24 +27,24 @@
           <p>Votre panier est vide.</p>
         {% else %}
        {% for item in panier %}
-  <div class="panier-item d-flex align-items-center justify-content-between mb-4">
-    <div class="d-flex align-items-center">
-      <img src="{{ item.produit.photo }}" alt="{{ item.produit.nomProduit }}" height="100px" width="100px" />
-      <div class="ms-3">
-        <p class="mb-1 fw-bold">{{ item.produit.nomProduit }}</p>
-        <div class="d-flex align-items-center gap-2 mb-1">
-          <a href="/panier/del/{{ item.produit.id }}" class="btn btn-sm btn-secondary fw-bold">-</a>
-          <span>{{ item.quantite }}</span>
-          <a href="/panier/add/{{ item.produit.id }}" class="btn btn-sm btn-secondary fw-bold">+</a>
+      <div class="panier-item d-flex align-items-center justify-content-between mb-4">
+        <div class="d-flex align-items-center">
+          <img src="{{ item.produit.photo }}" alt="{{ item.produit.nomProduit }}" height="100px" width="100px" />
+          <div class="ms-3">
+            <p class="mb-1 fw-bold">{{ item.produit.nomProduit }}</p>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <a href="/panier/del/{{ item.produit.id }}" class="btn btn-sm btn-secondary fw-bold">-</a>
+              <span>{{ item.quantite }}</span>
+              <a href="/panier/add/{{ item.produit.id }}" class="btn btn-sm btn-secondary fw-bold">+</a>
+            </div>
+            <p class="mb-0 fw-bold">{{ item.produit.ventPrix|number_format(2, '.', ',') }} €</p>
+          </div>
         </div>
-        <p class="mb-0 fw-bold">{{ item.produit.ventPrix|number_format(2, '.', ',') }} €</p>
+        <form method="post" action="{{ path('main_del_panier', {'id': item.produit.id}) }}">
+          <button type="submit" class="btn btn-sm btn-danger ms-3">Supprimer</button>
+        </form>
       </div>
-    </div>
-    <form method="post" action="{{ path('main_del_panier', {'id': item.produit.id}) }}">
-      <button type="submit" class="btn btn-sm btn-danger ms-3">Supprimer</button>
-    </form>
-  </div>
-{% endfor %}
+      {% endfor %}
 
         {% endif %}
         <div class="total-section text-end mt-4">

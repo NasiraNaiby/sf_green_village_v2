@@ -29,7 +29,12 @@ class ClientDataType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Votre address complet avec code postal'
+                    ]
+                    ])
+            ->add('client_cp', TextType::class, [
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-control',
                     ]
                     ])
             ->add('address_livrasion', TextType::class, [
@@ -38,7 +43,10 @@ class ClientDataType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'Votre address complet avec code postal'
                  ]
-            ]);
+            ])
+            ->add('livrasion_cp', TextType::class, [
+                'required' => true,
+                    ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
