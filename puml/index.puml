@@ -29,33 +29,33 @@ class Produits {
 
 class LivraisonNote {
 	**id : int**
-	id_liv_note : int
-	<color:#0000dd>id_commande : Commandes</color>
-	statut_liv : string
-	date_liv : DateTime
-	note_liv : string
+	<color:#0000dd>commande : Commandes</color>
+	statutLivraison : string
+	dateLivraison : DateTime
+	noteLivraison : string
 }
 
 class Clients {
 	**id : int**
-	type_client : string
-	condition_paiment : string
-	address_facturation : string
-	address_livrasion : string
+	typeClient : string
+	conditionPaiement : string
+	adresseFacturation : string
+	adresseLivraison : string
+	codePostalFacturation : string
+	codePostalLivraison : string
 	<color:#0000dd>user : User</color>
-	<color:#0000dd>id_vend : Vendeurs[]</color>
+	<color:#0000dd>vendeurs : Vendeurs[]</color>
 	<color:#0000dd>commandes : Commandes[]</color>
-	client_cp : string
-	livrasion_cp : string
+	client_email : string
+	client_phone : string
 }
 
 class Factures {
 	**id : int**
-	id_facture : int
-	<color:#0000dd>id_commande : Commandes</color>
-	date_facture : DateTime
-	montant_total : string
-	paiment_statut : string
+	<color:#0000dd>commande : Commandes</color>
+	dateFacture : DateTime
+	montantTotal : string
+	statutPaiement : string
 }
 
 class Fournisseurs {
@@ -76,12 +76,13 @@ class Categories {
 
 class Commandes {
 	**id : int**
-	id_commande : int
 	<color:#0000dd>client : Clients</color>
-	<color:#0000dd>id_produit : Produits[]</color>
-	quantité : int
-	unit_prix : string
-	total_prix : string
+	<color:#0000dd>produits : Produits[]</color>
+	quantite : int
+	prixUnitaire : string
+	prixTotal : string
+	<color:#0000dd>livraisonNote : LivraisonNote</color>
+	<color:#0000dd>facture : Factures</color>
 }
 
 User "1"--"1" Clients
@@ -91,7 +92,6 @@ LivraisonNote "1"--"1" Commandes
 Clients "1"--"*" Vendeurs
 Clients "1"--"*" Commandes
 Factures "1"--"1" Commandes
-Commandes "*"--"1" Clients
 Commandes "*"--"*" Produits
 
 

@@ -63,15 +63,15 @@ class Commandes
     public function getQuantite(): ?int { return $this->quantite; }
     public function setQuantite(?int $quantite): static { $this->quantite = $quantite; return $this; }
 
-    public function getPrixUnitaire(): ?string { return $this->prixUnitaire; }
-    public function setPrixUnitaire(?string $prixUnitaire): static { $this->prixUnitaire = $prixUnitaire; return $this; }
+    public function getPrixUnitaire(): ? string { return $this->prixUnitaire; }
+    public function setPrixUnitaire(? string $prixUnitaire): static { $this->prixUnitaire = $prixUnitaire; return $this; }
 
-    public function getPrixTotal(): ?string { return $this->prixTotal; }
-    public function setPrixTotal(?string $prixTotal): static { $this->prixTotal = $prixTotal; return $this; }
+    public function getPrixTotal(): ? string { return $this->prixTotal; }
+    public function setPrixTotal(? string $prixTotal): static { $this->prixTotal = $prixTotal; return $this; }
 
-    public function getLivraisonNote(): ?LivraisonNote { return $this->livraisonNote; }
-    public function setLivraisonNote(?LivraisonNote $livraisonNote): static { $this->livraisonNote = $livraisonNote; return $this; }
+    public function getLivraisonNote(): ? LivraisonNote { return $this->livraisonNote; }
+    public function setLivraisonNote(? LivraisonNote $livraisonNote): static { $this->livraisonNote = $livraisonNote; return $this; }
 
-    public function getFacture(): ?Factures { return $this->facture; }
-    public function setFacture(?Factures $facture): static { $this->facture = $facture; return $this; }
+    public function getFacture(): ? Factures { return $this->facture; }
+    public function setFacture(? Factures $facture): static { $this->facture = $facture; return $this; }
 }

@@ -44,6 +44,12 @@ class Clients
     #[ORM\OneToMany(targetEntity: Commandes::class, mappedBy: 'client')]
     private Collection $commandes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $client_email = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $client_phone = null;
+
     public function __construct()
     {
         $this->vendeurs = new ArrayCollection();
@@ -104,6 +110,30 @@ class Clients
                 $commande->setClient(null);
             }
         }
+        return $this;
+    }
+
+    public function getClientEmail(): ?string
+    {
+        return $this->client_email;
+    }
+
+    public function setClientEmail(?string $client_email): static
+    {
+        $this->client_email = $client_email;
+
+        return $this;
+    }
+
+    public function getClientPhone(): ?string
+    {
+        return $this->client_phone;
+    }
+
+    public function setClientPhone(?string $client_phone): static
+    {
+        $this->client_phone = $client_phone;
+
         return $this;
     }
 }
