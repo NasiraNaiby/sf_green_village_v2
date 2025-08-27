@@ -42,28 +42,28 @@
           {# Facturation Address & Postal Code #}
           <div class="row g-3 mb-3">
             <div class="col-md-8 form-floating">
-              {{ form_widget(form.client.address_facturation, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
-              {{ form_label(form.client.address_facturation , 'Votre adresse') }}
-              {{ form_errors(form.client.address_facturation) }}
+              {{ form_widget(form.client.adresseFacturation, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_label(form.client.adresseFacturation , 'Votre adresse') }}
+              {{ form_errors(form.client.adresseFacturation) }}
             </div>
             <div class="col-md-4 form-floating">
-              {{ form_widget(form.client.client_cp, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
-              {{ form_label(form.client.client_cp, 'Code postal') }}
-              {{ form_errors(form.client.client_cp) }}
+              {{ form_widget(form.client.codePostalFacturation, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_label(form.client.codePostalFacturation, 'Code postal') }}
+              {{ form_errors(form.client.codePostalFacturation) }}
             </div>
           </div>
 
           {# Livraison Address & Postal Code #}
           <div class="row g-3 mb-3">
             <div class="col-md-8 form-floating">
-              {{ form_widget(form.client.address_livrasion, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
-              {{ form_label(form.client.address_livrasion, 'Adresse de livraison') }}
-              {{ form_errors(form.client.address_livrasion) }}
+              {{ form_widget(form.client.adresseLivraison, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_label(form.client.adresseLivraison, 'Adresse de livraison') }}
+              {{ form_errors(form.client.adresseLivraison) }}
             </div>
             <div class="col-md-4 form-floating">
-              {{ form_widget(form.client.livrasion_cp, { 'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
-              {{ form_label(form.client.livrasion_cp , 'Code Postal') }}
-              {{ form_errors(form.client.livrasion_cp) }}
+              {{ form_widget(form.client.codePostalLivraison, { 'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_label(form.client.codePostalLivraison , 'Code Postal') }}
+              {{ form_errors(form.client.codePostalLivraison) }}
             </div>
           </div>
 

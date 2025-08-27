@@ -57,5 +57,11 @@ class Panier
         return $panier;
     }
 
+    public function clear(): void
+    {
+        $this->session->set('panier', []);
+    }
+
+
 
 }

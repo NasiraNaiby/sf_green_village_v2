@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Facture détaillée</title>
+</head>
+<body>
+    <h2>Bonjour {{ client.user.username }},</h2>
+
+    <p>Voici votre facture détaillée pour la commande que vous avez passée :</p>
+
+    <h3>Détails de la commande :</h3>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in commande.produits %}
+                <tr>
+                    <td>{{ produit.nomProduit }}</td>
+                    <td>{{ commande.quantite }}</td>
+                    <td>{{ produit.ventPrix }} €</td>
+                    <td>{{ commande.prixTotal }} €</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p>Montant total : {{ commande.prixTotal }} €</p>
+    <p>Date de la facture : {{ facture.dateFacture|date('d/m/Y') }}</p>
+
+    <p>Merci pour votre confiance.</p>
+    <p>Cordialement,<br>Village Green</p>
+</body>
+</html>

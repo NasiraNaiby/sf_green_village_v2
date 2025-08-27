@@ -25,26 +25,26 @@ class ClientDataType extends AbstractType
                
                 ]
             ])
-            ->add('address_facturation', TextType::class, [
+            ->add('adresseFacturation', TextType::class, [
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
                     ]
                     ])
-            ->add('client_cp', TextType::class, [
+            ->add('codePostalFacturation', TextType::class, [
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
                     ]
                     ])
-            ->add('address_livrasion', TextType::class, [
+            ->add('adresseLivraison', TextType::class, [
                  'required' => true,
                  'attr' =>[
                     'class' => 'form-control',
-                    'placeholder' => 'Votre address complet avec code postal'
+                    'placeholder' => 'Votre address complet '
                  ]
             ])
-            ->add('livrasion_cp', TextType::class, [
+            ->add('codePostalLivraison', TextType::class, [
                 'required' => true,
                     ]);
     }

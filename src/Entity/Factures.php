@@ -24,8 +24,9 @@ class Factures
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?string $montantTotal = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+   #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
     private ?string $statutPaiement = null;
+
 
     public function getId(): ?int { return $this->id; }
 

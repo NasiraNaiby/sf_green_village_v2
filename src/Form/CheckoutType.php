@@ -15,7 +15,6 @@ class CheckoutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $clientData = $options['client_data'];
 
         $builder
             ->add('quantite', HiddenType::class)
@@ -23,27 +22,24 @@ class CheckoutType extends AbstractType
 
             ->add('client_email', EmailType::class, [
                 'mapped' => false,
-                'required' => !$clientData['email'],
+                'required' => true ,
                 'label' => 'Email',
-                'data' => $clientData['email']
+                
             ])
             ->add('client_phone', TelType::class, [
                 'mapped' => false,
-                'required' => !$clientData['phone'],
-                'label' => 'Phone Number',
-                'data' => $clientData['phone']
+                'required' => true,
+                'label' => 'Phone Number'   
             ])
             ->add('adresseLivraison', TextType::class, [
                 'mapped' => false,
-                'required' => !$clientData['adresse'],
-                'label' => 'Delivery Address',
-                'data' => $clientData['adresse']
+                'required' => true,
+                'label' => 'Delivery Address'
             ])
             ->add('codePostalLivraison', TextType::class, [
                 'mapped' => false,
-                'required' => !$clientData['postal'],
-                'label' => 'Postal Code',
-                'data' => $clientData['postal']
+                'required' => true,
+                'label' => 'Postal Code'
             ]);
     }
 
