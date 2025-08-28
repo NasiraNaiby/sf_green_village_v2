@@ -1,0 +1,30 @@
+{% extends 'main.html.twig' %}
+{% block body %}
+
+
+<h2>Résultats pour "{{ searchTerm }}"</h2>
+
+{% if results is empty %}
+    <p>Aucun résultat trouvé.</p>
+{% else %}
+    <div class="row">
+        {% for produit in results %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ produit.photo }}" class="card-img-top" alt="{{ produit.nomProduit }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ produit.nomProduit }}</h5>
+                        <p class="card-text">{{ produit.descProduit }}</p>
+                        <p class="card-text"><strong>Prix: </strong>{{ produit.ventPrix }} €</p>
+                        <p class="card-text"><small class="text-muted">Catégorie: {{ produit.categorie.nomCat }}</small></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<a href="{{ path('main_produit') }}" class="btn btn-primary mt-3">Retour aux produits</a>
+
+
+{% endblock %}

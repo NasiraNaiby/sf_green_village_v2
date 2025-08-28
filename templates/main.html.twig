@@ -44,12 +44,20 @@
         <div class="hearder_first_section">
             <img src="/images/logo1.png" alt="Logo" class="logo" />
         </div>
-        <div class="hearder_second_section">
+        <!-- <div class="hearder_second_section">
             <input type="text" placeholder="search" class="search_bar" />
             <button class="btn_search">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-        </div>
+        </div> -->
+            <div class="hearder_second_section">
+                <form action="{{ path('search') }}" method="get">
+                    <input type="text" name="q" placeholder="search" class="search_bar" />
+                    <button class="btn_search" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
         <!-- <div class="hearder_third_section position-relative">
             <a href="/login" class="login_icon">
                 <i class="fas fa-user"></i>

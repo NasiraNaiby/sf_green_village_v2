@@ -1,40 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Facture détaillée</title>
-</head>
-<body>
-    <h2>Bonjour {{ client.user.username }},</h2>
+<h1>Facture #{{ facture.id }}</h1>
+<p>Date: {{ facture.dateFacture|date('d/m/Y') }}</p>
+<p>Client: {{ client.clientEmail }}</p>
+<p>Adresse: {{ client.adresseLivraison }}</p>
 
-    <p>Voici votre facture détaillée pour la commande que vous avez passée :</p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th>Prix unitaire</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in commande.getProduits() %}
+        <tr>
+            <td>{{ item.nomProduit }}</td>
+            <td>{{ item.quantite }}</td>
+            <td>{{ item.ventPrix|number_format(2, '.', ',') }} €</td>
+            <td>{{ (item.ventPrix * item.quantite)|number_format(2, '.', ',') }} €</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-    <h3>Détails de la commande :</h3>
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Quantité</th>
-                <th>Prix unitaire</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for produit in commande.produits %}
-                <tr>
-                    <td>{{ produit.nomProduit }}</td>
-                    <td>{{ commande.quantite }}</td>
-                    <td>{{ produit.ventPrix }} €</td>
-                    <td>{{ commande.prixTotal }} €</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <p>Montant total : {{ commande.prixTotal }} €</p>
-    <p>Date de la facture : {{ facture.dateFacture|date('d/m/Y') }}</p>
-
-    <p>Merci pour votre confiance.</p>
-    <p>Cordialement,<br>Village Green</p>
-</body>
-</html>
+<h3>Total: {{ commande.prixTotal|number_format(2, '.', ',') }} €</h3>
+<p>Statut paiement: {{ facture.statutPaiement }}</p>

@@ -5,10 +5,18 @@
   <div class="container">
     <h2 class="text-center mb-4">Votre Panier</h2>
 
-    {# Flash messages #}
-    {% for message in app.flashes('success') %}
-      <div class="alert alert-success">{{ message }}</div>
-    {% endfor %}
+
+{% for message in app.flashes('success') %}
+  <div class="alert alert-dismissible fade show d-flex align-items-center justify-content-between" role="alert" 
+       style="background-color: #0a5f43; color: #fff; border-radius: 10px; padding: 15px; font-size: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+    <div>
+      <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+    </div>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endfor %}
+
+
 
     <div class="row panier_card">
 
@@ -21,14 +29,15 @@
 
           {# Email #}
           <div class="mb-3">
-            {% if client.clientEmail %}
+            {% set emailDisabled = client.clientEmail is defined and client.clientEmail ? true : false %}
+            {% if emailDisabled %}
               <label>Utiliser email existant ?</label><br>
-              <input type="radio" name="use_existing_email" value="yes" checked> Oui ({{ client.clientEmail }})<br>
-              <input type="radio" name="use_existing_email" value="no"> Non, nouveau email
+              <input type="radio" name="use_existing_email" value="yes" > Oui ({{ client.clientEmail }})<br>
+              <input type="radio" name="use_existing_email" value="no" checked> Non, nouveau email
             {% endif %}
             <div class="form-floating mt-2">
               {{ form_widget(form.client_email, {
-                'attr': {'class': 'form-control', 'id': 'floatingEmail', 'placeholder': 'Email'}
+                'attr': {'class': 'form-control', 'id': 'floatingEmail', 'placeholder': 'Email', 'disabled': emailDisabled}
               }) }}
               <label for="floatingEmail">Email</label>
             </div>
@@ -36,44 +45,47 @@
 
           {# Phone #}
           <div class="mb-3">
-            {% if client.clientPhone %}
+            {% set phoneDisabled = client.clientPhone is defined and client.clientPhone ? true : false %}
+            {% if phoneDisabled %}
               <label>Utiliser téléphone existant ?</label><br>
-              <input type="radio" name="use_existing_phone" value="yes" checked> Oui ({{ client.clientPhone }})<br>
-              <input type="radio" name="use_existing_phone" value="no"> Non, nouveau téléphone
+              <input type="radio" name="use_existing_phone" value="yes" > Oui ({{ client.clientPhone }})<br>
+              <input type="radio" name="use_existing_phone" value="no" checked> Non, nouveau téléphone
             {% endif %}
             <div class="form-floating mt-2">
               {{ form_widget(form.client_phone, {
-                'attr': {'class': 'form-control', 'id': 'floatingPhone', 'placeholder': 'Phone'}
+                'attr': {'class': 'form-control', 'id': 'floatingPhone', 'placeholder': 'Phone', 'disabled': phoneDisabled}
               }) }}
               <label for="floatingPhone">Téléphone</label>
             </div>
           </div>
 
-          {# Adresse Livraison #}
+          {# Address #}
           <div class="mb-3">
-            {% if client.adresseLivraison %}
+            {% set addressDisabled = client.adresseLivraison is defined and client.adresseLivraison ? true : false %}
+            {% if addressDisabled %}
               <label>Utiliser adresse existante ?</label><br>
-              <input type="radio" name="use_existing_address" value="yes" checked> Oui ({{ client.adresseLivraison }})<br>
-              <input type="radio" name="use_existing_address" value="no"> Non, nouvelle adresse
+              <input type="radio" name="use_existing_address" value="yes" > Oui ({{ client.adresseLivraison }})<br>
+              <input type="radio" name="use_existing_address" value="no" checked> Non, nouvelle adresse
             {% endif %}
             <div class="form-floating mt-2">
               {{ form_widget(form.adresseLivraison, {
-                'attr': {'class': 'form-control', 'id': 'floatingAddress', 'placeholder': 'Adresse'}
+                'attr': {'class': 'form-control', 'id': 'floatingAddress', 'placeholder': 'Adresse', 'disabled': addressDisabled}
               }) }}
               <label for="floatingAddress">Adresse de Livraison</label>
             </div>
           </div>
 
-          {# Code Postal Livraison #}
+          {# Postal Code #}
           <div class="mb-3">
-            {% if client.codePostalLivraison %}
+            {% set postalDisabled = client.codePostalLivraison is defined and client.codePostalLivraison ? true : false %}
+            {% if postalDisabled %}
               <label>Utiliser code postal existant ?</label><br>
-              <input type="radio" name="use_existing_postal" value="yes" checked> Oui ({{ client.codePostalLivraison }})<br>
-              <input type="radio" name="use_existing_postal" value="no"> Non, nouveau code postal
+              <input type="radio" name="use_existing_postal" value="yes" > Oui ({{ client.codePostalLivraison }})<br>
+              <input type="radio" name="use_existing_postal" value="no" checked> Non, nouveau code postal
             {% endif %}
             <div class="form-floating mt-2">
               {{ form_widget(form.codePostalLivraison, {
-                'attr': {'class': 'form-control', 'id': 'floatingPostal', 'placeholder': 'Code Postal'}
+                'attr': {'class': 'form-control', 'id': 'floatingPostal', 'placeholder': 'Code Postal', 'disabled': postalDisabled}
               }) }}
               <label for="floatingPostal">Code Postal</label>
             </div>
@@ -157,41 +169,36 @@
 
 {# JS for enabling/disabling and modal #}
 <script>
-  const radiosMap = {
-    'use_existing_email': 'client_email',
-    'use_existing_phone': 'client_phone',
-    'use_existing_address': 'adresseLivraison',
-    'use_existing_postal': 'codePostalLivraison'
-  };
+const radioInputMap = {
+    'use_existing_email': 'checkout[client_email]',
+    'use_existing_phone': 'checkout[client_phone]',
+    'use_existing_address': 'checkout[adresseLivraison]',
+    'use_existing_postal': 'checkout[codePostalLivraison]'
+};
 
-  Object.keys(radiosMap).forEach(radioName => {
+Object.keys(radioInputMap).forEach(radioName => {
     document.querySelectorAll('input[name="'+radioName+'"]').forEach(radio => {
-      radio.addEventListener('change', function() {
-        const input = document.querySelector('#checkoutForm [name="checkout['+radiosMap[radioName]+']"]');
-        if (!input) return;
-        // disable input if "yes" or if no client data exists
-        if (this.value === 'yes') {
-          input.disabled = true;
-        } else {
-          input.disabled = false;
-        }
-      });
-      radio.dispatchEvent(new Event('change'));
+        radio.addEventListener('change', function() {
+            const input = document.querySelector('[name="'+radioInputMap[radioName]+'"]');
+            if (!input) return;
+            input.disabled = (this.value === 'yes');
+        });
+        radio.dispatchEvent(new Event('change')); // set initial state
     });
-  });
+});
 
-  // Checkout modal logic
-  document.getElementById('checkoutBtn').addEventListener('click', function() {
+// Checkout modal logic
+document.getElementById('checkoutBtn').addEventListener('click', function() {
     const form = document.getElementById('checkoutForm');
     if (form.checkValidity()) {
-      const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-      paymentModal.show();
+        const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+        paymentModal.show();
     } else {
-      form.reportValidity();
+        form.reportValidity();
     }
-  });
+});
 
-  document.getElementById('confirmPaymentBtn').addEventListener('click', function() {
+document.getElementById('confirmPaymentBtn').addEventListener('click', function() {
     const form = document.getElementById('checkoutForm');
     const paymentMethod = document.getElementById('paymentMethod').value;
 
@@ -202,7 +209,7 @@
     form.appendChild(input);
 
     form.submit();
-  });
+});
 </script>
 
 {% endblock %}

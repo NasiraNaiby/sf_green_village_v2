@@ -40,4 +40,16 @@ class ProduitsRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+      public function searchByProduitOrCategorie(string $searchTerm): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->leftJoin('p.categorie', 'c')
+            ->addSelect('c')
+            ->where('p.nom_produit LIKE :search OR c.nom_cat LIKE :search')
+            ->setParameter('search', '%'.$searchTerm.'%')
+            ->orderBy('p.nom_produit', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }
