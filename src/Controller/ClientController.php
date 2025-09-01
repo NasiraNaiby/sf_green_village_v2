@@ -12,15 +12,21 @@ use App\Entity\User;
 use App\Form\InscriptionType;
 use App\Entity\Clients;
 use App\Form\ClientType;
+use App\Repository\CommandesRepository;
+use App\Entity\Commandes;
 
 
 
 final class ClientController extends AbstractController
 {
   
+ 
 #[Route('/spaceclient', name: 'spaceclient')]
-public function spaceClient(Request $request, EntityManagerInterface $em): Response
-{
+public function spaceClient(
+    Request $request,
+    EntityManagerInterface $em,
+    CommandesRepository $commandRepo
+): Response {
     $user = $this->getUser();
     $client = $user->getClient();
 
@@ -29,11 +35,16 @@ public function spaceClient(Request $request, EntityManagerInterface $em): Respo
         $client->setUser($user);
     }
 
+    // Fetch only this user's commandes
+    $commandes = $commandRepo->findBy(['client' => $client]);
+
+    // ✅ fetch favoris (wishlist)
+    $favoris = $client->getFavoris(); // assuming relation ManyToMany with Produits
+
     $form = $this->createForm(ClientType::class, $client);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        // Update user_name
         $user->setUserName($form->get('user_name')->getData());
 
         $em->persist($user);
@@ -47,8 +58,12 @@ public function spaceClient(Request $request, EntityManagerInterface $em): Respo
     return $this->render('client_controller/index.html.twig', [
         'client' => $client,
         'form' => $form->createView(),
+        'commandes' => $commandes,
+        'favoris' => $favoris,  
     ]);
 }
+
+
 
 
 
@@ -82,7 +97,15 @@ public function spaceClient(Request $request, EntityManagerInterface $em): Respo
         ]);
     }
 
+     #[Route('/commande/delete/{id}', name: 'commande_delete')]
+    public function deleteCommande(Commandes $commande, EntityManagerInterface $em): Response
+    {
+        $em->remove($commande);
+        $em->flush();
 
+        $this->addFlash('success', 'Commande supprimée avec succès !');
+        return $this->redirectToRoute('spaceclient', ['tab' => 'tab2']);
+    }
 
 
 }

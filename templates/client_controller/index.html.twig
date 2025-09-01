@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container menu-container mt-4">
   <div class="nav-bg-bar">
-    <ul class="nav nav-tabs client-tabs d-flex justify-content-between">
+    <ul class="nav nav-tabs client-tabs d-flex justify-content-between flex-wrap">
       <li class="nav-item custom-items">
         <a class="nav-link active" href="#tab1" data-bs-toggle="tab">Mes Infos</a>
       </li>
@@ -20,122 +20,243 @@
   </div>
 
   <div class="tab-content mt-3">
-  <!-- Mes Infos -->
-<div class="tab-pane fade show active" id="tab1">
-  <div class="card shadow-sm border-0 p-4 mb-4">
-    <h2 class="text-center mb-4">Mes Informations</h2>
-
     {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
+      {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
     {% endfor %}
-    {{ form_start(form) }}
 
-      <div class="row g-3">
-        <p class="mb-2"><strong>Type actuel:</strong> {{ form.vars.value.typeClient ?: 'Non défini' }}</p>
-      </div>
-    {# Row 1: User Name & Client Type #}
-    <div class="row g-3 mb-3">
-      <div class="col-md-6 form-floating">
-        
-        {{ form_widget(form.typeClient, {'attr': {'class': 'form-select'}}) }}
-        {{ form_errors(form.typeClient) }}
-      </div>
-        <div class="col-md-6 form-floating">
-        {{ form_widget(form.user_name, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
-        {{ form_label(form.user_name) }}
-        {{ form_errors(form.user_name) }}
+    <!-- Mes Infos -->
+    <div class="tab-pane fade show active" id="tab1">
+      <div class="card shadow-sm border-0 p-4 mb-4">
+        <h2 class="text-center mb-4">Mes Informations</h2>
 
-        
+        {{ form_start(form) }}
+
+        <div class="row g-3">
+          <p class="mb-2"><strong>Type actuel:</strong> {{ form.vars.value.typeClient ?: 'Non défini' }}</p>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6 form-floating">
+            {{ form_widget(form.typeClient, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.typeClient) }}
+          </div>
+          <div class="col-md-6 form-floating">
+            {{ form_widget(form.user_name, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+            {{ form_label(form.user_name) }}
+            {{ form_errors(form.user_name) }}
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6 form-floating">
+            {{ form_widget(form.conditionPaiement, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+            {{ form_label(form.conditionPaiement, 'Condition de paiement') }}
+            {{ form_errors(form.conditionPaiement) }}
+          </div>
+
+          <div class="col-md-6 form-floating">
+            {{ form_widget(form.adresseFacturation, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+            {{ form_label(form.adresseFacturation, 'Adresse de facturation') }}
+            {{ form_errors(form.adresseFacturation) }}
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6 form-floating">
+            {{ form_widget(form.codePostalFacturation, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+            {{ form_label(form.codePostalFacturation, 'Code Postal') }}
+            {{ form_errors(form.codePostalFacturation) }}
+          </div>
+
+          <div class="col-md-6 form-floating">
+            {{ form_widget(form.adresseLivraison, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+            {{ form_label(form.adresseLivraison, 'Adresse de livraison') }}
+            {{ form_errors(form.adresseLivraison) }}
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6 form-floating">
+            {{ form_widget(form.codePostalLivraison, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+            {{ form_label(form.codePostalLivraison, 'Code Postal Livraison') }}
+            {{ form_errors(form.codePostalLivraison) }}
+          </div>
+
+          <div class="col-md-6 form-floating">
+            {{ form_widget(form.client_email, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+            {{ form_label(form.client_email, 'Email') }}
+            {{ form_errors(form.client_email) }}
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6 form-floating">
+            {{ form_widget(form.client_phone, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+            {{ form_label(form.client_phone, 'Téléphone') }}
+            {{ form_errors(form.client_phone) }}
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mt-4">Enregistrer</button>
+
+        {{ form_end(form) }}
       </div>
     </div>
 
-    {# Row 2: Condition Paiement & Facturation Address #}
-    <div class="row g-3 mb-3">
-      <div class="col-md-6 form-floating">
-        {{ form_widget(form.conditionPaiement, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
-        {{ form_label(form.conditionPaiement, 'Condition de paiement') }}
-        {{ form_errors(form.conditionPaiement) }}
-      </div>
-
-      <div class="col-md-6 form-floating">
-        {{ form_widget(form.adresseFacturation, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
-        {{ form_label(form.adresseFacturation, 'Adresse de facturation') }}
-        {{ form_errors(form.adresseFacturation) }}
-      </div>
+    <!-- Mes Commandes -->
+    <div class="tab-pane fade" id="tab2">
+      <h3 class="text-center mt-5 mb-4">Vos commandes apparaîtront ici.</h3>
+      {% if commandes is empty %}
+        <p>Vous n'avez aucune commande pour le moment.</p>
+      {% else %}
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered table-striped">
+            <thead class="table-light">
+              <tr>
+                <th>Commande ID</th>
+                <th>Produits</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Prix Total</th>
+                <th>Facture</th>
+                <th>Livraison</th>
+                <th>Supprimer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for commande in commandes %}
+                <tr>
+                  <td>{{ commande.id }}</td>
+                  <td>
+                    <ul class="list-unstyled mb-0">
+                      {% for produit in commande.produits %}
+                        <li>{{ produit.nomProduit }}</li>
+                      {% endfor %}
+                    </ul>
+                  </td>
+                  <td>
+                    {% for produit in commande.produits %}
+                      <p class="mb-0">{{ commande.quantite }}</p>
+                    {% endfor %}
+                  </td>
+                  <td>
+                    {% for produit in commande.produits %}
+                      <p class="mb-0">{{ commande.prixUnitaire }} €</p>
+                    {% endfor %}
+                  </td>
+                  <td>{{ commande.prixTotal }} €</td>
+                  <td>
+                    {% if commande.facture %}
+                      <a href="" class="btn btn-sm btn-info">Voir</a>
+                    {% else %}
+                      N/A
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if commande.livraisonNote %}
+                      <a href="" class="btn btn-sm btn-success">Voir</a>
+                    {% else %}
+                      N/A
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href="{{ path('commande_delete', {'id': commande.id}) }}" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment supprimer cette commande ?');">
+                      Supprimer
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
     </div>
 
-    {# Row 3: Code Postal Facturation & Adresse Livraison #}
-    <div class="row g-3 mb-3">
-      <div class="col-md-6 form-floating">
-        {{ form_widget(form.codePostalFacturation, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
-        {{ form_label(form.codePostalFacturation, 'Code Postal') }}
-        {{ form_errors(form.codePostalFacturation) }}
-      </div>
-
-      <div class="col-md-6 form-floating">
-        {{ form_widget(form.adresseLivraison, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
-        {{ form_label(form.adresseLivraison, 'Adresse de livraison') }}
-        {{ form_errors(form.adresseLivraison) }}
-      </div>
-    </div>
-
-    {# Row 4: Code Postal Livraison & Email #}
-    <div class="row g-3 mb-3">
-      <div class="col-md-6 form-floating">
-        {{ form_widget(form.codePostalLivraison, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
-        {{ form_label(form.codePostalLivraison, 'Code Postal Livraison') }}
-        {{ form_errors(form.codePostalLivraison) }}
-      </div>
-
-      <div class="col-md-6 form-floating">
-        {{ form_widget(form.client_email, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
-        {{ form_label(form.client_email, 'Email') }}
-        {{ form_errors(form.client_email) }}
-      </div>
-    </div>
-
-    {# Row 5: Phone #}
-    <div class="row g-3 mb-3">
-      <div class="col-md-6 form-floating">
-        {{ form_widget(form.client_phone, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
-        {{ form_label(form.client_phone, 'Téléphone') }}
-        {{ form_errors(form.client_phone) }}
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary w-100 mt-4">Enregistrer</button>
-
-    {{ form_end(form) }}
-  </div>
-</div>
-
-
-
-
-
-
-  <!-- Mes Commandes -->
-  <div class="tab-pane fade" id="tab2">
-      <p>Vos commandes apparaîtront ici.</p>
-  </div>
-
-  <!-- Suivi Commande -->
-  <div class="tab-pane fade" id="tab3">
+    <!-- Suivi Commande -->
+    <div class="tab-pane fade" id="tab3">
       <p>Suivi de vos commandes.</p>
-  </div>
+    </div>
 
-  <!-- Favoris -->
-  <div class="tab-pane fade" id="tab4">
-      <p>Vos produits favoris.</p>
+    <!-- Favoris -->
+    <div class="tab-pane fade" id="tab4">
+      <h3 class="text-center mt-3 mb-4">Vos Produits Favoris</h3>
+
+      {% if favoris is empty %}
+        <p class="text-center">Vous n’avez aucun produit dans vos favoris.</p>
+      {% else %}
+        <div class="row g-4">
+          {% for produit in favoris %}
+            <div class="col-md-3 col-sm-6 d-flex">
+              <div class="card shadow-sm w-100 position-relative hover-scale">
+                <div class="card-img-container overflow-hidden" style="height:200px;">
+                  <img src="{{ produit.photo }}" class="card-img-top img-fluid w-100 h-100" alt="{{ produit.nomProduit }}">
+                  <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 heart-btn" data-produit-id="{{ produit.id }}">
+                    <i class="bi bi-heart-fill text-danger"></i>
+                  </button>
+                </div>
+                <div class="card-body d-flex flex-column p-3">
+                  <h5 class="card-title fw-bold mb-1">{{ produit.nomProduit }}</h5>
+                  <p class="card-text text-muted small mb-1">{{ produit.descProduit|length > 60 ? produit.descProduit[:60] ~ '...' : produit.descProduit }}</p>
+                  <p class="card-text fw-bold h6 mb-2">{{ produit.ventPrix }} €</p>
+                  <a href="{{ path('main_add_panier', {'id': produit.id}) }}" class="btn btn-primary mt-auto btn-sm">Ajouter au panier</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
   </div>
 </div>
+{% endblock %}
 
-</div>
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Activate tab from URL query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const tabId = urlParams.get('tab');
 
+  if(tabId) {
+    const tabTriggerEl = document.querySelector(`a[href="#${tabId}"]`);
+    if(tabTriggerEl) {
+      const tab = new bootstrap.Tab(tabTriggerEl);
+      tab.show();
+    }
+  }
+
+  // Heart toggle for Favoris
+  document.querySelectorAll('.heart-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const produitId = this.dataset.produitId;
+          const icon = this.querySelector('i');
+
+          // Toggle icon
+          icon.classList.toggle('bi-heart-fill');
+          icon.classList.toggle('bi-heart');
+
+          // Send fetch request to toggle favoris
+          fetch(`/wishlist/toggle/${produitId}`, {
+              method: 'POST',
+              headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          }).then(res => res.json())
+            .then(data => {
+                // Remove card if removed
+                if (data.removed) {
+                    this.closest('.col-md-3').remove();
+                }
+            });
+      });
+  });
+});
+</script>
 
 {% endblock %}

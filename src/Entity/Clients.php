@@ -6,6 +6,7 @@ use App\Repository\ClientsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Produits;
 
 #[ORM\Entity(repositoryClass: ClientsRepository::class)]
 #[ORM\Table(name: 'clients')]
@@ -25,7 +26,7 @@ class Clients
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $adresseFacturation = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(length: 255)]
     private ?string $adresseLivraison = null;
 
     #[ORM\Column(length: 10)]
@@ -50,10 +51,16 @@ class Clients
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $client_phone = null;
 
+    // Favoris: ManyToMany relation to Produits
+    #[ORM\ManyToMany(targetEntity: Produits::class, inversedBy: 'users')]
+    #[ORM\JoinTable(name: 'clients_favoris')]
+    private Collection $favoris;
+
     public function __construct()
     {
         $this->vendeurs = new ArrayCollection();
         $this->commandes = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int { return $this->id; }
@@ -113,27 +120,22 @@ class Clients
         return $this;
     }
 
-    public function getClientEmail(): ?string
-    {
-        return $this->client_email;
-    }
+    public function getClientEmail(): ?string { return $this->client_email; }
+    public function setClientEmail(?string $client_email): static { $this->client_email = $client_email; return $this; }
 
-    public function setClientEmail(?string $client_email): static
-    {
-        $this->client_email = $client_email;
+    public function getClientPhone(): ?string { return $this->client_phone; }
+    public function setClientPhone(?string $client_phone): static { $this->client_phone = $client_phone; return $this; }
 
+    // FAVORIS
+    public function getFavoris(): Collection { return $this->favoris; }
+    public function addFavoris(Produits $produit): static {
+        if (!$this->favoris->contains($produit)) {
+            $this->favoris->add($produit);
+        }
         return $this;
     }
-
-    public function getClientPhone(): ?string
-    {
-        return $this->client_phone;
-    }
-
-    public function setClientPhone(?string $client_phone): static
-    {
-        $this->client_phone = $client_phone;
-
+    public function removeFavoris(Produits $produit): static {
+        $this->favoris->removeElement($produit);
         return $this;
     }
 }

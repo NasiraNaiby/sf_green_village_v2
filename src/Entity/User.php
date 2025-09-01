@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Entity\Produits;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', columns: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -32,77 +34,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $user_name = null;
 
-    public function getId(): ?int
+    #[ORM\ManyToMany(targetEntity: Produits::class)]
+    #[ORM\JoinTable(name: 'user_wishlist')]
+    private Collection $wishlist;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->wishlist = new ArrayCollection();
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
+    public function getId(): ?int { return $this->id; }
 
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
-        return $this;
-    }
+    public function getEmail(): ?string { return $this->email; }
+    public function setEmail(string $email): static { $this->email = $email; return $this; }
 
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
+    public function getUserIdentifier(): string { return (string) $this->email; }
 
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-        return array_unique($roles);
-    }
+    public function getRoles(): array { $roles = $this->roles; $roles[] = 'ROLE_USER'; return array_unique($roles); }
+    public function setRoles(array $roles): static { $this->roles = $roles; return $this; }
 
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-        return $this;
-    }
+    public function getPassword(): ?string { return $this->password; }
+    public function setPassword(string $password): static { $this->password = $password; return $this; }
 
     #[\Deprecated]
-    public function eraseCredentials(): void
-    {
-        // Deprecated in Symfony 6+, remove in Symfony 8
-    }
+    public function eraseCredentials(): void {}
 
-    public function getClient(): ?Clients
-    {
-        return $this->client;
-    }
+    public function getClient(): ?Clients { return $this->client; }
+    public function setClient(Clients $client): static { $this->client = $client; return $this; }
 
-    public function setClient(Clients $client): static
+    public function getUserName(): ?string { return $this->user_name; }
+    public function setUserName(string $user_name): static { $this->user_name = $user_name; return $this; }
+
+    /** Wishlist methods */
+    public function getWishlist(): Collection { return $this->wishlist; }
+
+    public function addWishlist(Produits $produit): static
     {
-        $this->client = $client;
+        if (!$this->wishlist->contains($produit)) { $this->wishlist->add($produit); }
         return $this;
     }
 
-    public function getUserName(): ?string
+    public function removeWishlist(Produits $produit): static
     {
-        return $this->user_name;
-    }
-
-    public function setUserName(string $user_name): static
-    {
-        $this->user_name = $user_name;
-
+        $this->wishlist->removeElement($produit);
         return $this;
     }
 }

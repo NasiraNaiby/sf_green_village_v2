@@ -44,12 +44,6 @@
         <div class="hearder_first_section">
             <img src="/images/logo1.png" alt="Logo" class="logo" />
         </div>
-        <!-- <div class="hearder_second_section">
-            <input type="text" placeholder="search" class="search_bar" />
-            <button class="btn_search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div> -->
             <div class="hearder_second_section">
                 <form action="{{ path('search') }}" method="get">
                     <input type="text" name="q" placeholder="search" class="search_bar" />
@@ -58,17 +52,6 @@
                     </button>
                 </form>
             </div>
-        <!-- <div class="hearder_third_section position-relative">
-            <a href="/login" class="login_icon">
-                <i class="fas fa-user"></i>
-            </a>
-            <a href="/panier" class="cart_icon position-relative">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {{ app.session.get('panier') | length }}
-                </span>
-            </a>
-        </div> -->
 <div class="hearder_third_section position-relative">
     <div class="dropdown mt-1">
         <a class="login_icon d-flex align-items-center" href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">

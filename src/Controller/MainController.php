@@ -250,4 +250,36 @@ final class MainController extends AbstractController
         ]);
     }
 
+
+   #[Route('/wishlist/toggle/{id}', name: 'wishlist_toggle', methods: ['POST'])]
+    public function toggle(Produits $produit, EntityManagerInterface $em, Request $request): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->json(['status' => 'error', 'message' => 'Utilisateur non connecté'], 403);
+        }
+
+        $client = $user->getClient();
+        if (!$client) {
+            return $this->json(['status' => 'error', 'message' => 'Client introuvable'], 404);
+        }
+
+        if ($client->getFavoris()->contains($produit)) {
+            $client->removeFavoris($produit);
+            $action = 'removed';
+        } else {
+            $client->addFavoris($produit);
+            $action = 'added';
+        }
+
+        $em->persist($client);
+        $em->flush();
+
+        return $this->json([
+            'status' => 'success',
+            'action' => $action,
+            'produit_id' => $produit->getId()
+        ]);
+    }
+
 }

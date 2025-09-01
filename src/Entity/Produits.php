@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Entity;
-use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Metadata\ApiResource;
+
 use App\Repository\ProduitsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Categories;
-
+use App\Entity\User;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ProduitsRepository::class)]
 #[ApiResource]
@@ -25,17 +27,22 @@ class Produits
     private ?string $desc_produit = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $achat_prix = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $vent_prix = null;
 
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
 
     #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'produits')]
-#[ORM\JoinColumn(name: 'categorie_id', referencedColumnName: 'id', nullable: false)]
-private ?Categories $categorie = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categories $categorie = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'wishlist')]
+    private Collection $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -50,7 +57,6 @@ private ?Categories $categorie = null;
     public function setNomProduit(string $nom_produit): static
     {
         $this->nom_produit = $nom_produit;
-
         return $this;
     }
 
@@ -62,19 +68,6 @@ private ?Categories $categorie = null;
     public function setDescProduit(string $desc_produit): static
     {
         $this->desc_produit = $desc_produit;
-
-        return $this;
-    }
-
-    public function getAchatPrix(): ?string
-    {
-        return $this->achat_prix;
-    }
-
-    public function setAchatPrix(string $achat_prix): static
-    {
-        $this->achat_prix = $achat_prix;
-
         return $this;
     }
 
@@ -86,7 +79,6 @@ private ?Categories $categorie = null;
     public function setVentPrix(string $vent_prix): static
     {
         $this->vent_prix = $vent_prix;
-
         return $this;
     }
 
@@ -98,7 +90,6 @@ private ?Categories $categorie = null;
     public function setPhoto(string $photo): static
     {
         $this->photo = $photo;
-
         return $this;
     }
 
@@ -110,7 +101,31 @@ private ?Categories $categorie = null;
     public function setCategorie(?Categories $categorie): static
     {
         $this->categorie = $categorie;
+        return $this;
+    }
 
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addWishlist($this); // keep the relationship in sync
+        }
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeWishlist($this); // keep the relationship in sync
+        }
         return $this;
     }
 }
