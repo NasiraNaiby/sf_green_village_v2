@@ -10,12 +10,12 @@
     <div class="row">
       {% for cat in categories %}
         <div class="col-md-3 col-sm-6 mb-4">
-          <div class="card">
+          <div class="card h-100 shadow-sm hover-scale">
             <img src="/images/ins.jpg" class="card-img-top" alt="{{ cat.nomCat }}">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ cat.nomCat }}</h5>
-              <p class="card-text">{{ cat.descCat }}</p>
-              <a href="{{ path('produit_par_categories', {'id': cat.id}) }}" class="btn btn-primary">Voir produits</a>
+              <p class="card-text">{{ cat.descCat|u.truncate(80, '...') }}</p>
+              <a href="{{ path('produit_par_categories', {'id': cat.id}) }}" class="btn btn-primary mt-auto">Voir produits</a>
             </div>
           </div>
         </div>
@@ -28,23 +28,41 @@
 </section>
 
 
-  <section class="produit_section">
-      <div class="container">
-        <div class="row">
-         {% for produits in produit %}
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-              <div class="card h-100">
-                <img src="{{ produits.photo }} " class="card-img-top" />
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">{{ produits.nomProduit }}</h5>
-                  <a href="/panier/add/{{ produits.id }}" class="btn btn-primary mt-auto">Ajouter au panier</a>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-        </div>
+
+
+<section class="produit_section mt-5">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold">Tous les Produits</h2>
+    <div class="row g-4">
+      {% for produit in produits %}
+  <div class="col-lg-3 col-md-4 col-sm-6 d-flex">
+    <div class="card shadow-sm border-0 w-100 hover-scale position-relative">
+      
+      <!-- Product Image with Heart -->
+      <div class="card-img-container overflow-hidden" style="height: 200px;">
+        <img src="{{ produit.photo }}" class="card-img-top img-fluid w-100 h-100" alt="{{ produit.nomProduit }}">
+        <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 heart-btn" 
+                data-produit-id="{{ produit.id }}">
+          <i class="bi bi-heart"></i>
+        </button>
       </div>
-    </section>
+
+      <!-- Card Body -->
+      <div class="card-body d-flex flex-column p-3">
+        <h5 class="card-title fw-bold mb-1">{{ produit.nomProduit }}</h5>
+        <p class="card-text text-muted small mb-1">
+          {{ produit.descProduit|length > 60 ? produit.descProduit[:60] ~ '...' : produit.descProduit }}
+        </p>
+        <p class="card-text fw-bold h6 mb-2">{{ produit.ventPrix }} €</p>
+        <a href="/panier/add/{{ produit.id }}" class="btn btn-primary mt-auto btn-sm">Ajouter</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+    </div>
+  </div>
+</section>
 
   <section class="marque_vedettes mt-5">
     <div class="container">

@@ -33,7 +33,7 @@ final class MainController extends AbstractController
 
         return $this->render('accueil.html.twig', [
             'categories' => $limitedCategories,
-                'produit' =>$produits
+                'produits' =>$produits
         ]);
     }
 
