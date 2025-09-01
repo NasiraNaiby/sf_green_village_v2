@@ -25,63 +25,82 @@
   <div class="card shadow-sm border-0 p-4 mb-4">
     <h2 class="text-center mb-4">Mes Informations</h2>
 
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
     {{ form_start(form) }}
 
-    {# Row 1: Client Type & Condition Paiement #}
+      <div class="row g-3">
+        <p class="mb-2"><strong>Type actuel:</strong> {{ form.vars.value.typeClient ?: 'Non défini' }}</p>
+      </div>
+    {# Row 1: User Name & Client Type #}
     <div class="row g-3 mb-3">
-      <p class="mb-2"><strong>Type actuel:</strong> {{ form.vars.value.typeClient ?: 'Non défini' }}</p>
-    </div>
-    <div class="row g-3 mb-3">
-      <!-- Column 1: Type actuel + select -->
       <div class="col-md-6 form-floating">
         
         {{ form_widget(form.typeClient, {'attr': {'class': 'form-select'}}) }}
         {{ form_errors(form.typeClient) }}
       </div>
+        <div class="col-md-6 form-floating">
+        {{ form_widget(form.user_name, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+        {{ form_label(form.user_name) }}
+        {{ form_errors(form.user_name) }}
 
-      <!-- Column 2: Condition Paiement -->
+        
+      </div>
+    </div>
+
+    {# Row 2: Condition Paiement & Facturation Address #}
+    <div class="row g-3 mb-3">
       <div class="col-md-6 form-floating">
         {{ form_widget(form.conditionPaiement, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
         {{ form_label(form.conditionPaiement, 'Condition de paiement') }}
         {{ form_errors(form.conditionPaiement) }}
       </div>
-    </div>
 
-    {# Row 2: Facturation Address & Postal Code #}
-    <div class="row g-3 mb-3">
       <div class="col-md-6 form-floating">
         {{ form_widget(form.adresseFacturation, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
         {{ form_label(form.adresseFacturation, 'Adresse de facturation') }}
         {{ form_errors(form.adresseFacturation) }}
       </div>
+    </div>
+
+    {# Row 3: Code Postal Facturation & Adresse Livraison #}
+    <div class="row g-3 mb-3">
       <div class="col-md-6 form-floating">
         {{ form_widget(form.codePostalFacturation, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
         {{ form_label(form.codePostalFacturation, 'Code Postal') }}
         {{ form_errors(form.codePostalFacturation) }}
       </div>
-    </div>
 
-    {# Row 3: Livraison Address & Postal Code #}
-    <div class="row g-3 mb-3">
       <div class="col-md-6 form-floating">
         {{ form_widget(form.adresseLivraison, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
         {{ form_label(form.adresseLivraison, 'Adresse de livraison') }}
         {{ form_errors(form.adresseLivraison) }}
       </div>
-      <div class="col-md-6 form-floating">
-        {{ form_widget(form.codePostalLivraison, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
-        {{ form_label(form.codePostalLivraison, 'Code Postal') }}
-        {{ form_errors(form.codePostalLivraison) }}
-      </div>
     </div>
 
-    {# Row 4: Email & Phone #}
+    {# Row 4: Code Postal Livraison & Email #}
     <div class="row g-3 mb-3">
+      <div class="col-md-6 form-floating">
+        {{ form_widget(form.codePostalLivraison, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+        {{ form_label(form.codePostalLivraison, 'Code Postal Livraison') }}
+        {{ form_errors(form.codePostalLivraison) }}
+      </div>
+
       <div class="col-md-6 form-floating">
         {{ form_widget(form.client_email, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
         {{ form_label(form.client_email, 'Email') }}
         {{ form_errors(form.client_email) }}
       </div>
+    </div>
+
+    {# Row 5: Phone #}
+    <div class="row g-3 mb-3">
       <div class="col-md-6 form-floating">
         {{ form_widget(form.client_phone, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
         {{ form_label(form.client_phone, 'Téléphone') }}
@@ -94,6 +113,7 @@
     {{ form_end(form) }}
   </div>
 </div>
+
 
 
 

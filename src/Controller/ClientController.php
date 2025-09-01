@@ -18,33 +18,30 @@ use App\Form\ClientType;
 final class ClientController extends AbstractController
 {
   
-   #[Route('/spaceclient', name: 'spaceclient')]
+#[Route('/spaceclient', name: 'spaceclient')]
 public function spaceClient(Request $request, EntityManagerInterface $em): Response
 {
-    if (!$this->isGranted('ROLE_USER')) {
-        throw $this->createAccessDeniedException();
-    }
-
     $user = $this->getUser();
     $client = $user->getClient();
 
-    // If client entity doesn't exist, create it
     if (!$client) {
         $client = new Clients();
         $client->setUser($user);
     }
 
-    // Create the form
     $form = $this->createForm(ClientType::class, $client);
     $form->handleRequest($request);
 
-    // Handle form submission
     if ($form->isSubmitted() && $form->isValid()) {
+        // Update user_name
+        $user->setUserName($form->get('user_name')->getData());
+
+        $em->persist($user);
         $em->persist($client);
         $em->flush();
 
         $this->addFlash('success', 'Informations mises à jour avec succès !');
-        return $this->redirectToRoute('spaceclient'); // reload same page
+        return $this->redirectToRoute('spaceclient');
     }
 
     return $this->render('client_controller/index.html.twig', [
