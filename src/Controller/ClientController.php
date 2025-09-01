@@ -11,26 +11,48 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Form\InscriptionType;
 use App\Entity\Clients;
+use App\Form\ClientType;
 
 
 
-final class ClientContorller extends AbstractController
+final class ClientController extends AbstractController
 {
   
    #[Route('/spaceclient', name: 'spaceclient')]
-    public function spaceClient(EntityManagerInterface $em): Response
-    {
-        if (!$this->isGranted('ROLE_USER')) {
-            throw $this->createAccessDeniedException();
-        }
-
-        $user = $this->getUser();
-        $client = $em->getRepository(Clients::class)->findOneBy(['user' => $user]);
-
-        return $this->render('client_contorller/index.html.twig', [
-            'client' => $client,
-        ]);
+public function spaceClient(Request $request, EntityManagerInterface $em): Response
+{
+    if (!$this->isGranted('ROLE_USER')) {
+        throw $this->createAccessDeniedException();
     }
+
+    $user = $this->getUser();
+    $client = $user->getClient();
+
+    // If client entity doesn't exist, create it
+    if (!$client) {
+        $client = new Clients();
+        $client->setUser($user);
+    }
+
+    // Create the form
+    $form = $this->createForm(ClientType::class, $client);
+    $form->handleRequest($request);
+
+    // Handle form submission
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->persist($client);
+        $em->flush();
+
+        $this->addFlash('success', 'Informations mises à jour avec succès !');
+        return $this->redirectToRoute('spaceclient'); // reload same page
+    }
+
+    return $this->render('client_controller/index.html.twig', [
+        'client' => $client,
+        'form' => $form->createView(),
+    ]);
+}
+
 
 
    
@@ -62,6 +84,8 @@ final class ClientContorller extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 
 
 }

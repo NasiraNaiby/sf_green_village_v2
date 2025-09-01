@@ -84,6 +84,7 @@
                 <span>{{ app.user.userName|slice(0, 12) }}{% if app.user.userName|length > 12 %}...{% endif %}</span>
             </li>
             <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ path('spaceclient') }}">Votre Profile</a></li>
             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se Déconnecter</a></li>
         </ul>
     {% else %}

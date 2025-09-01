@@ -1,0 +1,121 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+<div class="container menu-container mt-4">
+  <div class="nav-bg-bar">
+    <ul class="nav nav-tabs client-tabs d-flex justify-content-between">
+      <li class="nav-item custom-items">
+        <a class="nav-link active" href="#tab1" data-bs-toggle="tab">Mes Infos</a>
+      </li>
+      <li class="nav-item custom-items">
+        <a class="nav-link" href="#tab2" data-bs-toggle="tab">Mes Commandes</a>
+      </li>
+      <li class="nav-item custom-items">
+        <a class="nav-link" href="#tab3" data-bs-toggle="tab">Suivi Commande</a>
+      </li>
+      <li class="nav-item custom-items">
+        <a class="nav-link" href="#tab4" data-bs-toggle="tab">Favoris</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tab-content mt-3">
+  <!-- Mes Infos -->
+<div class="tab-pane fade show active" id="tab1">
+  <div class="card shadow-sm border-0 p-4 mb-4">
+    <h2 class="text-center mb-4">Mes Informations</h2>
+
+    {{ form_start(form) }}
+
+    {# Row 1: Client Type & Condition Paiement #}
+    <div class="row g-3 mb-3">
+      <p class="mb-2"><strong>Type actuel:</strong> {{ form.vars.value.typeClient ?: 'Non défini' }}</p>
+    </div>
+    <div class="row g-3 mb-3">
+      <!-- Column 1: Type actuel + select -->
+      <div class="col-md-6 form-floating">
+        
+        {{ form_widget(form.typeClient, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.typeClient) }}
+      </div>
+
+      <!-- Column 2: Condition Paiement -->
+      <div class="col-md-6 form-floating">
+        {{ form_widget(form.conditionPaiement, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+        {{ form_label(form.conditionPaiement, 'Condition de paiement') }}
+        {{ form_errors(form.conditionPaiement) }}
+      </div>
+    </div>
+
+    {# Row 2: Facturation Address & Postal Code #}
+    <div class="row g-3 mb-3">
+      <div class="col-md-6 form-floating">
+        {{ form_widget(form.adresseFacturation, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+        {{ form_label(form.adresseFacturation, 'Adresse de facturation') }}
+        {{ form_errors(form.adresseFacturation) }}
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form_widget(form.codePostalFacturation, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+        {{ form_label(form.codePostalFacturation, 'Code Postal') }}
+        {{ form_errors(form.codePostalFacturation) }}
+      </div>
+    </div>
+
+    {# Row 3: Livraison Address & Postal Code #}
+    <div class="row g-3 mb-3">
+      <div class="col-md-6 form-floating">
+        {{ form_widget(form.adresseLivraison, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+        {{ form_label(form.adresseLivraison, 'Adresse de livraison') }}
+        {{ form_errors(form.adresseLivraison) }}
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form_widget(form.codePostalLivraison, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+        {{ form_label(form.codePostalLivraison, 'Code Postal') }}
+        {{ form_errors(form.codePostalLivraison) }}
+      </div>
+    </div>
+
+    {# Row 4: Email & Phone #}
+    <div class="row g-3 mb-3">
+      <div class="col-md-6 form-floating">
+        {{ form_widget(form.client_email, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+        {{ form_label(form.client_email, 'Email') }}
+        {{ form_errors(form.client_email) }}
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form_widget(form.client_phone, {'attr': {'placeholder': ' ', 'class': 'form-control'}}) }}
+        {{ form_label(form.client_phone, 'Téléphone') }}
+        {{ form_errors(form.client_phone) }}
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100 mt-4">Enregistrer</button>
+
+    {{ form_end(form) }}
+  </div>
+</div>
+
+
+
+
+
+  <!-- Mes Commandes -->
+  <div class="tab-pane fade" id="tab2">
+      <p>Vos commandes apparaîtront ici.</p>
+  </div>
+
+  <!-- Suivi Commande -->
+  <div class="tab-pane fade" id="tab3">
+      <p>Suivi de vos commandes.</p>
+  </div>
+
+  <!-- Favoris -->
+  <div class="tab-pane fade" id="tab4">
+      <p>Vos produits favoris.</p>
+  </div>
+</div>
+
+</div>
+
+
+{% endblock %}
