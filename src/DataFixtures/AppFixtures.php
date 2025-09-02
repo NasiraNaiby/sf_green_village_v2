@@ -24,7 +24,6 @@ class AppFixtures extends Fixture
         $faker = Factory::create();
         $categories = [];
 
-        // Create default supplier FIRST
         $supplier = new Fournisseurs();
         $supplier->setNomFournisseur('Default Supplier');
         $supplier->setEmailFou('default@example.com');
@@ -32,7 +31,6 @@ class AppFixtures extends Fixture
         $manager->persist($supplier);
         $this->addReference('default_supplier', $supplier);
 
-        // Create user
         $user = new User();
         $user->setEmail('nasira@gmail.com');
         $user->setUserName('Hannah');
@@ -40,7 +38,6 @@ class AppFixtures extends Fixture
         $user->setPassword($password);
         $manager->persist($user);
 
-        // Create categories
         for ($i = 0; $i < 8; $i++) {
             $categorie = new Categories();
             $categorie->setNomCat($faker->word());
@@ -49,9 +46,7 @@ class AppFixtures extends Fixture
             $categories[] = $categorie;
         }
 
-        $manager->flush(); // Ensure categories have IDs
-
-        // Create products and assign supplier + category
+        $manager->flush(); 
         for ($i = 0; $i < 25; $i++) {
             $produit = new Produits();
             $produit->setNomProduit($faker->word());
@@ -60,8 +55,7 @@ class AppFixtures extends Fixture
             $produit->setPhoto('https://picsum.photos/200/300');
 
             $produit->setCategorie($categories[array_rand($categories)]);
-            $produit->setFournisseur($supplier); // ✅ Link to supplier
-
+            $produit->setFournisseur($supplier); 
             $manager->persist($produit);
         }
 
