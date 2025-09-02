@@ -6,6 +6,7 @@ class User {
 	password : string
 	<color:#0000dd>client : Clients</color>
 	user_name : string
+	<color:#0000dd>wishlist : Produits[]</color>
 }
 
 class Vendeurs {
@@ -21,10 +22,11 @@ class Produits {
 	**id : int**
 	nom_produit : string
 	desc_produit : string
-	achat_prix : string
 	vent_prix : string
 	photo : string
 	<color:#0000dd>categorie : Categories</color>
+	<color:#0000dd>fournisseur : Fournisseurs</color>
+	<color:#0000dd>users : User[]</color>
 }
 
 class LivraisonNote {
@@ -48,6 +50,7 @@ class Clients {
 	<color:#0000dd>commandes : Commandes[]</color>
 	client_email : string
 	client_phone : string
+	<color:#0000dd>favoris : Produits[]</color>
 }
 
 class Factures {
@@ -60,7 +63,7 @@ class Factures {
 
 class Fournisseurs {
 	**id : int**
-	id_fournisseur : int
+	fouDescription : string
 	nom_fournisseur : string
 	email_fou : string
 	phone_fou : int
@@ -86,11 +89,15 @@ class Commandes {
 }
 
 User "1"--"1" Clients
+User "*"--"*" Produits
 Vendeurs "*"--"1" Clients
 Produits "*"--"1" Categories
+Produits "*"--"1" Fournisseurs
+Produits "*"--"*" User
 LivraisonNote "1"--"1" Commandes
 Clients "1"--"*" Vendeurs
 Clients "1"--"*" Commandes
+Clients "*"--"*" Produits
 Factures "1"--"1" Commandes
 Commandes "*"--"*" Produits
 

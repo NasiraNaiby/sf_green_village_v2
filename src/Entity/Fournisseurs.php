@@ -13,8 +13,9 @@ class Fournisseurs
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_fournisseur = null;
+    #[ORM\Column(name: 'fou_description', type: 'text', nullable: true)]
+    private ?string $fouDescription = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $nom_fournisseur = null;
@@ -33,18 +34,7 @@ class Fournisseurs
         return $this->id;
     }
 
-    public function getIdFournisseur(): ?int
-    {
-        return $this->id_fournisseur;
-    }
-
-    public function setIdFournisseur(int $id_fournisseur): static
-    {
-        $this->id_fournisseur = $id_fournisseur;
-
-        return $this;
-    }
-
+   
     public function getNomFournisseur(): ?string
     {
         return $this->nom_fournisseur;
@@ -90,6 +80,17 @@ class Fournisseurs
     {
         $this->produit_exclusif = $produit_exclusif;
 
+        return $this;
+    }
+
+    public function getFouDescription(): ?string
+    {
+        return $this->fouDescription;
+    }
+
+    public function setFouDescription(?string $fouDescription): static
+    {
+        $this->fouDescription = $fouDescription;
         return $this;
     }
 }

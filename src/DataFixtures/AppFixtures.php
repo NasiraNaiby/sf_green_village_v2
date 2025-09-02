@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Produits;
 use App\Entity\Categories;
+use App\Entity\Fournisseurs;
 use App\Entity\User;
 use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -14,23 +15,32 @@ class AppFixtures extends Fixture
 {
     private $hasher;
 
-   public function __construct(UserPasswordHasherInterface $hasher) {
-    $this->hasher = $hasher;
-   }
+    public function __construct(UserPasswordHasherInterface $hasher) {
+        $this->hasher = $hasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
         $categories = [];
 
+        // Create default supplier FIRST
+        $supplier = new Fournisseurs();
+        $supplier->setNomFournisseur('Default Supplier');
+        $supplier->setEmailFou('default@example.com');
+        $supplier->setPhoneFou(123456789);
+        $manager->persist($supplier);
+        $this->addReference('default_supplier', $supplier);
+
+        // Create user
         $user = new User();
         $user->setEmail('nasira@gmail.com');
         $user->setUserName('Hannah');
-        $password =  $this->hasher->hashPassword($user,"1234");
+        $password = $this->hasher->hashPassword($user, "1234");
         $user->setPassword($password);
-        
         $manager->persist($user);
 
-        // Create and persist categories
+        // Create categories
         for ($i = 0; $i < 8; $i++) {
             $categorie = new Categories();
             $categorie->setNomCat($faker->word());
@@ -39,20 +49,18 @@ class AppFixtures extends Fixture
             $categories[] = $categorie;
         }
 
-        $manager->flush(); // 🔑 This ensures categories get assigned IDs before linking
+        $manager->flush(); // Ensure categories have IDs
 
-        // Create and persist products
+        // Create products and assign supplier + category
         for ($i = 0; $i < 25; $i++) {
             $produit = new Produits();
             $produit->setNomProduit($faker->word());
             $produit->setDescProduit($faker->sentence());
-            $produit->setAchatPrix($faker->randomFloat(2, 10, 100));
             $produit->setVentPrix($faker->randomFloat(2, 10, 100));
             $produit->setPhoto('https://picsum.photos/200/300');
 
-            // Randomly assign category
-            $randomCategory = $categories[array_rand($categories)];
-            $produit->setCategorie($randomCategory);
+            $produit->setCategorie($categories[array_rand($categories)]);
+            $produit->setFournisseur($supplier); // ✅ Link to supplier
 
             $manager->persist($produit);
         }

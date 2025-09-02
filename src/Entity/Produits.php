@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Categories;
 use App\Entity\User;
+use App\Entity\Fournisseurs;
 use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ProduitsRepository::class)]
@@ -35,6 +36,10 @@ class Produits
     #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categories $categorie = null;
+
+    #[ORM\ManyToOne(targetEntity: Fournisseurs::class, inversedBy: 'produits')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Fournisseurs $fournisseur = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'wishlist')]
     private Collection $users;
@@ -104,6 +109,17 @@ class Produits
         return $this;
     }
 
+    public function getFournisseur(): ?Fournisseurs
+    {
+        return $this->fournisseur;
+    }
+
+    public function setFournisseur(?Fournisseurs $fournisseur): static
+    {
+        $this->fournisseur = $fournisseur;
+        return $this;
+    }
+
     /**
      * @return Collection<int, User>
      */
@@ -116,7 +132,7 @@ class Produits
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->addWishlist($this); // keep the relationship in sync
+            $user->addWishlist($this);
         }
         return $this;
     }
@@ -124,7 +140,7 @@ class Produits
     public function removeUser(User $user): static
     {
         if ($this->users->removeElement($user)) {
-            $user->removeWishlist($this); // keep the relationship in sync
+            $user->removeWishlist($this);
         }
         return $this;
     }
