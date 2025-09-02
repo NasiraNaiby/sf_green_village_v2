@@ -25,7 +25,22 @@
                 <h5 class="card-title fw-bold mb-1">{{ produit.nomProduit }}</h5>
                 <p class="card-text text-muted small mb-1">{{ produit.descProduit|length > 60 ? produit.descProduit[:60] ~ '...' : produit.descProduit }}</p>
                 <p class="card-text fw-bold h6 mb-2">{{ produit.ventPrix }} €</p>
-                <a href="/panier/add/{{ produit.id }}" class="btn btn-primary mt-auto btn-sm">Ajouter au panier</a>
+
+                <!-- Voir Détails button -->
+                <button 
+                    class="btn btn-link p-0 mt-auto view-details" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#produitModal"
+                    data-id="{{ produit.id }}"
+                    data-nom="{{ produit.nomProduit }}"
+                    data-desc="{{ produit.descProduit }}"
+                    data-prix="{{ produit.ventPrix }}"
+                    data-photo="{{ produit.photo }}"
+                    data-fournisseur="{{ produit.fournisseur.nomFournisseur }}">
+                    Voir Détails
+                </button>
+
+                <a href="/panier/add/{{ produit.id }}" class="btn btn-primary mt-2 btn-sm">Ajouter au panier</a>
               </div>
             </div>
           </div>
@@ -36,34 +51,91 @@
     {% endif %}
   </div>
 </section>
+
+<!-- Product Modal (same as first template) -->
+<div class="modal fade" id="produitModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="produitModalLabel">Produit Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body row">
+        <!-- Left: Image -->
+        <div class="col-md-6 text-center">
+          <img id="modalPhoto" src="" alt="Produit" 
+               class="img-fluid zoomable" 
+               style="max-height: 400px; cursor: zoom-in;">
+        </div>
+
+        <!-- Right: Details -->
+        <div class="col-md-6">
+          <h4 id="modalNom"></h4>
+          <h5 class="text-success fw-bold" id="modalPrix"></h5>
+          <p id="modalDesc"></p>
+          <p><strong>Catégorie:</strong> <span id="modalCategorie"></span></p>
+          <p><strong>Fournisseur:</strong> <span id="modalFournisseur"></span></p>
+          <button id="modalAddToCart" class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block javascripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Heart toggle for wishlist
+    // Wishlist heart toggle
     document.querySelectorAll('.heart-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             const produitId = this.dataset.produitId;
             const icon = this.querySelector('i');
 
-            // Toggle icon
             icon.classList.toggle('bi-heart-fill');
             icon.classList.toggle('bi-heart');
 
-            // Send fetch request to toggle favoris
             fetch(`/wishlist/toggle/${produitId}`, {
                 method: 'POST',
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
             }).then(res => res.json())
               .then(data => {
-                  // Remove card if removed from wishlist
                   if (data.removed) {
                       this.closest('.col-md-3').remove();
                   }
               });
         });
+    });
+
+    // View Details modal
+    document.querySelectorAll('.view-details').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.getElementById('modalNom').textContent = this.dataset.nom;
+            document.getElementById('modalPrix').textContent = this.dataset.prix + " €";
+            document.getElementById('modalDesc').textContent = this.dataset.desc;
+            document.getElementById('modalCategorie').textContent = this.dataset.categorie || '';
+            document.getElementById('modalFournisseur').textContent = this.dataset.fournisseur;
+            document.getElementById('modalPhoto').src = this.dataset.photo;
+
+            document.getElementById('modalAddToCart').onclick = () => {
+                window.location.href = "/panier/add/" + this.dataset.id;
+            };
+        });
+    });
+
+    // Image zoom effect
+    const img = document.getElementById('modalPhoto');
+    img.addEventListener('click', function() {
+        if (this.style.transform === "scale(2)") {
+            this.style.transform = "scale(1)";
+            this.style.cursor = "zoom-in";
+        } else {
+            this.style.transform = "scale(2)";
+            this.style.cursor = "zoom-out";
+        }
+        this.style.transition = "transform 0.3s ease";
     });
 });
 </script>
