@@ -27,6 +27,7 @@ class Produits {
 	<color:#0000dd>categorie : Categories</color>
 	<color:#0000dd>fournisseur : Fournisseurs</color>
 	<color:#0000dd>users : User[]</color>
+	<color:#0000dd>produitImages : ProduitImage[]</color>
 }
 
 class LivraisonNote {
@@ -35,6 +36,12 @@ class LivraisonNote {
 	statutLivraison : string
 	dateLivraison : DateTime
 	noteLivraison : string
+}
+
+class ProduitImage {
+	**id : int**
+	filename : string
+	<color:#0000dd>produit : Produits</color>
 }
 
 class Clients {
@@ -94,6 +101,7 @@ Vendeurs "*"--"1" Clients
 Produits "*"--"1" Categories
 Produits "*"--"1" Fournisseurs
 Produits "*"--"*" User
+Produits "1"--"*" ProduitImage
 LivraisonNote "1"--"1" Commandes
 Clients "1"--"*" Vendeurs
 Clients "1"--"*" Commandes

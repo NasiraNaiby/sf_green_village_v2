@@ -88,7 +88,6 @@ final class MainController extends AbstractController
         }
 
         if (count($produits) === 0) {
-            $this->addFlash('warning', 'Votre panier est vide.');
             return $this->render('panier.html.twig', [
                 'panier' => $panier_complet,
                 'totalPrice' => $total,
@@ -281,5 +280,19 @@ final class MainController extends AbstractController
             'produit_id' => $produit->getId()
         ]);
     }
+
+    #[Route('/produit/details/{id}', name: 'produit_details')]
+    public function details(ProduitsRepository $repo, int $id): JsonResponse {
+        $produit = $repo->find($id);
+
+        return $this->json([
+            'nomProduit' => $produit->getNomProduit(),
+            'descProduit' => $produit->getDescProduit(),
+            'ventPrix' => $produit->getVentPrix(),
+            'photo' => $produit->getPhoto() // single image URL
+        ]);
+    }
+
+
 
 }

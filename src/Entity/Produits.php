@@ -44,9 +44,13 @@ class Produits
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'wishlist')]
     private Collection $users;
 
+    #[ORM\OneToMany(targetEntity: ProduitImage::class, mappedBy: 'produit', cascade: ['persist', 'remove'])]
+    private Collection $produitImages;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->produitImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,6 +146,35 @@ class Produits
         if ($this->users->removeElement($user)) {
             $user->removeWishlist($this);
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProduitImage>
+     */
+    public function getProduitImages(): Collection
+    {
+        return $this->produitImages;
+    }
+
+    public function addProduitImage(ProduitImage $produitImage): static
+    {
+        if (!$this->produitImages->contains($produitImage)) {
+            $this->produitImages->add($produitImage);
+            $produitImage->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduitImage(ProduitImage $produitImage): static
+    {
+        if ($this->produitImages->removeElement($produitImage)) {
+            if ($produitImage->getProduit() === $this) {
+                $produitImage->setProduit(null);
+            }
+        }
+
         return $this;
     }
 }
