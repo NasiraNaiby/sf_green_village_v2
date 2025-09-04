@@ -1,0 +1,21 @@
+{
+    "@symfony\/stimulus-bundle\/controllers.js": "\/assets\/@symfony\/stimulus-bundle\/controllers-188ff7e85a168fc0ecaa9c89dbc2b5a7.js",
+    "@symfony\/stimulus-bundle\/loader.js": "\/assets\/@symfony\/stimulus-bundle\/loader-9311b8ea36bad0f6168e687b4d6dee73.js",
+    "@symfony\/ux-react\/components.js": "\/assets\/@symfony\/ux-react\/components-e8db0628666b0647a8760c373cbcc67b.js",
+    "@symfony\/ux-react\/loader.js": "\/assets\/@symfony\/ux-react\/loader-9cc4aeb4ca7b5bb0ddbdbf9563a3a5e2.js",
+    "@symfony\/ux-react\/register_controller.js": "\/assets\/@symfony\/ux-react\/register_controller-b3932f2fc7f5e9d09adebb96eff57d4c.js",
+    "@symfony\/ux-react\/render_controller.js": "\/assets\/@symfony\/ux-react\/render_controller-41ac59b0e6cf82d7b3b8e579779566de.js",
+    "@symfony\/ux-turbo\/turbo_controller.js": "\/assets\/@symfony\/ux-turbo\/turbo_controller-ce5e32dafdec0b7752f02e3e2cb25751.js",
+    "@symfony\/ux-turbo\/turbo_stream_controller.js": "\/assets\/@symfony\/ux-turbo\/turbo_stream_controller-93a0355f403f072bedda47f1137f108c.js",
+    "app.js": "\/assets\/app-aa61638e318a9a813fedef7e3d890c1f.js",
+    "bootstrap.js": "\/assets\/bootstrap-4aff22e60620c42b3c93ac4508b044b9.js",
+    "controllers\/hello_controller.js": "\/assets\/controllers\/hello_controller-55882fcad241d2bea50276ea485583bc.js",
+    "react\/controllers\/Hello.jsx": "\/assets\/react\/controllers\/Hello-6246c983d1b8210f574ebe6ad3911fc9.jsx",
+    "react\/controllers\/MyComponent.jsx": "\/assets\/react\/controllers\/MyComponent-99aa06d3014798d86001c324468d497f.jsx",
+    "styles\/app.css": "\/assets\/styles\/app-038d2ddcc7d9b81f11564dc124ff292c.css",
+    "vendor\/@hotwired\/stimulus\/stimulus.index.js": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-4b8ccd71e6b1c4ddba22853d5a50a26c.js",
+    "vendor\/@hotwired\/turbo\/turbo.index.js": "\/assets\/vendor\/@hotwired\/turbo\/turbo.index-a53d794fa85309d61a95703410716017.js",
+    "vendor\/react-dom\/react-dom.index.js": "\/assets\/vendor\/react-dom\/react-dom.index-ffbc0b0bd1c947506e0e5e92924a8932.js",
+    "vendor\/react\/react.index.js": "\/assets\/vendor\/react\/react.index-40a14fd9bb392c3eb59cd9b7682a44e4.js",
+    "vendor\/scheduler\/scheduler.index.js": "\/assets\/vendor\/scheduler\/scheduler.index-c59192033d00fb597a247acb298425d4.js"
+}

@@ -1,0 +1,9 @@
+[
+    "@symfony\/ux-react",
+    "\/assets\/bootstrap.js",
+    "\/assets\/styles\/app.css",
+    "react",
+    "\/assets\/@symfony\/ux-react\/components.js",
+    "@hotwired\/stimulus",
+    "\/assets\/react\/controllers\/Hello.jsx"
+]

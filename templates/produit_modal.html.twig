@@ -1,0 +1,28 @@
+<div class="modal fade" id="produitModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="produitModalLabel">Produit Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body row">
+        <!-- Left: Image -->
+        <div class="col-md-6 text-center">
+          <img id="modalPhoto" src="" alt="Produit" 
+               class="img-fluid zoomable" 
+               style="max-height: 400px; cursor: zoom-in;">
+        </div>
+
+        <!-- Right: Details -->
+        <div class="col-md-6">
+          <h4 id="modalNom"></h4>
+          <h5 class="text-success fw-bold" id="modalPrix"></h5>
+          <p id="modalDesc"></p>
+          <p><strong>Catégorie:</strong> <span id="modalCategorie"></span></p>
+          <p><strong>Fournisseur:</strong> <span id="modalFournisseur"></span></p>
+          <button id="modalAddToCart" class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,709 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+html, body {
+    font-family: Roboto, Arial;
+    margin: 0;
+    padding: 0;
+    padding-top: 55px;
+    overflow-x: hidden; 
+
+    height: 100%;
+  }
+
+
+main {
+    flex: 1; /* pushes footer down */
+}
+
+.myfooter {
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+
+
+
+
+
+
+.mynavbar {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.navbar_logo_section {
+    flex-grow: 2;
+    display: flex;
+}
+
+.nav_items {
+    display: flex;
+    gap: 2rem; 
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 15px;
+    color: #023116; 
+    transition: 0.3s ease-in-out;
+}
+
+.nav-link:hover, .navbar-brand:hover {
+    color: #0a5f43; 
+}
+
+@media (max-width: 768px) {
+    .mynavbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav_items {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}
+.logo{
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.navbar-brand{
+    color: #023116;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2),  0 0 1px rgba(2, 49, 22, 0.5);
+    font-family: 'Poppins', sans-serif; 
+    margin: 0;
+  }
+
+  
+/* header */
+
+.myheader{
+    min-height: 150;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    gap: 1rem;
+}
+.hearder_first_section{
+    display: flex;
+    flex: 1;
+    flex-shrink: 1;
+    align-items: center;
+}
+.hearder_second_section{
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+    justify-content: center;
+    flex-shrink: 1;
+}
+.hearder_second_section form {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+
+.hearder_third_section{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    flex-shrink: 1;
+}
+
+.login_icon,.cart_icon{
+    color: black;
+    font-size: 20px;
+    padding-right: 10px;
+   
+}
+.search_bar{
+    flex: 1;
+    height: 36px;
+    font-size: 16px;
+    border: 1px solid rgb(192,192,192);
+    border-radius: 2px;
+    box-shadow: inset 1px 2px 3px rgba(0,0,0,0.05);
+}
+.btn_search{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 66px;
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgb(192,192,192);
+    margin-left: -1px;
+}
+
+@media (max-width: 768px) {
+    .myheader {
+        flex-direction: column; 
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .hearder_first_section, .hearder_second_section, .hearder_third_section {
+        flex-grow: unset; 
+        width: 100%;
+        justify-content: center;
+    }
+
+    .searchbar {
+        width: 90%; 
+    }
+} 
+
+.logo{
+    border-radius: 70%;
+    width: 70px; 
+    height: auto; 
+    max-height: 50px; 
+    filter: brightness(1.3) contrast(1.2) saturate(1.5);
+}
+
+/* Section hero  */
+
+.btn_hero{
+    padding: 15px 35px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: white;
+    color: green;
+    transition: background-color 0.3s ease-in-out;
+}
+    
+.btn_hero:hover {
+    background-color: #0a5f43;
+    color: white;
+}
+
+@keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+
+.shadow-float {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  /* @keyframes scaleUpDown {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+  }
+  
+  .animate-scale {
+    animation: scaleUpDown 4s ease-in-out infinite;
+  }
+   */
+
+
+
+/*  endof Section hero */
+
+/* neuf_section */
+
+.neuf_section{
+    height: 300px;
+    background-color: pink;
+}
+
+
+/* endof neuf_section */
+
+
+/* section categorie cards */
+
+@media (max-width: 576px) {
+    .card {
+        width: 100%; 
+    }
+}
+
+.hover-scale {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.hover-scale:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+/* card  */
+
+
+/* endof card  */
+
+
+/* section marque vedette  */
+.marque_vedettes_card{
+    border: 1px solid black;
+    background-color: white;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 5px;
+    justify-content: space-around;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.brand-image {
+    display: flex;
+    flex: 2;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 2;
+    flex-direction: row;
+}
+
+.brand-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.brand_desc{
+   
+    padding: 10px;
+    display: flex;
+    flex: 2;
+    justify-content: center;
+    flex-shrink: 1;
+}
+.brand_desc, p {
+    font-size: 16px; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    display: flex;
+    padding-top: 20px;
+}
+
+.brand_btn{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 1;
+
+    
+}
+.btn_voir_plus {
+    padding: 15px 35px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: white;
+    color: green;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn_voir_plus:hover {
+    background-color: #0a5f43;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .marque_vedettes_card {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .brand-image, .brand_desc, .brand_btn {
+        flex: none; 
+        width: 100%;
+        text-align: center;
+    }
+
+    .brand-image img {
+        width: 100%; 
+        height: auto; /* this one is to keep th aspect ratio*/
+    }
+
+    .brand_desc {
+        padding-top: 15px; 
+    }
+}
+
+
+
+/* footer */
+
+.footer_links {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+.footer_navigate_links {
+    flex: 1;
+    margin: auto;
+    color:black;
+}
+
+.footer_social_links {
+    align-items: center;
+    flex: 1;
+    color: black;
+}
+
+.social_media{
+    width: 100%;
+    text-align: right;
+    padding-right: 20px;
+    color: #023116;
+    font-size: 40px;
+    margin: 0;
+}
+.navigate_links{
+    color: #023116;
+}
+.navigate_links:hover, .social_media:hover{
+    color: #0a5f43; 
+    text-decoration: none;
+}
+@media (max-width: 768px) {
+    .myfooter {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer_links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+.copyright {
+    text-align: center;
+    display: block; 
+    width: 100%; 
+    padding: 10px;
+    color: #023116;
+    font-weight: 500;
+    
+}
+.copyright:hover{
+    color: #0a5f43; 
+}
+
+/* user login */
+.user_login{
+    margin: 100px 20px;
+    padding: 20px;
+    /* border: 2px solid black; */
+}
+
+/* add to cart section */
+
+.panier_card{
+    /*border: 1px solid black; */
+    background-color: white;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 5px;
+    justify-content: space-around;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ajouter_au_panier {
+    /* border: 1px solid  black; */
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.produits_ajoutés {
+    padding-left: 20px;
+    border-left: 2px solid #000; 
+}
+
+@media (max-width: 768px) {
+.produits_ajoutés {
+    border-left: none;
+    border-top: 2px solid #000;
+    padding-left: 0;
+    padding-top: 20px;
+}
+}
+
+.quantity-input {
+    padding: 2px 6px;
+    font-size: 14px;
+}
+.total-section {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+}
+
+@media (max-width: 768px) {
+.total-section {
+    text-align: center;
+}
+}
+
+/*this is a comment for the new styles for the produits in produit page and the accuiels */
+.hover-scale {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.hover-scale:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Image zoom on hover and crop */
+.card-img-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s;
+}
+.card-img-container:hover img {
+    transform: scale(1.05);
+}
+
+/* Heart button */
+.heart-btn {
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+.heart-btn:hover {
+    transform: scale(1.2);
+    color: red;
+    background-color: white;
+}
+
+/* Reduce spacing */
+.card-title {
+    font-size: 1rem;
+}
+.card-text {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+/*endof  */
+
+/* notre magasin gallery */
+.thumb-img {
+    height: 200px;           
+    object-fit: cover;       
+    width: 100%;
+    border-radius: 8px;
+  }
+/* gallery page styles */
+
+.zoomable {
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+.zoomable:hover {
+  transform: scale(1.05);
+}
+img.zoomable {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* page fournisseurs */
+
+/* Page container */
+.page-container {
+    background-color: #f4f6f900;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* Section titles */
+.section-title {
+    font-weight: 700;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1rem;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+/* Section paragraphs */
+.section-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Supplier cards */
+.supplier-card {
+    background: linear-gradient(135deg, #ffffff, #e9ecef);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.supplier-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Instrument category badges */
+.instrument-badge {
+    display: inline-block;
+    padding: 0.6em 1.2em;
+    font-size: 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+/* Wholesale button */
+.wholesale-btn {
+    border-radius: 30px;
+    padding: 0.6em 1.5em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.wholesale-btn:hover {
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+/* registration form margin labels */
+
+.label_margin{
+    margin-left: 5px;
+}
+
+/* client page  */
+
+.client-tabs .nav-link.active {
+    background-color: #0a5f43 !important;
+    color: white !important;
+    border-color: #0a5f43 !important;
+}
+
+.client-tabs .nav-link:hover {
+    background-color: #d4f7d4;
+}
+
+/* wish list  */
+
+/* Card hover effect */
+.hover-scale {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.hover-scale:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Image zoom on hover and crop */
+.card-img-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s;
+}
+.card-img-container:hover img {
+    transform: scale(1.05);
+}
+
+/* Heart button */
+.heart-btn {
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+.heart-btn:hover {
+    transform: scale(1.2);
+    color: red;
+    background-color: white;
+}
+
+/* Reduce spacing */
+.card-title {
+    font-size: 1rem;
+}
+.card-text {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+
+/* endof wish list */
