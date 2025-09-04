@@ -28,11 +28,15 @@ class AppFixtures extends Fixture
         $supplier->setNomFournisseur('Default Supplier');
         $supplier->setEmailFou('default@example.com');
         $supplier->setPhoneFou(123456789);
+        $supplier->setProduitExclusif("guitar");
+        $supplier->setFouDescription("    Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+        Debitis excepturi, alias deleniti ad quasi perferendis repudiandae facilis blanditiis sapiente 
+        ratione sint libero tempora tenetur, asperiores quo porro voluptatum magni illum.");
         $manager->persist($supplier);
         $this->addReference('default_supplier', $supplier);
 
         $user = new User();
-        $user->setEmail('nasira@gmail.com');
+        $user->setEmail('nasiraabcd@gmail.com');
         $user->setUserName('Hannah');
         $password = $this->hasher->hashPassword($user, "1234");
         $user->setPassword($password);

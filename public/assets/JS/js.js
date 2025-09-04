@@ -63,47 +63,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-const radioInputMap = {
-'use_existing_email': 'checkout[client_email]',
-'use_existing_phone': 'checkout[client_phone]',
-'use_existing_address': 'checkout[adresseLivraison]',
-'use_existing_postal': 'checkout[codePostalLivraison]'
-};
+// const radioInputMap = {
+// 'use_existing_email': 'checkout[client_email]',
+// 'use_existing_phone': 'checkout[client_phone]',
+// 'use_existing_address': 'checkout[adresseLivraison]',
+// 'use_existing_postal': 'checkout[codePostalLivraison]'
+// };
 
-Object.keys(radioInputMap).forEach(radioName => {
-    document.querySelectorAll('input[name="'+radioName+'"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            const input = document.querySelector('[name="'+radioInputMap[radioName]+'"]');
-            if (!input) return;
-            input.disabled = (this.value === 'yes');
-        });
-        radio.dispatchEvent(new Event('change')); // set initial state
-    });
-});
+// Object.keys(radioInputMap).forEach(radioName => {
+//     document.querySelectorAll('input[name="'+radioName+'"]').forEach(radio => {
+//         radio.addEventListener('change', function() {
+//             const input = document.querySelector('[name="'+radioInputMap[radioName]+'"]');
+//             if (!input) return;
+//             input.disabled = (this.value === 'yes');
+//         });
+//         radio.dispatchEvent(new Event('change')); // set initial state
+//     });
+// });
 
-// Checkout modal logic
-document.getElementById('checkoutBtn').addEventListener('click', function() {
-    const form = document.getElementById('checkoutForm');
-    if (form.checkValidity()) {
-        const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-        paymentModal.show();
-    } else {
-        form.reportValidity();
-    }
-});
+// // Checkout modal logic
+// document.getElementById('checkoutBtn').addEventListener('click', function() {
+//     const form = document.getElementById('checkoutForm');
+//     if (form.checkValidity()) {
+//         const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+//         paymentModal.show();
+//     } else {
+//         form.reportValidity();
+//     }
+// });
 
-document.getElementById('confirmPaymentBtn').addEventListener('click', function() {
-    const form = document.getElementById('checkoutForm');
-    const paymentMethod = document.getElementById('paymentMethod').value;
+// document.getElementById('confirmPaymentBtn').addEventListener('click', function() {
+//     const form = document.getElementById('checkoutForm');
+//     const paymentMethod = document.getElementById('paymentMethod').value;
 
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'payment_method';
-    input.value = paymentMethod;
-    form.appendChild(input);
+//     let input = document.createElement('input');
+//     input.type = 'hidden';
+//     input.name = 'payment_method';
+//     input.value = paymentMethod;
+//     form.appendChild(input);
 
-    form.submit();
-});
+//     form.submit();
+// });
 
 //gallery zoom
   mediumZoom('.zoomable', {

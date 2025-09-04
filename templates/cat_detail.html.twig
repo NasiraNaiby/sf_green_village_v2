@@ -1,8 +1,101 @@
 {% extends 'main.html.twig' %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+  <style>
+    /* Reduce space around items */
+    .owl-carousel .item {
+      padding: 5px;
+    }
+
+    /* Bigger cards */
+    .owl-carousel .card {
+      width: 280px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .owl-carousel .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      height: 280px;
+      object-fit: cover;
+      width: 100%;
+    }
+  </style>
+{% endblock %}
+
 {% block body %}
 <div class="container mt-5">
-  <h2 class="fw-bold">{{ categorie.nomCat }}</h2>
-  <p>{{ categorie.descCat }}</p>
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-light p-2 rounded">
+      <li class="breadcrumb-item"><a href="{{ path('main') }}">Accueil</a></li>
+      <li class="breadcrumb-item"><a href="{{ path('main_categories') }}">Catégories</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ categorie.nomCat }}</li>
+    </ol>
+  </nav>
+
+  <!-- Category Header -->
+  <div class="row align-items-center my-4 p-3 bg-white rounded shadow-sm">
+    <div class="col-md-12 text-center">
+      <h1 class="fw-bold display-5">{{ categorie.nomCat }}</h1>
+      <p class="text-muted fs-5 mt-3">{{ categorie.descCat ?: 'Aucune description disponible pour cette catégorie.' }}</p>
+    </div>
+  </div>
+
+  <!-- Products Carousel -->
+  {% if categorie.produits|length > 0 %}
+    <div class="owl-carousel owl-theme">
+      {% for produit in categorie.produits %}
+        <div class="item">
+          <div class="card">
+            <img src="{{ produit.photo }}" alt="{{ produit.nomProduit }}">
+            <div class="card-body text-center p-2">
+              <h5 class="card-title mb-0">{{ produit.nomProduit }}</h5>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-warning mt-4 text-center" role="alert">
+      Aucun produit trouvé pour cette catégorie.
+    </div>
+  {% endif %}
+
 </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <!-- jQuery (required by Owl Carousel) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Owl Carousel JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        navText:["<i class='bi bi-chevron-left fs-3 text-dark'></i>","<i class='bi bi-chevron-right fs-3 text-dark'></i>"],
+        responsive:{
+          0:{ items:1 },
+          576:{ items:2 },
+          768:{ items:3 },
+          992:{ items:4 }
+        }
+      });
+    });
+  </script>
 {% endblock %}

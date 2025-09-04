@@ -158,6 +158,26 @@ document.addEventListener('DOMContentLoaded', () => {
       modalFournisseur.href = fournisseurUrl;
     });
   });
+
+  const modalAddBtn = document.getElementById('modalAddToCart');
+
+if (modalAddBtn) {
+    detailButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Set the product ID for Add to Cart button
+            modalAddBtn.dataset.produitId = button.dataset.id;
+        });
+    });
+
+    modalAddBtn.addEventListener('click', function() {
+        const produitId = this.dataset.produitId;
+        if (!produitId) return;
+
+        // Redirect to add-to-cart route
+        window.location.href = `/panier/add/${produitId}`;
+    });
+}
+
 });
 </script>
 

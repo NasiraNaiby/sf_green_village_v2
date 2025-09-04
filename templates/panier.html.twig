@@ -10,7 +10,7 @@
   <div class="alert alert-dismissible fade show d-flex align-items-center justify-content-between" role="alert" 
        style="background-color: #0a5f43; color: #fff; border-radius: 10px; padding: 15px; font-size: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
     <div>
-      <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+      <i class="bi bi-check-circle-fill me-2"></i> {{ message }} 
     </div>
     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
@@ -166,5 +166,60 @@
   </div>
 
 </section>
+<script>
+  // ----------------------------
+    // Radio inputs logic for existing client info
+    // ----------------------------
+    const radioInputMap = {
+        'use_existing_email': 'checkout[client_email]',
+        'use_existing_phone': 'checkout[client_phone]',
+        'use_existing_address': 'checkout[adresseLivraison]',
+        'use_existing_postal': 'checkout[codePostalLivraison]'
+    };
 
+    Object.keys(radioInputMap).forEach(radioName => {
+        document.querySelectorAll(`input[name="${radioName}"]`).forEach(radio => {
+            radio.addEventListener('change', function() {
+                const input = document.querySelector(`[name="${radioInputMap[radioName]}"]`);
+                if (!input) return;
+                input.disabled = (this.value === 'yes');
+            });
+            radio.dispatchEvent(new Event('change')); // set initial state
+        });
+    });
+
+    // ----------------------------
+    // Checkout modal logic
+    // ----------------------------
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const paymentSelect = document.getElementById('paymentMethod');
+
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', function() {
+            if (!checkoutForm.checkValidity()) {
+                checkoutForm.reportValidity();
+                return;
+            }
+            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+            paymentModal.show();
+        });
+    }
+
+    if (confirmPaymentBtn && checkoutForm) {
+        confirmPaymentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Add hidden payment method field
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'payment_method';
+            input.value = paymentSelect.value;
+
+            checkoutForm.appendChild(input);
+            checkoutForm.submit();
+        });
+    }
+</script>
 {% endblock %}
