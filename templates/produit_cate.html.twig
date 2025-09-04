@@ -10,7 +10,7 @@
     {% if produitsFiltres|length > 0 %}
       <div class="row g-4">
       {% for produit in produitsFiltres %}
-        {% include 'components/_product_card.html.twig' with { produit: produit } %}
+        {% include 'produit_card.html.twig' with { produit: produit } %}
       {% endfor %}
       </div>
     {% else %}
@@ -20,5 +20,5 @@
 </section>
 
 <!-- Product Modal -->
-
+{% include 'produit_modal.html.twig' %}
 {% endblock %}

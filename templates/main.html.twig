@@ -129,5 +129,38 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
         <script src="{{ asset('assets/JS/js.js') }}"></script>
     {% endblock %}
+
+        <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const detailButtons = document.querySelectorAll('.view-details');
+  const modalNom = document.getElementById('modalNom');
+  const modalPrix = document.getElementById('modalPrix');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalPhoto = document.getElementById('modalPhoto');
+  const modalCategorie = document.getElementById('modalCategorie');
+  const modalFournisseur = document.getElementById('modalFournisseur');
+
+  detailButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      modalNom.textContent = button.dataset.nom;
+      modalPrix.textContent = button.dataset.prix + " €";
+      modalDesc.textContent = button.dataset.desc;
+      modalPhoto.src = button.dataset.photo;
+
+      // Twig will resolve these URLs on server side
+      let categorieUrl = "{{ path('categorie_details', {'id': 'CAT_ID'}) }}".replace('CAT_ID', button.dataset.categorieId);
+      let fournisseurUrl = "{{ path('fournisseur_details', {'id': 'FOUR_ID'}) }}".replace('FOUR_ID', button.dataset.fournisseurId);
+
+      modalCategorie.textContent = button.dataset.categorie;
+      modalCategorie.href = categorieUrl;
+
+      modalFournisseur.textContent = button.dataset.fournisseur;
+      modalFournisseur.href = fournisseurUrl;
+    });
+  });
+});
+</script>
+
+
 </body>
 </html>

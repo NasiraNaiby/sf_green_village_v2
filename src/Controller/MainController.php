@@ -20,6 +20,7 @@ use App\Entity\Factures;
 use App\Service\MailerService; 
 use Twig\Environment as TwigEnvironment; 
 use Dompdf\Dompdf;
+use App\Repository\FournisseursRepository;
 
 
 
@@ -290,6 +291,36 @@ final class MainController extends AbstractController
             'descProduit' => $produit->getDescProduit(),
             'ventPrix' => $produit->getVentPrix(),
             'photo' => $produit->getPhoto() // single image URL
+        ]);
+    }
+
+    #[Route('/categorie/{id}', name: 'categorie_details')]
+    public function categorieDetails(CategoriesRepository $categories, int $id): Response
+    {
+        $categorie = $categories->find($id);
+
+        if (!$categorie) {
+            throw $this->createNotFoundException('Catégorie non trouvée');
+        }
+
+        return $this->render('cat_detail.html.twig', [
+            'categorie' => $categorie,
+        ]);
+    }
+
+   
+
+    #[Route('/fournisseur/{id}', name: 'fournisseur_details')]
+    public function fournisseurDetails(FournisseursRepository $fournisseurs, int $id): Response
+    {
+        $fournisseur = $fournisseurs->find($id);
+
+        if (!$fournisseur) {
+            throw $this->createNotFoundException('Fournisseur non trouvé');
+        }
+
+        return $this->render('fournisseur_detail.html.twig', [
+            'fournisseur' => $fournisseur,
         ]);
     }
 

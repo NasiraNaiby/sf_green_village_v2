@@ -19,18 +19,22 @@
       <p class="card-text fw-bold h6 mb-2">{{ produit.ventPrix }} €</p>
 
       <!-- View details button -->
-      <button 
-          class="btn btn-link p-0 mt-auto view-details" 
-          data-bs-toggle="modal" 
-          data-bs-target="#produitModal"
-          data-id="{{ produit.id }}"
-          data-nom="{{ produit.nomProduit }}"
-          data-desc="{{ produit.descProduit }}"
-          data-prix="{{ produit.ventPrix }}"
-          data-photo="{{ produit.photo }}"
-          data-fournisseur="{{ produit.fournisseur.nomFournisseur }}">
-          Voir Détails
-      </button>
+     <button 
+      class="btn btn-link p-0 mt-auto view-details" 
+      data-bs-toggle="modal" 
+      data-bs-target="#produitModal"
+      data-id="{{ produit.id }}"
+      data-nom="{{ produit.nomProduit }}"
+      data-desc="{{ produit.descProduit }}"
+      data-prix="{{ produit.ventPrix }}"
+      data-photo="{{ produit.photo }}"
+      data-categorie="{{ produit.categorie.nomCat }}"
+      data-categorie-id="{{ produit.categorie.id }}"
+      data-fournisseur="{{ produit.fournisseur.nomFournisseur }}"
+      data-fournisseur-id="{{ produit.fournisseur.id }}">
+      Voir Détails
+    </button>
+
 
       <a href="/panier/add/{{ produit.id }}" class="btn btn-primary mt-2 btn-sm">Ajouter</a>
     </div>

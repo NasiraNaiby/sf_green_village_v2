@@ -21,21 +21,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Handle "View Details" button click
-    document.querySelectorAll('.view-details').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.getElementById('modalNom').textContent = this.dataset.nom;
-            document.getElementById('modalPrix').textContent = this.dataset.prix + " €";
-            document.getElementById('modalDesc').textContent = this.dataset.desc;
-            document.getElementById('modalCategorie').textContent = this.dataset.categorie;
-            document.getElementById('modalFournisseur').textContent = this.dataset.fournisseur;
-            document.getElementById('modalPhoto').src = this.dataset.photo;
+    // const detailButtons = document.querySelectorAll('.view-details');
+    // const modalNom = document.getElementById('modalNom');
+    // const modalPrix = document.getElementById('modalPrix');
+    // const modalDesc = document.getElementById('modalDesc');
+    // const modalPhoto = document.getElementById('modalPhoto');
+    // const modalCategorie = document.getElementById('modalCategorie');
+    // const modalFournisseur = document.getElementById('modalFournisseur');
 
-            // Set Add-to-Cart button link dynamically
-            document.getElementById('modalAddToCart').onclick = () => {
-                window.location.href = "/panier/add/" + this.dataset.id;
-            };
-        });
-    });
+    // detailButtons.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //     modalNom.textContent = button.dataset.nom;
+    //     modalPrix.textContent = button.dataset.prix + " €";
+    //     modalDesc.textContent = button.dataset.desc;
+    //     modalPhoto.src = button.dataset.photo;
+
+    //     // Build Symfony routes dynamically with Twig + replace()
+    //     modalCategorie.textContent = button.dataset.categorie;
+    //     modalCategorie.href = "{{ path('categorie_details', {'id': 'CAT_ID'}) }}"
+    //         .replace('CAT_ID', button.dataset.categorieId);
+
+    //     modalFournisseur.textContent = button.dataset.fournisseur;
+    //     modalFournisseur.href = "{{ path('fournisseur_details', {'id': 'FOUR_ID'}) }}"
+    //         .replace('FOUR_ID', button.dataset.fournisseurId);
+    //     });
+    // });
 
     // Simple zoom effect on image
     const img = document.getElementById('modalPhoto');
