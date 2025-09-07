@@ -1,25 +1,23 @@
 {% extends 'main.html.twig' %}
 
-{% block title %}Hello Clients!{% endblock %}
+{% block title %}Galerie de produits{% endblock %}
+
 {% block body %}
-
-<div class="container">
-  <div class="row">
-    {% for produit in produits %}
-      <div class="col-lg-4 col-md-6 mb-4">
-        <a href="{{ produit.photo }}" data-lightbox="gallery" data-title="{{ produit.nomProduit }}">
-          <img
-            src="{{ produit.photo }}"
-            class="w-100 shadow-1-strong rounded mb-4 zoomable"
-            alt="{{ produit.nomProduit }}"
-          />
-        </a>
-      </div>
-    {% endfor %}
-  </div>
+<div class="container-fluid gallery">
+    <h2 class="gallery-title">Our Products</h2>
+    <div class="row">
+        {% for produit in produits %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="gallery-item">
+                <a href="{{ produit.photo }}" target="_blank">
+                    <img src="{{ produit.photo }}" alt="{{ produit.nomProduit }}">
+                    <div class="gallery-overlay">
+                        <span>{{ produit.nomProduit }}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
-
-
-
-
 {% endblock %}
