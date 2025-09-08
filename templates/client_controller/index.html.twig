@@ -121,7 +121,7 @@
                 <th>Commande ID</th>
                 <th>Produits</th>
                 <th>Quantité</th>
-                <th>Prix Unitaire</th>
+                <!-- <th>Prix Unitaire</th> -->
                 <th>Prix Total</th>
                 <th>Facture</th>
                 <th>Livraison</th>
@@ -144,11 +144,11 @@
                       <p class="mb-0">{{ commande.quantite }}</p>
                     {% endfor %}
                   </td>
-                  <td>
+                  <!-- <td>
                     {% for produit in commande.produits %}
                       <p class="mb-0">{{ commande.prixUnitaire }} €</p>
                     {% endfor %}
-                  </td>
+                  </td> -->
                   <td>{{ commande.prixTotal }} €</td>
                   <td>
                     {% if commande.facture %}
@@ -184,35 +184,63 @@
     </div> -->
 
     <!-- Favoris -->
-    <div class="tab-pane fade" id="tab4">
-      <h3 class="text-center mt-3 mb-4">Vos Produits Favoris</h3>
+  <div class="tab-pane fade" id="tab4">
+  <h3 class="text-center mt-3 mb-4">Vos Produits Favoris</h3>
 
-      {% if favoris is empty %}
-        <p class="text-center">Vous n’avez aucun produit dans vos favoris.</p>
-      {% else %}
-        <div class="row g-4">
-          {% for produit in favoris %}
-            <div class="col-md-3 col-sm-6 d-flex">
-              <div class="card shadow-sm w-100 position-relative hover-scale">
-                <div class="card-img-container overflow-hidden" style="height:200px;">
-                  <img src="{{ produit.photo }}" class="card-img-top img-fluid w-100 h-100" alt="{{ produit.nomProduit }}">
-                  <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 heart-btn" data-produit-id="{{ produit.id }}">
-                    <i class="bi bi-heart-fill text-danger"></i>
-                  </button>
-                </div>
-                <div class="card-body d-flex flex-column p-3">
-                  <h5 class="card-title fw-bold mb-1">{{ produit.nomProduit }}</h5>
-                  <p class="card-text text-muted small mb-1">{{ produit.descProduit|length > 60 ? produit.descProduit[:60] ~ '...' : produit.descProduit }}</p>
-                  <p class="card-text fw-bold h6 mb-2">{{ produit.ventPrix }} €</p>
-                  <a href="{{ path('main_add_panier', {'id': produit.id}) }}" class="btn btn-primary mt-auto btn-sm">Ajouter au panier</a>
-                </div>
-              </div>
+  {% if favoris is empty %}
+    <p class="text-center">Vous n’avez aucun produit dans vos favoris.</p>
+  {% else %}
+    <div class="row g-4">
+      {% for produit in favoris %}
+        <div class="col-lg-3 col-md-4 col-sm-6 d-flex">
+          <div class="card shadow-sm border-0 w-100 hover-scale position-relative">
+
+            <!-- Product Image with Heart -->
+            <div class="card-img-container overflow-hidden" style="height: 200px;">
+              <img src="/uploads/{{ produit.photo }}" class="card-img-top img-fluid w-100 h-100" alt="{{ produit.nomProduit }}">
+              <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 heart-btn" 
+                      data-produit-id="{{ produit.id }}">
+                <i class="bi bi-heart-fill text-danger"></i>
+              </button>
             </div>
-          {% endfor %}
+
+            <!-- Card Body -->
+            <div class="card-body d-flex flex-column p-3">
+              <h5 class="card-title fw-bold mb-1">{{ produit.nomProduit }}</h5>
+              <p class="card-text text-muted small mb-1">
+                {{ produit.descProduit|length > 60 ? produit.descProduit[:60] ~ '...' : produit.descProduit }}
+              </p>
+              <p class="card-text fw-bold h6 mb-2">{{ produit.ventPrix }} €</p>
+
+              <!-- View details button -->
+              <button 
+                class="btn btn-link p-0 mt-auto view-details" 
+                data-bs-toggle="modal" 
+                data-bs-target="#produitModal"
+                data-id="{{ produit.id }}"
+                data-nom="{{ produit.nomProduit }}"
+                data-desc="{{ produit.descProduit }}"
+                data-prix="{{ produit.ventPrix }}"
+                data-photo="{{ produit.photo }}"
+                data-categorie="{{ produit.categorie.nomCat }}"
+                data-categorie-id="{{ produit.categorie.id }}"
+                data-fournisseur="{{ produit.fournisseur.nomFournisseur }}"
+                data-fournisseur-id="{{ produit.fournisseur.id }}">
+                Voir Détails
+              </button>
+
+              <a href="{{ path('main_add_panier', {'id': produit.id}) }}" class="btn btn-success mt-2 btn-sm">Ajouter</a>
+            </div>
+          </div>
         </div>
-      {% endif %}
+      {% endfor %}
     </div>
+  {% endif %}
+</div>
+
 
   </div>
 </div>
+  <!-- Product Modal -->
+{% include 'produit_modal.html.twig' %}
 {% endblock %}
