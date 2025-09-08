@@ -13,7 +13,7 @@
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ cat.nomCat }}</h5>
               <p class="card-text">{{ cat.descCat|u.truncate(80, '...') }}</p>
-              <a href="{{ path('produit_par_categories', {'id': cat.id}) }}" class="btn btn-primary mt-auto">Voir produits</a>
+              <a href="{{ path('produit_par_categories', {'id': cat.id}) }}" class="btn btn-success mt-auto">Voir produits</a>
             </div>
           </div>
         </div>

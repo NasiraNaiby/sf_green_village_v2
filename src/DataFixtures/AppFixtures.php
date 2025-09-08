@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
         $categories = [];
 
         $supplier = new Fournisseurs();
-        $supplier->setNomFournisseur('Default Supplier');
+        $supplier->setNomFournisseur('FOURNISSEUR 1');
         $supplier->setEmailFou('default@example.com');
         $supplier->setPhoneFou(123456789);
         $supplier->setProduitExclusif("guitar");
@@ -33,7 +33,21 @@ class AppFixtures extends Fixture
         Debitis excepturi, alias deleniti ad quasi perferendis repudiandae facilis blanditiis sapiente 
         ratione sint libero tempora tenetur, asperiores quo porro voluptatum magni illum.");
         $manager->persist($supplier);
-        $this->addReference('default_supplier', $supplier);
+        $this->addReference('FOURNISSEUR 1', $supplier);
+
+        $supplier2 = new Fournisseurs();
+        $supplier2->setNomFournisseur('FOURNISSEUR 2');
+        $supplier2->setEmailFou('default@example.com');
+        $supplier2->setPhoneFou(123456789);
+        $supplier2->setProduitExclusif("guitar");
+        $supplier2->setFouDescription("    Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+        Debitis excepturi, alias deleniti ad quasi perferendis repudiandae facilis blanditiis sapiente 
+        ratione sint libero tempora tenetur, asperiores quo porro voluptatum magni illum.");
+        $manager->persist($supplier2);
+        $this->addReference('FOURNISSEUR 2', $supplier2);
+
+        $suppliers = [$supplier, $supplier2]; // Add more suppliers if you want
+
 
         $user = new User();
         $user->setEmail('nasiraabcd@gmail.com');
@@ -51,6 +65,8 @@ class AppFixtures extends Fixture
         }
 
         $manager->flush(); 
+        // After creating your suppliers
+        
         for ($i = 0; $i < 25; $i++) {
             $produit = new Produits();
             $produit->setNomProduit($faker->word());
@@ -59,9 +75,13 @@ class AppFixtures extends Fixture
             $produit->setPhoto('https://picsum.photos/200/300');
 
             $produit->setCategorie($categories[array_rand($categories)]);
-            $produit->setFournisseur($supplier); 
+
+            // Pick a random supplier from the array
+            $produit->setFournisseur($suppliers[array_rand($suppliers)]);
+
             $manager->persist($produit);
         }
+
 
         $manager->flush();
     }

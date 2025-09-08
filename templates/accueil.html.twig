@@ -11,7 +11,7 @@
             <div class="carousel-caption d-none d-md-block text-start" style="background-color: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px;">
               <h1 class="fw-bold text-white">{{ produit.nomProduit }}</h1>
               <p class="text-white">{{ produit.descProduit|u.truncate(150, '...') }}</p>
-              <a href="" class="btn btn-slide mt-3">
+              <a href="{{ path('main_produit') }}" class="btn btn-slide mt-3">
                 Voir Produit
                 <span class="btn-arrow">&#8594;</span>
               </a>
@@ -72,7 +72,7 @@
   </div>
 </section>
 
-  <section class="marque_vedettes mt-5">
+  <!-- <section class="marque_vedettes mt-5">
     <div class="container">
       <h2 class="text-center mb-4">Marques Vedettes</h2>
       <div class="marque_vedettes_card">
@@ -89,7 +89,52 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
+<section class="fournisseurs-carousel-section mt-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Fournisseurs Vedettes</h2>
+
+        <div id="fournisseursCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+
+                {% for fournisseur in fournisseurs %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <div class="fournisseur-slide d-flex flex-column flex-md-row align-items-center justify-content-center p-3">
+
+                        <!-- <div class="fournisseur-image mb-3 mb-md-0 me-md-4">
+                            <img src="/images/ins.jpg" class="fournisseur-img img-fluid rounded-circle" alt="{{ fournisseur.nomFournisseur }}">
+                        </div> -->
+
+                        <div class="fournisseur-info text-center text-md-start">
+                            <h4 class="fournisseur-name fw-bold">{{ fournisseur.nomFournisseur }}</h4>
+                            <p class="fournisseur-desc mb-3 text-muted">
+                                {{ fournisseur.fouDescription|length > 100 ? fournisseur.fouDescription[:100] ~ '...' : fournisseur.fouDescription }}
+                            </p>
+                            <a href="{{ path('fournisseur_details', {'id': fournisseur.id}) }}" class="btn btn-success fournisseur-btn">Voir produits</a>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#fournisseursCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Précédent</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#fournisseursCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Suivant</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+
+
+
 
   <!-- Product Modal -->
 {% include 'produit_modal.html.twig' %}

@@ -27,16 +27,28 @@ use App\Repository\FournisseursRepository;
 final class MainController extends AbstractController
 {
     #[Route('/', name: 'main')]
-    public function index(CategoriesRepository $categories, ProduitsRepository $produit): Response
+    public function index(
+        CategoriesRepository $categories, 
+        ProduitsRepository $produit,
+        FournisseursRepository $fournisseursRepository
+    ): Response
     {
+        // Get limited categories
         $limitedCategories = $categories->findBy([], null, 4); 
+
+        // Get all produits
         $produits = $produit->findAll();
+
+        // Get all fournisseurs
+        $fournisseurs = $fournisseursRepository->findAll();
 
         return $this->render('accueil.html.twig', [
             'categories' => $limitedCategories,
-                'produits' =>$produits
+            'produits' => $produits,
+            'fournisseurs' => $fournisseurs, // pass to Twig for carousel
         ]);
     }
+
 
 
     #[Route('/categories', name: 'main_categories')]
@@ -310,8 +322,12 @@ final class MainController extends AbstractController
 
    
 
-    #[Route('/fournisseur/{id}', name: 'fournisseur_details')]
-    public function fournisseurDetails(FournisseursRepository $fournisseurs, int $id): Response
+  #[Route('/fournisseur/{id}', name: 'fournisseur_details')]
+    public function fournisseurDetails(
+        FournisseursRepository $fournisseurs,
+        ProduitsRepository $produitsRepository,
+        int $id
+    ): Response
     {
         $fournisseur = $fournisseurs->find($id);
 
@@ -319,8 +335,12 @@ final class MainController extends AbstractController
             throw $this->createNotFoundException('Fournisseur non trouvé');
         }
 
+        // Fetch ONLY products related to this fournisseur
+        $produits = $produitsRepository->findBy(['fournisseur' => $fournisseur]);
+
         return $this->render('fournisseur_detail.html.twig', [
             'fournisseur' => $fournisseur,
+            'produits' => $produits, // only products of this fournisseur
         ]);
     }
 
