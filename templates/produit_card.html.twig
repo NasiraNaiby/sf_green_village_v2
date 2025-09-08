@@ -3,7 +3,7 @@
 
     <!-- Product Image with Heart -->
     <div class="card-img-container overflow-hidden" style="height: 200px;">
-      <img src="{{ produit.photo }}" class="card-img-top img-fluid w-100 h-100" alt="{{ produit.nomProduit }}">
+      <img src="/{{ produit.photo }}" class="card-img-top img-fluid w-100 h-100" alt="{{ produit.nomProduit }}">
       <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 heart-btn" 
               data-produit-id="{{ produit.id }}">
         <i class="bi bi-heart"></i>
@@ -27,7 +27,7 @@
       data-nom="{{ produit.nomProduit }}"
       data-desc="{{ produit.descProduit }}"
       data-prix="{{ produit.ventPrix }}"
-      data-photo="{{ produit.photo }}"
+      data-photo="/{{ produit.photo }}"
       data-categorie="{{ produit.categorie.nomCat }}"
       data-categorie-id="{{ produit.categorie.id }}"
       data-fournisseur="{{ produit.fournisseur.nomFournisseur }}"

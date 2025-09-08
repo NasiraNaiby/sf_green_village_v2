@@ -58,7 +58,7 @@
       {% for produit in categorie.produits %}
         <div class="item">
           <div class="card">
-            <img src="{{ produit.photo }}" alt="{{ produit.nomProduit }}">
+            <img src="/{{ produit.photo }}" alt="{{ produit.nomProduit }}">
             <div class="card-body text-center p-2">
               <h5 class="card-title mb-0">{{ produit.nomProduit }}</h5>
             </div>

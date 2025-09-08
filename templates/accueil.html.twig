@@ -7,7 +7,7 @@
       {% for produit in produits|slice(0,5) %}
         <div class="carousel-item {% if loop.first %}active{% endif %}">
           <div class="carousel-slide d-flex align-items-center justify-content-center"
-               style="background: url('{{ produit.photo }}') center center / cover no-repeat; height: 100vh;">
+               style="background: url('/{{ produit.photo }}') center center / cover no-repeat; height: 100vh;">
             <div class="carousel-caption d-none d-md-block text-start" style="background-color: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px;">
               <h1 class="fw-bold text-white">{{ produit.nomProduit }}</h1>
               <p class="text-white">{{ produit.descProduit|u.truncate(150, '...') }}</p>
