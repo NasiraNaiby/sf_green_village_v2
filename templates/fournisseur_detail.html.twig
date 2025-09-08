@@ -2,6 +2,14 @@
 
 {% block body %}
 <div class="container my-5">
+  {# Breadcrumb navigation #}
+  <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ path('main') }}">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="{{ path('main_fourni') }}">Nos Fournisseurs</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ fournisseur.nomFournisseur }}</li>
+      </ol>
+  </nav>
   <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
     <!-- Header -->

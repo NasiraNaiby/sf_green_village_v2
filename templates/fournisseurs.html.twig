@@ -2,71 +2,70 @@
 
 {% block body %}
 <div class="container py-5 page-container">
-    <h2 class="text-center mb-4 section-title"> Nos Fournisseurs</h2>
-    <p class="text-center mb-5 section-description">Chez Votre Nom de Magasin, nous collaborons avec des fabricants et artisans de renommée mondiale pour vous proposer des instruments qui inspirent. Découvrez les marques et créateurs derrière la musique.</p>
+
+    {# Breadcrumb navigation #}
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('main') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nos Fournisseurs</li>
+        </ol>
+    </nav>
+
+    <h2 class="text-center mb-4 section-title">Nos Fournisseurs</h2>
+    <p class="text-center mb-5 section-description">
+        Chez Village Green, nous collaborons avec des fabricants et artisans de renommée mondiale pour vous proposer des instruments qui inspirent. Découvrez les marques et créateurs derrière la musique.
+    </p>
 
     <div class="row text-center mb-5">
-        <div class="col-md-3 mb-3">
+        {% for fournisseur in fournisseurs %}
+        <div class="col-md-6 mb-3">
             <div class="card h-100 shadow-sm supplier-card">
                 <div class="card-body">
-                    <h5 class="card-title">YAMAHA</h5>
-                    <p class="card-text section-description">Une large gamme de pianos, claviers et instruments à vent</p>
+                    <h5 class="card-title">{{ fournisseur.nomFournisseur }}</h5>
+                    <p class="card-text section-description">
+                        {{ fournisseur.fouDescription|length > 80 ? fournisseur.fouDescription[:80] ~ '...' : fournisseur.fouDescription }}
+                    </p>
+                    <a href="{{ path('fournisseur_details', {'id': fournisseur.id}) }}" class="btn btn-success">Voir produits</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
-            <div class="card h-100 shadow-sm supplier-card">
-                <div class="card-body">
-                    <h5 class="card-title">Fender</h5>
-                    <p class="card-text section-description">Guitares et basses électriques légendaires</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card h-100 shadow-sm supplier-card">
-                <div class="card-body">
-                    <h5 class="card-title">Roland</h5>
-                    <p class="card-text section-description">Synthétiseurs innovants, pianos numériques et amplificateurs</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card h-100 shadow-sm supplier-card">
-                <div class="card-body">
-                    <h5 class="card-title">Ibanez</h5>
-                    <p class="card-text section-description">Guitares de haute qualité pour tous les genres</p>
-                </div>
-            </div>
-        </div>
+        {% else %}
+        <p class="text-center text-muted">Aucun fournisseur disponible pour le moment.</p>
+        {% endfor %}
     </div>
 
-    <h3 class="text-center mb-4 section-title"> Catégories d'Instruments</h3>
+    <h3 class="text-center mb-4 section-title">Catégories d'Instruments</h3>
     <div class="row text-center mb-5">
-        <div class="col-md-3"><span class="badge bg-primary fs-5 px-4 py-2 instrument-badge mb-3">Cordes</span></div>
-        <div class="col-md-3"><span class="badge bg-success fs-5 px-4 py-2 instrument-badge mb-3">Percussions</span></div>
-        <div class="col-md-3"><span class="badge bg-warning text-dark fs-5 px-4 py-2 instrument-badge mb-3">Vents</span></div>
-        <div class="col-md-3"><span class="badge bg-info text-dark fs-5 px-4 py-2 instrument-badge mb-3">Claviers</span></div>
+        {% for categorie in categories %}
+        <div class="col-md-3">
+            <span class="badge bg-success fs-5 px-4 py-2 instrument-badge mb-3">{{ categorie.nomCat }}</span>
+        </div>
+        {% else %}
+        <p class="text-center text-muted">Aucune catégorie disponible.</p>
+        {% endfor %}
     </div>
 
     <div class="text-center mb-5">
-        <h4 class="section-title"> Pourquoi Nous Les Avons Choisis</h4>
-        <p class="lead section-description">Nous sélectionnons des fournisseurs qui partagent notre passion pour la musique et respectent les plus hauts standards de fabrication instrumentale.</p>
+        <h4 class="section-title">Pourquoi Nous Les Avons Choisis</h4>
+        <p class="lead section-description">
+            Nous sélectionnons des fournisseurs qui partagent notre passion pour la musique et respectent les plus hauts standards de fabrication instrumentale.
+        </p>
     </div>
 
     <div class="row align-items-center text-center">
-     <div class="col-md-6 mb-3">
-        <div class="ratio ratio-16x9">
-            <iframe 
-                src="https://www.youtube.com/embed/5GroWAOn8h8" 
-                title="Dans les coulisses" 
-                allowfullscreen 
-                frameborder="0">
-            </iframe>
+        <div class="col-md-6 mb-3">
+            <div class="ratio ratio-16x9">
+                <iframe 
+                    src="https://www.youtube.com/embed/5GroWAOn8h8" 
+                    title="Dans les coulisses" 
+                    allowfullscreen 
+                    frameborder="0">
+                </iframe>
+            </div>
         </div>
-    </div>
 
         <div class="col-md-6">
-            <h4 class="section-title"> Dans les Coulisses</h4>
+            <h4 class="section-title">Dans les Coulisses</h4>
             <a href="/wholesale" class="btn btn-outline-dark mt-3 wholesale-btn">DEMANDES DE VENTE EN GROS</a>
         </div>
     </div>

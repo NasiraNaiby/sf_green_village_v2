@@ -217,10 +217,19 @@ final class MainController extends AbstractController
     }
 
     #[Route('/fournisseurs', name: 'main_fourni')]
-    public function fournisseurs(): Response
-    {
-        return $this->render('fournisseurs.html.twig');
+    public function fournisseursPage(
+        FournisseursRepository $fournisseursRepository,
+        CategoriesRepository $categoriesRepository
+    ): Response {
+        $fournisseurs = $fournisseursRepository->findAll();
+        $categories = $categoriesRepository->findAll();
+
+        return $this->render('fournisseurs.html.twig', [
+            'fournisseurs' => $fournisseurs,
+            'categories' => $categories,
+        ]);
     }
+
 
     #[Route('/produit', name: 'main_produit')]
     public function produit(ProduitsRepository $produit): Response
