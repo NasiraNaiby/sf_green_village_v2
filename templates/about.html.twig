@@ -1,7 +1,66 @@
 {% extends 'main.html.twig' %}
 
-{% block title %}About Us{% endblock %}
+{% block title %}À Propos - Village Green{% endblock %}
 
 {% block body %}
 
+
+<div class="hero">
+  <h1>Village Green</h1>
+  <p>Votre boutique en ligne dédiée aux instruments de musique : guitares, pianos, percussions et bien plus. La musique, à portée de main.</p>
+</div>
+
+<div class="section">
+  <div class="section-text">
+    <h2>Qui Nous Sommes</h2>
+    <p>Village Green est né de la passion pour la musique. Nous sommes une équipe de musiciens et de passionnés qui souhaitons partager notre amour des instruments avec vous.</p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" alt="Guitares en magasin">
+</div>
+
+<div class="section">
+  <div class="section-text">
+    <h2>Ce Que Nous Faisons</h2>
+    <p>Nous proposons un large choix d’instruments de musique : guitares, pianos, batteries, violons, ainsi que des accessoires de qualité pour débutants et professionnels.</p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76" alt="Instruments variés">
+</div>
+
+<div class="section">
+  <div class="section-text">
+    <h2>Pourquoi Nous Le Faisons</h2>
+    <p>Notre mission est de rendre la musique accessible à tous. Que vous soyez débutant ou artiste confirmé, nous croyons que chaque personne mérite de trouver l’instrument qui lui correspond.</p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1485579149621-3123dd979885" alt="Musicien jouant">
+</div>
+
+<div class="section">
+  <div class="section-text">
+    <h2>Ce Qui Nous Rend Différents</h2>
+    <p>Chez Village Green, nous ne vendons pas seulement des instruments : nous offrons un accompagnement personnalisé, des conseils de musiciens passionnés et une sélection d’instruments testés et approuvés.</p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1485579149621-3123dd979885" alt="Atelier de musique">
+</div>
+
+<div class="cta btn-success">
+  <button onclick="toggleForm()">Nous Contacter</button>
+</div>
+
+<div class="contact-form" id="contactForm">
+  <h2>Contactez-Nous</h2>
+  <form method="post" action="#">
+    <input type="text" name="name" placeholder="Votre Nom" required>
+    <input type="text" name="number" placeholder="Votre Numéro de Téléphone" required>
+    <textarea name="message" rows="5" placeholder="Votre Message" required></textarea>
+    <button type="submit">Envoyer</button>
+  </form>
+</div>
+
+<script>
+  function toggleForm() {
+    const form = document.getElementById("contactForm");
+    form.style.display = form.style.display === "block" ? "none" : "block";
+    form.scrollIntoView({ behavior: "smooth" });
+  }
+</script>
 {% endblock %}
