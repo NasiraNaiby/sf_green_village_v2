@@ -8,24 +8,25 @@
         <div class="card-body p-4">
           <h2 class="text-center mb-4">Créer votre compte</h2>
 
-          {{ form_start(form) }}
+          {{ form_start(form, {'attr': {'class': 'form-section', 'id': 'registerForm'}}) }}
 
           {# User Info Section #}
           <div class="form-floating mb-3">
-            {{ form_widget(form.user_name,  {'attr': {'placeholder': ' ' , 'class': 'label_margin, form-control' }}) }}
+            {{ form_widget(form.user_name,  {'attr': {'placeholder': ' ' , 'class': 'label_margin form-control'}}) }}
             {{ form_label(form.user_name , 'Nom complet')  }}
             {{ form_errors(form.user_name) }}
           </div>
 
           <div class="form-floating mb-3">
-            {{ form_widget(form.email, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+            {{ form_widget(form.email, {'attr': {'placeholder': ' ', 'class': 'label_margin form-control'}}) }}
             {{ form_label(form.email) }}
             {{ form_errors(form.email) }}
           </div>
 
           <div class="form-floating mb-3">
-            {{ form_widget(form.password, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+            {{ form_widget(form.password, {'attr': {'placeholder': ' ', 'class': 'label_margin form-control', 'id': 'passwordInput'}}) }}
             {{ form_label(form.password) }}
+            <div id="passwordStrength" class="form-text mt-1"></div>
             {{ form_errors(form.password) }}
           </div>
 
@@ -33,7 +34,7 @@
           <h5 class="mb-3">Adresse & Livraison</h5>
 
           {# Client Type #}
-          <div class=" mb-3">
+          <div class="mb-3" id="clientForm">
             {{ form_label(form.client.type_client) }}
             {{ form_widget(form.client.type_client) }}
             {{ form_errors(form.client.type_client) }}
@@ -42,12 +43,12 @@
           {# Facturation Address & Postal Code #}
           <div class="row g-3 mb-3">
             <div class="col-md-8 form-floating">
-              {{ form_widget(form.client.adresseFacturation, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_widget(form.client.adresseFacturation, {'attr': {'placeholder': ' ', 'class': 'label_margin form-control'}}) }}
               {{ form_label(form.client.adresseFacturation , 'Votre adresse') }}
               {{ form_errors(form.client.adresseFacturation) }}
             </div>
             <div class="col-md-4 form-floating">
-              {{ form_widget(form.client.codePostalFacturation, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_widget(form.client.codePostalFacturation, {'attr': {'placeholder': ' ', 'class': 'label_margin form-control', 'id': 'postalCodeFacturation'}}) }}
               {{ form_label(form.client.codePostalFacturation, 'Code postal') }}
               {{ form_errors(form.client.codePostalFacturation) }}
             </div>
@@ -56,12 +57,12 @@
           {# Livraison Address & Postal Code #}
           <div class="row g-3 mb-3">
             <div class="col-md-8 form-floating">
-              {{ form_widget(form.client.adresseLivraison, {'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_widget(form.client.adresseLivraison, {'attr': {'placeholder': ' ', 'class': 'label_margin form-control'}}) }}
               {{ form_label(form.client.adresseLivraison, 'Adresse de livraison') }}
               {{ form_errors(form.client.adresseLivraison) }}
             </div>
             <div class="col-md-4 form-floating">
-              {{ form_widget(form.client.codePostalLivraison, { 'attr': {'placeholder': ' ', 'class': 'label_margin, form-control' }}) }}
+              {{ form_widget(form.client.codePostalLivraison, { 'attr': {'placeholder': ' ', 'class': 'label_margin form-control', 'id': 'postalCodeLivraison'}}) }}
               {{ form_label(form.client.codePostalLivraison , 'Code Postal') }}
               {{ form_errors(form.client.codePostalLivraison) }}
             </div>
@@ -75,4 +76,92 @@
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+  /*** REGISTRATION FORM ***/
+  const registerForm = document.querySelector('form#registerForm');
+  if (registerForm) {
+    const usernameInput = registerForm.querySelector('input[name="inscription[user_name]"]');
+    const emailInput = registerForm.querySelector('input[name="inscription[email]"]');
+    const passwordInput = registerForm.querySelector('input[name="inscription[password]"]');
+    const postalFacturation = registerForm.querySelector('input[name="inscription[client][codePostalFacturation]"]');
+    const postalLivraison = registerForm.querySelector('input[name="inscription[client][codePostalLivraison]"]');
+
+    /*** Password strength message ***/
+    const passwordMsg = document.createElement('div');
+    passwordMsg.classList.add('form-text');
+    passwordInput.parentNode.appendChild(passwordMsg);
+
+    passwordInput.addEventListener('input', () => {
+      const val = passwordInput.value;
+      let strength = '';
+      if (val.length < 6) strength = 'Trop court';
+      else if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(val)) strength = 'Fort';
+      else strength = 'Faible';
+      passwordMsg.textContent = "Force du mot de passe: " + strength;
+      passwordMsg.style.color = strength === 'Fort' ? 'green' : 'orange';
+    });
+
+    /*** Postal code live validation ***/
+    [postalFacturation, postalLivraison].forEach(postalInput => {
+      if (!postalInput) return;
+
+      postalInput.setAttribute('maxlength', 5);
+
+      const postalMsg = document.createElement('div');
+      postalMsg.classList.add('form-text');
+      postalMsg.style.color = 'red';
+      postalInput.parentNode.appendChild(postalMsg);
+
+      postalInput.addEventListener('input', () => {
+        // Allow only digits
+        postalInput.value = postalInput.value.replace(/\D/g, '');
+
+        if (postalInput.value.length < 5) {
+          postalMsg.textContent = "⚠️ Entrez exactement 5 chiffres";
+        } else if (postalInput.value.length === 5) {
+          postalMsg.textContent = "✅ Code postal valide";
+          postalMsg.style.color = 'green';
+        }
+      });
+    });
+
+    /*** Form submit validation ***/
+    registerForm.addEventListener('submit', (e) => {
+      let errors = [];
+
+      // Username
+      if (!usernameInput.value || usernameInput.value.length < 3) {
+        errors.push("Nom complet trop court");
+      }
+
+      // Email
+      if (!emailInput.value || !/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(emailInput.value)) {
+        errors.push("Email invalide");
+      }
+
+      // Password
+      if (!passwordInput.value || passwordInput.value.length < 6) {
+        errors.push("Mot de passe trop court (minimum 6 caractères)");
+      } else if (!/(?=.*[A-Za-z])(?=.*\d)/.test(passwordInput.value)) {
+        errors.push("Le mot de passe doit contenir lettres et chiffres");
+      }
+
+      // Postal codes
+      [postalFacturation, postalLivraison].forEach(postalInput => {
+        if (postalInput && postalInput.value.length !== 5) {
+          errors.push(`Le code postal ${postalInput.name.includes('Facturation') ? 'facturation' : 'livraison'} doit contenir 5 chiffres`);
+        }
+      });
+
+      if (errors.length > 0) {
+        e.preventDefault();
+        alert(errors.join("\n"));
+      }
+    });
+  }
+
+});
+</script>
 {% endblock %}
