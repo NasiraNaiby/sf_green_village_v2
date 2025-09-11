@@ -42,22 +42,22 @@ class FormLoginAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
-    // public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    // {
-    //     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-    //         return new RedirectResponse($targetPath);
-    //     }
-
-    //     // For example:
-    //     return new RedirectResponse($this->urlGenerator->generate('app_main'));
-    //     //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-    // }
-
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // return new RedirectResponse($this->urlGenerator->generate('spaceclient', ['reactRouting' => 'spaceclient'])); // for react
-        return new RedirectResponse($this->urlGenerator->generate('spaceclient'));
+        // Redirect to previously saved target path if exists
+        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            return new RedirectResponse($targetPath);
+        }
 
+        $user = $token->getUser();
+
+        // If user has ROLE_ADMIN, go to admin dashboard
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        }
+
+        // Default redirect for normal users
+        return new RedirectResponse($this->urlGenerator->generate('spaceclient'));
     }
 
     protected function getLoginUrl(Request $request): string
