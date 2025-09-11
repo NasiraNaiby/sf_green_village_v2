@@ -46,21 +46,86 @@
   <button onclick="toggleForm()">Nous Contacter</button>
 </div>
 
-<div class="contact-form" id="contactForm">
-  <h2>Contactez-Nous</h2>
-  <form method="post" action="#">
-    <input type="text" name="name" placeholder="Votre Nom" required>
-    <input type="text" name="number" placeholder="Votre Numéro de Téléphone" required>
-    <textarea name="message" rows="5" placeholder="Votre Message" required></textarea>
-    <button type="submit">Envoyer</button>
-  </form>
+<div class="contact-form" id="contactForm" style="display: block;">
+    <h2>Contactez-Nous</h2>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label == 'success' ? 'success' : 'danger' }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {{ form_start(contactForm, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div class="mb-3">
+            {{ form_widget(contactForm.name, {'attr': {'class': 'form-control', 'placeholder': 'Votre Nom'}}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_widget(contactForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre Email'}}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_widget(contactForm.number, {'attr': {'class': 'form-control', 'placeholder': 'Votre Numéro'}}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_widget(contactForm.message, {'attr': {'class': 'form-control', 'placeholder': 'Votre Message', 'rows': 5}}) }}
+        </div>
+        <button type="submit" class="btn btn-success">Envoyer</button>
+    {{ form_end(contactForm) }}
 </div>
 
 <script>
-  function toggleForm() {
+ function toggleForm() {
     const form = document.getElementById("contactForm");
     form.style.display = form.style.display === "block" ? "none" : "block";
     form.scrollIntoView({ behavior: "smooth" });
   }
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', function (e) {
+        let valid = true;
+        let messages = [];
+
+        // Get form fields
+        const name = form.querySelector('input[name="contact[name]"]');
+        const email = form.querySelector('input[name="contact[email]"]');
+        const number = form.querySelector('input[name="contact[number]"]');
+        const message = form.querySelector('textarea[name="contact[message]"]');
+
+        // Name validation
+        if (!name.value.trim()) {
+            valid = false;
+            messages.push('Le nom est requis.');
+        }
+
+        // Email validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim() || !emailPattern.test(email.value)) {
+            valid = false;
+            messages.push('Un email valide est requis.');
+        }
+
+        // Phone number validation (basic)
+        const phonePattern = /^\+?[0-9\s\-]{6,15}$/;
+        if (!number.value.trim() || !phonePattern.test(number.value)) {
+            valid = false;
+            messages.push('Un numéro de téléphone valide est requis.');
+        }
+
+        // Message validation
+        if (!message.value.trim()) {
+            valid = false;
+            messages.push('Le message est requis.');
+        }
+
+        if (!valid) {
+            e.preventDefault(); // stop form submission
+            alert(messages.join('\n')); // show error messages
+        }
+    });
+
+
+});
 </script>
 {% endblock %}

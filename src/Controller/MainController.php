@@ -21,6 +21,8 @@ use App\Service\MailerService;
 use Twig\Environment as TwigEnvironment; 
 use Dompdf\Dompdf;
 use App\Repository\FournisseursRepository;
+use App\Form\ContactType; 
+
 
 
 
@@ -237,12 +239,6 @@ final class MainController extends AbstractController
         $produits = $produit->findAll();  
         return $this->render('produit.html.twig',['produits' => $produits]);
     }
-    #[Route('/about', name: 'main_about')]
-    public function about(): Response
-    { 
-        return $this->render('about.html.twig');
-    }
-
     #[Route('/galerie', name: 'main_magasin')]
     public function galerie(ProduitsRepository $produit): Response
     { 
@@ -352,6 +348,46 @@ final class MainController extends AbstractController
             'produits' => $produits, // only products of this fournisseur
         ]);
     }
+
+#[Route('/about', name: 'about')]
+public function about(Request $request, MailerService $mailerService): Response
+{
+    // Create the contact form
+    $contactForm = $this->createForm(ContactType::class);
+    $contactForm->handleRequest($request);
+
+    // Check if form is submitted and valid
+    if ($contactForm->isSubmitted() && $contactForm->isValid()) {
+        $data = $contactForm->getData();
+
+        // Prepare HTML content for email
+        $content = sprintf(
+            "<strong>Nom:</strong> %s<br>
+             <strong>Email:</strong> %s<br>
+             <strong>Numéro:</strong> %s<br>
+             <strong>Message:</strong><br>%s",
+            htmlspecialchars($data['name']),
+            htmlspecialchars($data['email']),
+            htmlspecialchars($data['number']),
+            nl2br(htmlspecialchars($data['message']))
+        );
+
+        try {
+            // Send email to admin
+            $mailerService->sendEmail('nasira3795@gmail.com', $content, 'Nouveau message de contact');
+            $this->addFlash('success', 'Votre message a été envoyé avec succès !');
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Une erreur est survenue lors de l’envoi du message.');
+        }
+
+        return $this->redirectToRoute('about'); // redirect to clear form
+    }
+
+    // Render About page with contact form
+    return $this->render('about.html.twig', [
+        'contactForm' => $contactForm->createView(),
+    ]);
+}
 
 
 
