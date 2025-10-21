@@ -30,6 +30,9 @@ class Produits
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $vent_prix = null;
 
+    #[ORM\Column(type: 'integer')]
+    private ?int $stock = null;
+
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
 
@@ -46,6 +49,7 @@ class Produits
 
     #[ORM\OneToMany(targetEntity: ProduitImage::class, mappedBy: 'produit', cascade: ['persist', 'remove'])]
     private Collection $produitImages;
+
 
     public function __construct()
     {
@@ -177,4 +181,16 @@ class Produits
 
         return $this;
     }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): static
+    {
+        $this->stock = $stock;
+        return $this;
+    }
+
 }
