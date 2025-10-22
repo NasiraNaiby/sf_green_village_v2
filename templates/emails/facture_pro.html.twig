@@ -16,9 +16,9 @@
         {% for item in commande.getProduits() %}
         <tr>
             <td>{{ item.nomProduit }}</td>
-            <td>{{ item.quantite }}</td>
+            {# <td>{{ item.quantite }}</td> #}
             <td>{{ item.ventPrix|number_format(2, '.', ',') }} €</td>
-            <td>{{ (item.ventPrix * item.quantite)|number_format(2, '.', ',') }} €</td>
+            {# <td>{{ (item.ventPrix * item.quantite)|number_format(2, '.', ',') }} €</td> #}
         </tr>
         {% endfor %}
     </tbody>

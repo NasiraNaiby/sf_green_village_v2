@@ -91,8 +91,8 @@
 
           {# Button: opens modal if valid #}
           <button type="button" id="checkoutBtn" class="btn confirm-btn w-100 mt-3 btn-primary">
-            Confirmer
-          </button>
+          Confirmer
+      </button>
 
           {{ form_end(form) }}
         </div>
@@ -135,56 +135,13 @@
   </div>
 
   {# Payment Modal #}
-  <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="paymentModalLabel">Choisissez un mode de paiement</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="paymentMethod" class="form-label">Méthode de paiement :</label>
-            <select id="paymentMethod" name="payment_method" class="form-select" required>
-              <option value="credit_card">Carte de Crédit</option>
-              <option value="paypal">PayPal</option>
-              <option value="bank_transfer">Virement Bancaire</option>
-              <option value="cash">Espèces</option>
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning w-100" id="confirmPaymentBtn">Valider la commande</button>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
 </section>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const radioInputMap = {
-    'use_existing_email': 'checkout[client_email]',
-    'use_existing_phone': 'checkout[client_phone]',
-    'use_existing_address': 'checkout[adresseLivraison]',
-    'use_existing_postal': 'checkout[codePostalLivraison]'
-  };
-
-  Object.keys(radioInputMap).forEach(radioName => {
-    const radios = document.querySelectorAll(`input[name="${radioName}"]`);
-    radios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        const input = document.querySelector(`[name="${radioInputMap[radioName]}"]`);
-        if (input) input.disabled = (radio.value === 'yes' && radio.checked);
-      });
-      radio.dispatchEvent(new Event('change'));
-    });
-  });
-
   const checkoutBtn = document.getElementById('checkoutBtn');
-  const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
   const checkoutForm = document.getElementById('checkoutForm');
-  const paymentSelect = document.getElementById('paymentMethod');
 
   const emailInput = document.getElementById('floatingEmail');
   const phoneInput = document.getElementById('floatingPhone');
@@ -222,28 +179,27 @@ document.addEventListener('DOMContentLoaded', () => {
     return valid;
   }
 
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', () => {
-      if (!validateForm()) return;
-      const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
-      modal.show();
-    });
-  }
+  checkoutBtn.addEventListener('click', () => {
+    if (!validateForm()) return;
 
-  if (confirmPaymentBtn && checkoutForm) {
-    confirmPaymentBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (!validateForm()) return;
-      const existing = checkoutForm.querySelector('input[name="payment_method"]');
-      if (existing) existing.remove();
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = 'payment_method';
-      input.value = paymentSelect.value;
-      checkoutForm.appendChild(input);
-      checkoutForm.submit();
-    });
-  }
+    // Redirect the form data to your Stripe checkout route
+    const formData = new FormData(checkoutForm);
+    fetch("{{ path('app_checkout_stripe') }}", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.url) {
+        window.location.href = data.url; // redirect to Stripe checkout
+      }
+    })
+    .catch(err => console.error(err));
+  });
 });
+
+
+
 </script>
+
 {% endblock %}

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /*** LOGIN FORM ***/
-  const loginForm = document.querySelector('form#loginForm');
+  const loginForm = document.querySelector('form#loginFor');
   if (loginForm) {
     loginForm.addEventListener('submit', function(e) {
       const email = document.getElementById('inputEmail');

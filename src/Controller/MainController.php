@@ -22,8 +22,11 @@ use Twig\Environment as TwigEnvironment;
 use Dompdf\Dompdf;
 use App\Repository\FournisseursRepository;
 use App\Form\ContactType; 
-
-
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Stripe\Checkout\Session;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
 final class MainController extends AbstractController
@@ -80,7 +83,7 @@ final class MainController extends AbstractController
         EntityManagerInterface $entityManager,
         MailerService $mailer, // use your service
         TwigEnvironment $twig
-    ): Response {
+        ): Response {
         $user = $security->getUser();
         if (!$user) return $this->redirectToRoute('app_login');
 
@@ -199,6 +202,86 @@ final class MainController extends AbstractController
             'client' => $client
         ]);
     }
+
+    #[Route('/checkout-stripe', name: 'app_checkout_stripe', methods: ['POST'])]
+    public function checkoutStripe(
+        Request $request,
+        Panier $panier,
+        Security $security,
+        ClientsRepository $clientsRepository,
+        EntityManagerInterface $entityManager,
+        $stripeSK
+        ): JsonResponse {
+        $user = $security->getUser();
+        if (!$user) return $this->json(['error' => 'Unauthorized'], 401);
+
+        $client = $clientsRepository->findOneBy(['user' => $user]);
+        if (!$client) return $this->json(['error' => 'Client not found'], 404);
+
+        $panierComplet = [];
+        $total = 0;
+        foreach ($panier->liste() as $id => $qte) {
+            $produit = $entityManager->getRepository(Produits::class)->find($id);
+            if ($produit) {
+                $panierComplet[] = ['produit' => $produit, 'quantite' => $qte];
+                $total += $produit->getVentPrix() * $qte;
+            }
+        }
+
+        if (empty($panierComplet)) return $this->json(['error' => 'Panier vide'], 400);
+
+        // Save order in database
+        $commande = new Commandes();
+        $commande->setClient($client);
+        $commande->setPrixTotal($total);
+        foreach ($panierComplet as $item) $commande->addProduit($item['produit']);
+        $entityManager->persist($commande);
+        $entityManager->flush();
+        // Stripe
+        Stripe::setApiKey($stripeSK);
+
+
+        $lineItems = [];
+        foreach ($panierComplet as $item) {
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => ['name' => $item['produit']->getNomProduit()],
+                    'unit_amount' => $item['produit']->getVentPrix() * 100,
+                ],
+                'quantity' => $item['quantite'],
+            ];
+        }
+
+        $session = Session::create([
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => $this->generateUrl('success_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'cancel_url' => $this->generateUrl('cancel_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
+        ]);
+
+        return $this->json(['url' => $session->url]);
+    }
+
+    #[Route('/success-url', name: 'success_url')]
+    public function success(Panier $panier): Response
+        {
+            $panier->clear();
+            return $this->render('success.html.twig', [
+                'message' => 'Paiement réussi 🎉',
+            ]);
+        }
+
+    #[Route('/cancel-url', name: 'cancel_url')]
+    public function cancel(): Response
+        {
+            
+            return $this->render('cancel.html.twig', [
+                'message' => 'Paiement annulé ❌',
+            ]);
+        }
+
+
 
     #[Route('/panier/add/{id}', name: 'main_add_panier')]
     public function add(Produits $produit, Panier $panier, Request $request): Response
