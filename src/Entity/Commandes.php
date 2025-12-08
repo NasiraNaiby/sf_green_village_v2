@@ -38,9 +38,16 @@ class Commandes
     #[ORM\OneToOne(mappedBy: 'commande', cascade: ['persist', 'remove'])]
     private ?Factures $facture = null;
 
+    /**
+     * @var Collection<int, CommandeProduit>
+     */
+    #[ORM\OneToMany(targetEntity: CommandeProduit::class, mappedBy: 'commande')]
+    private Collection $CommandeProduits;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
+        $this->CommandeProduits = new ArrayCollection();
     }
 
     public function getId(): ?int { return $this->id; }
@@ -74,4 +81,34 @@ class Commandes
 
     public function getFacture(): ? Factures { return $this->facture; }
     public function setFacture(? Factures $facture): static { $this->facture = $facture; return $this; }
+
+    /**
+     * @return Collection<int, CommandeProduit>
+     */
+    public function getCommandeProduits(): Collection
+    {
+        return $this->CommandeProduits;
+    }
+
+    public function addCommandeProduit(CommandeProduit $CommandeProduit): static
+    {
+        if (!$this->CommandeProduits->contains($CommandeProduit)) {
+            $this->CommandeProduits->add($CommandeProduit);
+            $CommandeProduit->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandeProduit(CommandeProduit $CommandeProduit): static
+    {
+        if ($this->CommandeProduits->removeElement($CommandeProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($CommandeProduit->getCommande() === $this) {
+                $CommandeProduit->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
 }

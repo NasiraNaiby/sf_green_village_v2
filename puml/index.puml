@@ -1,47 +1,9 @@
 @startuml
-class User {
+class Categories {
 	**id : int**
-	email : string
-	roles : array
-	password : string
-	<color:#0000dd>client : Clients</color>
-	user_name : string
-	<color:#0000dd>wishlist : Produits[]</color>
-}
-
-class Vendeurs {
-	**id : int**
-	id_vendeur : int
-	nom_vend : string
-	email_vend : string
-	phone_vend : int
-	<color:#0000dd>client : Clients</color>
-}
-
-class Produits {
-	**id : int**
-	nom_produit : string
-	desc_produit : string
-	vent_prix : string
-	photo : string
-	<color:#0000dd>categorie : Categories</color>
-	<color:#0000dd>fournisseur : Fournisseurs</color>
-	<color:#0000dd>users : User[]</color>
-	<color:#0000dd>produitImages : ProduitImage[]</color>
-}
-
-class LivraisonNote {
-	**id : int**
-	<color:#0000dd>commande : Commandes</color>
-	statutLivraison : string
-	dateLivraison : DateTime
-	noteLivraison : string
-}
-
-class ProduitImage {
-	**id : int**
-	filename : string
-	<color:#0000dd>produit : Produits</color>
+	nom_cat : string
+	desc_cat : string
+	<color:#0000dd>produits : Produits[]</color>
 }
 
 class Clients {
@@ -58,6 +20,25 @@ class Clients {
 	client_email : string
 	client_phone : string
 	<color:#0000dd>favoris : Produits[]</color>
+}
+
+class CommandeProduit {
+	**id : int**
+	<color:#0000dd>commande : Commandes</color>
+	<color:#0000dd>produit : Produits</color>
+	quantite : int
+}
+
+class Commandes {
+	**id : int**
+	<color:#0000dd>client : Clients</color>
+	<color:#0000dd>produits : Produits[]</color>
+	quantite : int
+	prixUnitaire : string
+	prixTotal : string
+	<color:#0000dd>livraisonNote : LivraisonNote</color>
+	<color:#0000dd>facture : Factures</color>
+	<color:#0000dd>CommandeProduits : CommandeProduit[]</color>
 }
 
 class Factures {
@@ -77,37 +58,81 @@ class Fournisseurs {
 	produit_exclusif : string
 }
 
-class Categories {
+class LivraisonNote {
 	**id : int**
-	nom_cat : string
-	desc_cat : string
-	<color:#0000dd>produits : Produits[]</color>
+	<color:#0000dd>commande : Commandes</color>
+	statutLivraison : string
+	dateLivraison : DateTime
+	noteLivraison : string
 }
 
-class Commandes {
+class Page {
 	**id : int**
+	content : string
+	<color:#0000dd>photos : PagePhotos[]</color>
+}
+
+class PagePhotos {
+	**id : int**
+	filename : string
+	<color:#0000dd>page : Page</color>
+}
+
+class ProduitImage {
+	**id : int**
+	filename : string
+	<color:#0000dd>produit : Produits</color>
+}
+
+class Produits {
+	**id : int**
+	nom_produit : string
+	desc_produit : string
+	vent_prix : string
+	stock : int
+	photo : string
+	<color:#0000dd>categorie : Categories</color>
+	<color:#0000dd>fournisseur : Fournisseurs</color>
+	<color:#0000dd>users : User[]</color>
+	<color:#0000dd>produitImages : ProduitImage[]</color>
+	<color:#0000dd>CommandeProduits : CommandeProduit[]</color>
+}
+
+class User {
+	**id : int**
+	email : string
+	roles : array
+	password : string
 	<color:#0000dd>client : Clients</color>
-	<color:#0000dd>produits : Produits[]</color>
-	quantite : int
-	prixUnitaire : string
-	prixTotal : string
-	<color:#0000dd>livraisonNote : LivraisonNote</color>
-	<color:#0000dd>facture : Factures</color>
+	user_name : string
+	<color:#0000dd>wishlist : Produits[]</color>
 }
 
-User "1"--"1" Clients
-User "*"--"*" Produits
-Vendeurs "*"--"1" Clients
-Produits "*"--"1" Categories
-Produits "*"--"1" Fournisseurs
-Produits "*"--"*" User
-Produits "1"--"*" ProduitImage
-LivraisonNote "1"--"1" Commandes
+class Vendeurs {
+	**id : int**
+	id_vendeur : int
+	nom_vend : string
+	email_vend : string
+	phone_vend : int
+	<color:#0000dd>client : Clients</color>
+}
+
+Categories "1"--"*" Produits
+Clients "1"--"1" User
 Clients "1"--"*" Vendeurs
 Clients "1"--"*" Commandes
 Clients "*"--"*" Produits
-Factures "1"--"1" Commandes
+CommandeProduit "*"--"1" Commandes
+CommandeProduit "*"--"1" Produits
 Commandes "*"--"*" Produits
+Commandes "1"--"1" LivraisonNote
+Commandes "1"--"1" Factures
+Page "1"--"*" PagePhotos
+ProduitImage "*"--"1" Produits
+Produits "*"--"1" Fournisseurs
+Produits "*"--"*" User
+User "*"--"*" Produits
+Vendeurs "*"--"1" Clients
 
 
 hide methods

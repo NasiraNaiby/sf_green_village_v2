@@ -50,11 +50,18 @@ class Produits
     #[ORM\OneToMany(targetEntity: ProduitImage::class, mappedBy: 'produit', cascade: ['persist', 'remove'])]
     private Collection $produitImages;
 
+    /**
+     * @var Collection<int, CommandeProduit>
+     */
+    #[ORM\OneToMany(targetEntity: CommandeProduit::class, mappedBy: 'produit')]
+    private Collection $CommandeProduits;
+
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->produitImages = new ArrayCollection();
+        $this->CommandeProduits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,6 +197,36 @@ class Produits
     public function setStock(int $stock): static
     {
         $this->stock = $stock;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommandeProduit>
+     */
+    public function getCommandeProduits(): Collection
+    {
+        return $this->CommandeProduits;
+    }
+
+    public function addCommandeProduit(CommandeProduit $CommandeProduit): static
+    {
+        if (!$this->CommandeProduits->contains($CommandeProduit)) {
+            $this->CommandeProduits->add($CommandeProduit);
+            $CommandeProduit->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandeProduit(CommandeProduit $CommandeProduit): static
+    {
+        if ($this->CommandeProduits->removeElement($CommandeProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($CommandeProduit->getProduit() === $this) {
+                $CommandeProduit->setProduit(null);
+            }
+        }
+
         return $this;
     }
 

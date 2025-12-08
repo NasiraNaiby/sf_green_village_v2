@@ -10,6 +10,20 @@ security:
 
     firewalls:
         #  Use only ONE firewall for the entire site, including /api
+        api: 
+            pattern: ^/api 
+            stateless: true 
+            provider: app_user_provider 
+            # optionally add authenticator if you use tokens # custom_authenticator: App\Security\ApiTokenAuthenticator
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
         main:
             pattern: ^/
             lazy: true
