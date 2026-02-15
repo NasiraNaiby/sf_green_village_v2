@@ -72,3 +72,6 @@ Objectif : Créer un flux de travail efficace, accessible depuis desktop et mobi
 1. Clonez le dépôt :  
 ```bash
 git clone https://github.com/NasiraNaiby/sf_green_village_v2.git
+## Figma Prototype
+
+Vous pouvez consulter le design interactif ici : https://www.figma.com/design/pfepVTonJsKezv3AcKSkOL/village-green?node-id=0-1&p=f
